@@ -4,13 +4,13 @@ import java.io.FileInputStream;
 
 
 /**
- * This class contains utility methods to read a PPM image from file and simply print its contents. Feel free to change this method 
+ * This class contains utility methods to read a img.PPM image from file and simply print its contents. Feel free to change this method
  *  as required.
  */
 public class ImageUtil {
 
   /**
-   * Read an image file in the PPM format and print the colors.
+   * Read an image file in the img.PPM format and print the colors.
    *
    * @param filename the path of the file. 
    */
@@ -40,7 +40,7 @@ public class ImageUtil {
 
     token = sc.next();
     if (!token.equals("P3")) {
-        System.out.println("Invalid PPM file: plain RAW file should begin with P3");
+        System.out.println("Invalid img.PPM file: plain RAW file should begin with P3");
     }
     int width = sc.nextInt();
     System.out.println("Width of image: "+width);
