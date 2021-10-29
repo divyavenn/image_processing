@@ -1,5 +1,6 @@
 package controller;
 
+import model.Commands;
 import model.ImgModel;
 import view.ImgView;
 
@@ -7,18 +8,6 @@ public abstract class ImgControllerAbstract implements ImgController{
   ImgModel model;
   ImgView view;
   Readable in;
-
-  final String load = "load";
-  final String brighten = "brighten";
-  final String save = "save";
-  final String rc = "just-red";
-  final String gc = "just-green";
-  final String bc = "just-blue";
-  final String vc = "just-value";
-  final String lc = "just-luma";
-  final String ic = "just-intensity";
-  final String hflip = "hflip";
-  final String vflip = "hflip";
 
 
   /**
@@ -28,10 +17,10 @@ public abstract class ImgControllerAbstract implements ImgController{
    * @return true or false.
    */
   public boolean pathArg(String command){
-    if (command.equals(load)) {
+    if (command.equals(Commands.load)) {
       return true;
     }
-    else if(command.equals(save)) {
+    else if(command.equals(Commands.brighten)) {
       return true;
     }
     else return false;
@@ -45,7 +34,7 @@ public abstract class ImgControllerAbstract implements ImgController{
    * @return true or false.
    */
   public boolean incrementArg(String command){
-    if (command.equals(brighten)) {
+    if (command.equals(Commands.brighten)) {
       return true;
     }
     else return false;

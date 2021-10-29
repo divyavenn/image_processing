@@ -25,6 +25,7 @@ public abstract class Img {
     pixels = new Pixel[width][height];
   }
 
+
   @Override
   public String toString() {
     return name;
@@ -64,10 +65,42 @@ public abstract class Img {
     return str;
   }
 
+  /**
+   * returns horizontally flipped Pixel Array
+   * @return horizontally flipped Pixel[][] array
+   */
   protected Pixel[][] horizontallyFlipped() {
     Pixel[][] flippedPixels = new Pixel[width][height];
-    for
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        flippedPixels[width - i][height] = pixels[width][height];
+      }
+    }
+    return flippedPixels;
   }
 
+  /**
+   * returns vertically flipped Pixel Array
+   * @return vertically flipped Pixel[][] array
+   */
+  protected Pixel[][] verticallyFlipped() {
+    Pixel[][] flippedPixels = new Pixel[width][height];
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        flippedPixels[width][height - j] = pixels[width][height];
+      }
+    }
+    return flippedPixels;
+  }
+
+  @Override
+  public boolean equals(Object o){
+    return (this.toString().equals(o.toString()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Integer.parseInt(toString() + height + width);
+  }
 
 }
