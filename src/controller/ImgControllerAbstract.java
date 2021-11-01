@@ -16,7 +16,7 @@ public abstract class ImgControllerAbstract implements ImgController{
    * @param command the command
    * @return true or false.
    */
-  public boolean pathArg(String command){
+  protected boolean pathArg(String command){
     if (command.equals(Commands.load)) {
       return true;
     }
@@ -33,7 +33,7 @@ public abstract class ImgControllerAbstract implements ImgController{
    * @param command the command
    * @return true or false.
    */
-  public boolean incrementArg(String command){
+  protected boolean incrementArg(String command){
     if (command.equals(Commands.brighten)) {
       return true;
     }

@@ -20,6 +20,27 @@ public abstract class Pixel {
   }
 
   /**
+   * Get the red component of this Pixel.
+   */
+  public int getRed(){
+    return this.r;
+  }
+
+  /**
+   * Get the blue component of this Pixel.
+   */
+  public int getBlue(){
+    return this.b;
+  }
+
+  /**
+   * Get the green component of this Pixel.
+   */
+  public int getGreen(){
+    return this.g;
+  }
+
+  /**
    * Get value of this Pixel.
    */
   public int getValue(){
@@ -42,13 +63,4 @@ public abstract class Pixel {
     return (int)(Math.ceil(w_sum));
   }
 
-  /**
-   * Brightens or darkens pixel by corresponding increment
-   * @param increment
-   */
-  public void brighten(int increment){
-    r = Math.min(Math.max(r + increment,0), 255);
-    g = Math.min(Math.max(g + increment,0), 255);
-    b = Math.min(Math.max(b + increment,0), 255);
-  }
 }

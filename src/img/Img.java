@@ -46,13 +46,38 @@ public abstract class Img {
   }
 
   /**
+   * Gets pixel at specific index
+   * @returns Pixel at specific index
+   */
+  public Pixel getPixel(int width, int height) {
+    return pixels[width][height];
+  }
+
+  /**
    * Saves image to specified file path.
    *
+   * @param fPath the path to save the image to
    * @throws java.io.IOException if writing is unsuccessful
    */
-  public void save(String fpath) throws IOException {
-    Path file = Path.of(fpath);
+  public void save(String fPath) throws IOException {
+    Path file = Path.of(fPath);
     Files.writeString(file, fileRepresentation());
+  }
+
+  /**
+   * Gets height of image
+   * @return height of image
+   */
+  public int getHeight(){
+    return this.height;
+  }
+
+  /**
+   * Gets width of image
+   * @return width of image
+   */
+  public int getWidth(){
+    return this.width;
   }
 
   protected String allPixelsToString() {
@@ -69,7 +94,7 @@ public abstract class Img {
    * returns horizontally flipped Pixel Array
    * @return horizontally flipped Pixel[][] array
    */
-  protected Pixel[][] horizontallyFlipped() {
+  public Pixel[][] horizontallyFlipped() {
     Pixel[][] flippedPixels = new Pixel[width][height];
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
@@ -83,7 +108,7 @@ public abstract class Img {
    * returns vertically flipped Pixel Array
    * @return vertically flipped Pixel[][] array
    */
-  protected Pixel[][] verticallyFlipped() {
+  public Pixel[][] verticallyFlipped() {
     Pixel[][] flippedPixels = new Pixel[width][height];
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
