@@ -21,7 +21,10 @@ public abstract class ImgModelAbstract implements ImgModel {
   protected Img getImage(String imageName) {
     if (images.contains(imageName)) {
       return images.get(images.indexOf(imageName));
-    } else throw new IllegalArgumentException("Image not in list");
+    }
+    else {
+      throw new IllegalArgumentException("Image not in list");
+    }
   }
 
   /**
@@ -67,7 +70,13 @@ public abstract class ImgModelAbstract implements ImgModel {
   protected abstract int readWidthImageFile(String filepath);
 
   @Override
-  public abstract void load(String filePath, String destinationImageName);
+  public void load(String filePath, String destinationImageName){
+    Img destinationImage = makeImg(destinationImageName,
+            readHeightImageFile(filePath),
+            readWidthImageFile(filePath));
+    destinationImage.setPixels(readPixelsImageFile(filePath));
+    images.add(destinationImage);
+  }
 
   @Override
   public void save(String filePath, String targetImageName) throws IOException {

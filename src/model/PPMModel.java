@@ -33,25 +33,4 @@ public class PPMModel extends ImgModelAbstract{
     return 0;
   }
 
-
-  @Override
-  public void load(String filePath, String destinationImageName) {
-    int h = readHeightImageFile(filePath);
-    int w = readWidthImageFile(filePath);
-    Img image = new PPM(destinationImageName, h, w);
-    image.setPixels(readPixelsImageFile(filePath));
-    images.add(image);
-  }
-
-  @Override
-  public void flipHorizontally(String imageName, String destinationImageName) {
-
-  }
-
-  @Override
-  public void flipVertically(String imageName, String destinationImageName) {
-
-  }
-
-
 }
