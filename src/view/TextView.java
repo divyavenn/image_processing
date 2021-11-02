@@ -12,8 +12,8 @@ public class TextView extends ImgViewAbstract{
    * @throws IllegalArgumentException if object is null
    * @model a ImgModel object
    */
-  public TextView(ImgModel model) throws IllegalArgumentException {
-    super(model);
+  public TextView(ImgModel model, Appendable out) throws IllegalArgumentException {
+    super(model, out);
   }
 
   @Override

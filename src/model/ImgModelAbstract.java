@@ -98,22 +98,22 @@ public abstract class ImgModelAbstract implements ImgModel {
     int value = 0;
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
-        if (command.equals(Commands.rc)) {
+        if (command.equals(Command.rc)) {
           value = targetImage.getPixel(i, j).getRed();
         }
-        else if (command.equals(Commands.gc)) {
+        else if (command.equals(Command.gc)) {
           value = targetImage.getPixel(i, j).getGreen();
         }
-        else if (command.equals(Commands.bc)) {
+        else if (command.equals(Command.bc)) {
           value = targetImage.getPixel(i, j).getBlue();
         }
-        else if (command.equals(Commands.vc)) {
+        else if (command.equals(Command.vc)) {
           value = targetImage.getPixel(i, j).getValue();
         }
-        else if (command.equals(Commands.lc)) {
+        else if (command.equals(Command.lc)) {
           value = targetImage.getPixel(i, j).getLuma();
         }
-        else if (command.equals(Commands.ic)) {
+        else if (command.equals(Command.ic)) {
           value = targetImage.getPixel(i, j).getIntensity();
         }
         destinationPixels[i][j] = makePixel(value, value, value);

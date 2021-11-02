@@ -1,9 +1,16 @@
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
+import controller.ImgController;
+import controller.PPMController;
 import model.ImgModel;
 import model.PPMModel;
+import view.ImgView;
+import view.TextView;
 
 
 /**
@@ -63,7 +70,7 @@ public class ImageUtil {
   }
 
   //demo main
-  public static void main(String []args) {
+  public static void main(String []args) throws UnsupportedEncodingException {
      /** String filename;
       
       if (args.length>0) {
@@ -76,6 +83,13 @@ public class ImageUtil {
       ImageUtil.readPPM(filename);
       **/
      ImgModel model = new PPMModel();
+     Appendable out = new PrintStream(System.out, true, "UTF-8");
+     Readable in = new InputStreamReader(System.in);
+     ImgView view = new TextView(model, out);
+    ImgController controller = new PPMController(model, view, in);
+    controller.start();
+
+
   }
 }
 

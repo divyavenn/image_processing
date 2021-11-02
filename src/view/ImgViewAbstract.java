@@ -12,11 +12,12 @@ public abstract class ImgViewAbstract implements ImgView{
    * @throws IllegalArgumentException if object is null
    * @model a ImgModel object
    */
-  public ImgViewAbstract(ImgModel model) throws IllegalArgumentException {
-    if (model == null) {
+  public ImgViewAbstract(ImgModel model, Appendable out) throws IllegalArgumentException {
+    if (model == null || out == null) {
       throw new IllegalArgumentException("Gave null object");
     } else {
       this.model = model;
+      this.out = out;
     }
   }
 }

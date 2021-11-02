@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import model.Commands;
+import model.Command;
 import model.ImgModel;
 import view.ImgView;
 
@@ -29,12 +29,12 @@ public class PPMController extends ImgControllerAbstract{
    */
   protected String isValidCommand(Scanner scan){
     String inp = scan.next();
-    for (Commands c: Commands.values()){
-      if (inp.equals(c)){
+    for (Command c: Command.values()){
+      if (inp.equals(c.toString())){
         return inp;
       }
     }
-    throw new IllegalArgumentException("Not a valid command!");
+    throw new IllegalArgumentException("'" + inp + "' is not a valid command!");
   }
 
   /**
@@ -52,22 +52,57 @@ public class PPMController extends ImgControllerAbstract{
 
 
   /**
+   * Analyzes if params list has one increment param
+   * @returns if there is one valid increment param
+   * @param params the parameters given for command
+   */
+  protected boolean checkIncrementParam(String[] params) {
+    for (int i = 0; i < params.length; i++) {
+      if ()
+    }
+  }
+
+  /**
+   * Analyzes if params are valid for command
+   * @returns if params are valid
+   * @param command the command being entered
+   * @param params the parameters given for command
+   */
+  protected boolean validParams(String command, String[] params) {
+    boolean valid = false;
+    for (int i = 0; i < params.length; i++) {
+      if (pathArg(command)) {
+
+      }
+    }
+  }
+
+  /**
    * Recursively takes input and follows appopriate prompt
    * @throws IllegalStateException
    * @param scan to read input
    */
-  protected void recurse(Scanner scan) throws IllegalStateException {
+  protected void recurse(Scanner scan) throws IllegalStateException, IOException {
     String command = isValidCommand(scan);
-    if (command.equals(Commands.quit)) {
-      return;
+    if (Command.quit.toString().equals(command)) {
+      programQuit();
     }
     else {
-      ArrayList<String> params = new ArrayList<String>();
-      while (scan.hasNext()){
-        params.add(scan.next());
-      }
-      for (int i = 0; i<params.size(); i++){
-        System.out.println(params.get(i));
+      boolean mustHavePathArg = true;
+      boolean mustHaveIncrement = true;
+      boolean mustHaveTargetImg = true;
+      boolean mustHaveDestinationImg = true;
+
+      boolean hasPathArg = false;
+      boolean hasIncrement = false;
+      boolean hasTargetImg = false;
+      boolean hasDestinationImg = false;
+
+      while (mustHavePathArg != hasPathArg
+              || mustHaveIncrement != hasIncrement
+              || mustHaveTargetImg != hasTargetImg
+              || mustHaveDestinationImg != hasDestinationImg) {
+
       }
       recurse(scan);
     }
