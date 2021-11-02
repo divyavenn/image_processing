@@ -118,10 +118,10 @@ public class PPMController extends ImgControllerAbstract {
         }
       }
     }
-    /**Debugging
+    /**Debugging **/
      for (Parameter p : Parameter.values()) {
      System.out.println(p.toString() + ": " + paramValues.get(p) + "\n");
-     }**/
+     }
 
 
     Command c = Command.getCommand(commandName);

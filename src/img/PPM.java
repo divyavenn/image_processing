@@ -29,11 +29,11 @@ public class PPM extends Img {
         pen.write(getPixel(i, j).toString());
       }
     }
-  }
-   //catch (Exception e) {
-   //System.out.println("Could not write to file.");
-      //throw new IOException("");
+    //catch (Exception e) {
+    //System.out.println("Could not write to file.");
+    //throw new IOException("");
     //}
-  //}
+    //}
+  }
 }
 

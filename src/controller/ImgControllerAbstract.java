@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import model.Command;
 import model.ImgModel;
 import view.ImgView;
 

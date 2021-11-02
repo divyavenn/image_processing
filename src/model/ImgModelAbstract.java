@@ -183,20 +183,24 @@ public abstract class ImgModelAbstract implements ImgModel {
 
   @Override
   public void flip(Command command, String imageName,
-                               String destinationImageName){
+                               String destinationImageName) {
     Img targetImage = getImage(imageName);
     int height = targetImage.getHeight();
     int width = targetImage.getWidth();
     Img destinationImage = makeImg(imageName, height, width);
     Pixel[][] destinationPixels = new Pixel[width][height];
-    switch (command) {
-      case vflip:
-        destinationPixels = destinationImage.verticallyFlipped();
-      case hflip:
-        destinationPixels = destinationImage.horizontallyFlipped();
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        switch (command) {
+          case vflip:
+            destinationPixels[i][j] = targetImage.getPixel(i, j);
+          case hflip:
+            destinationPixels[i][j] = targetImage.getPixel(i, j);
+        }
+      }
+      destinationImage.setPixels(destinationPixels);
+      images.add(destinationImage);
     }
-    destinationImage.setPixels(destinationPixels);
-    images.add(destinationImage);
   }
 
   /**
