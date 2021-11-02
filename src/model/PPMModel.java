@@ -12,6 +12,10 @@ import img.Pixel;
 
 public class PPMModel extends ImgModelAbstract{
 
+  public PPMModel(){
+    super();
+  }
+
   @Override
   protected Img makeImg(String imageName, int height, int width) {
     return new PPM(imageName, height, width);
@@ -73,7 +77,7 @@ public class PPMModel extends ImgModelAbstract{
       Scanner scan = new Scanner(in);
       int h = getNextNumericInput(scan);
       /** Debugging **/
-      System.out.println(h);
+      //System.out.println(h);
       return h;
     }
     catch (FileNotFoundException e) {
@@ -90,7 +94,7 @@ public class PPMModel extends ImgModelAbstract{
       getNextNumericInput(scan);
       int w = getNextNumericInput(scan);
       /** Debugging **/
-      System.out.println(w);
+      //System.out.println(w);
       return w;
     }
     catch (FileNotFoundException e) {

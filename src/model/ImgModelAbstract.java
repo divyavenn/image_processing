@@ -9,7 +9,11 @@ public abstract class ImgModelAbstract implements ImgModel {
 
   ArrayList<Img> images;
 
-  
+  public ImgModelAbstract(){
+    images = new ArrayList<Img>();
+  }
+
+
   /**
    * Returns the image with matching name from the list of images if it exists, otherwise throws
    * IllegalArgumentException

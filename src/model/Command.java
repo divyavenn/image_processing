@@ -92,11 +92,12 @@ public enum Command {
 
   /**
    * Gets the command given its name, returns null if command does not exist
+   *
    * @param commandName the name of the command
    * @return command or null
    */
   public static Command getCommand(String commandName) {
-    for (Command c: Command.values()) {
+    for (Command c : Command.values()) {
       if (c.toString().equals(commandName)) {
         return c;
       }
@@ -107,8 +108,9 @@ public enum Command {
 
   /**
    * Finds if given command (referred to by its name) needs the given parameter
+   *
    * @param commandName name of command
-   * @param p parameter
+   * @param p           parameter
    * @return true or false
    */
   public static boolean needsParam(String commandName, Parameter p) {
@@ -119,10 +121,10 @@ public enum Command {
     }
     if (commandParamMap.containsKey(c)) {
       Parameter[] params = commandParamMap.get(c);
-      for (int i = 0; i< params.length; i++) {
-         if (params[i].equals(p)) {
-           return true;
-         }
+      for (int i = 0; i < params.length; i++) {
+        if (params[i].equals(p)) {
+          return true;
+        }
       }
     }
     return false;
@@ -131,8 +133,8 @@ public enum Command {
   /**
    * Runs the appopriate method from a model
    */
-  public void run(ImgModel model, Map<Parameter, String> paramValues){
-    switch (this){
+  public void run(ImgModel model, Map<Parameter, String> paramValues) {
+    switch (this) {
       case load:
         model.load(paramValues.get(Parameter.PPMpath),
                 paramValues.get(Parameter.destinationImage));
@@ -159,8 +161,75 @@ public enum Command {
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
       case quit:
-
+        break;
     }
   }
 
+  /**
+   * Runs the appopriate method from a model
+   */
+  public String acknowledge(Map<Parameter, String> paramValues) {
+    switch (this) {
+      case load:
+        return ("Loaded "
+                + paramValues.get(Parameter.PPMpath)
+                + " into "
+                + paramValues.get(Parameter.destinationImage));
+      case brighten:
+        return ("Brightened "
+                + paramValues.get(Parameter.targetImage)
+                + " by "
+                + paramValues.get(Parameter.increment)
+                + " and loaded into "
+                + paramValues.get(Parameter.destinationImage));
+      case save:
+        return ("Saved "
+                + paramValues.get(Parameter.targetImage)
+                + " to "
+                + paramValues.get(Parameter.PPMpath));
+      case rc:
+        return ("Exported red component of "
+                + paramValues.get(Parameter.targetImage)
+                + " into "
+                + paramValues.get(Parameter.destinationImage));
+      case bc:
+        return ("Exported blue component of "
+                + paramValues.get(Parameter.targetImage)
+                + " into "
+                + paramValues.get(Parameter.destinationImage));
+      case gc:
+        return ("Exported green component of "
+                + paramValues.get(Parameter.targetImage)
+                + " into "
+                + paramValues.get(Parameter.destinationImage));
+      case ic:
+        return ("Exported pixelwise intensity of "
+                + paramValues.get(Parameter.targetImage)
+                + " into "
+                + paramValues.get(Parameter.destinationImage));
+      case lc:
+        return ("Exported pixelwise luma of "
+                + paramValues.get(Parameter.targetImage)
+                + " into "
+                + paramValues.get(Parameter.destinationImage));
+      case vc:
+        return ("Exported pixelwise value of "
+                + paramValues.get(Parameter.targetImage)
+                + " into "
+                + paramValues.get(Parameter.destinationImage));
+      case hflip:
+        return ("Horizontally flipped"
+                + paramValues.get(Parameter.targetImage)
+                + " and loaded result into "
+                + paramValues.get(Parameter.destinationImage));
+      case vflip:
+        return ("Vertically flipped value of "
+                + paramValues.get(Parameter.targetImage)
+                + " and loaded result into "
+                + paramValues.get(Parameter.destinationImage));
+      case quit:
+        return ("Program quit. Goodbye!");
+    }
+    return "";
+  }
 }
