@@ -1,38 +1,46 @@
 package img;
 
-import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
+
 
 public class PPM extends Img {
 
   public PPM(String name, int height, int width) {
     super(name, height, width);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        setPixel(i, j, new PPMPixel());
+      }
+    }
   }
 
-  public PPM() {
-    super("", 0, 0);
-  }
 
   @Override
   public void save(String fPath) throws IOException {
-    FileWriter pen;
-    //try {
-    pen = new FileWriter(fPath);
-    pen.write("P3\n");
-    pen.write(this.width + " " + this.height + "\n");
-    pen.write("# Created by Divya Venkatraman " + "\n");
+    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
+            new FileOutputStream(fPath),
+            Charset.forName("UTF-8").newEncoder()));
+    out.write("P3",0,2);
+    out.newLine();
+    String widthHeight = this.width + " " + this.height;
+    out.write(widthHeight,0,widthHeight.length());
+    out.newLine();
+    out.write("255",0,3);
+    out.newLine();
     for (int i = 0; i<height; i++){
       for (int j = 0; j<width; j++) {
-        pen.write(getPixel(i, j).toString());
+        /** Debugging
+        System.out.println(getPixel(i, j).toString());
+         **/
+        String pixStr = getPixel(i, j).toString();
+        out.write(pixStr,0,pixStr.length());
       }
     }
-    //catch (Exception e) {
-    //System.out.println("Could not write to file.");
-    //throw new IOException("");
-    //}
-    //}
+    out.close();
   }
 }
 

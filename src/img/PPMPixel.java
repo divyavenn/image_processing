@@ -6,8 +6,12 @@ public class PPMPixel extends Pixel{
     super(r,g,b);
   }
 
+  public PPMPixel(){
+    super(255,255,255);
+  }
+
   @Override
   public String toString(){
-    return r + "\n" + g + "\n" + b + "\n";
+    return r + " " + g + " " + b + "\n";
   }
 }

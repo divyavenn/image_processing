@@ -71,35 +71,6 @@ public abstract class Img {
   }
 
 
-  /**
-   * returns horizontally flipped Pixel Array
-   * @return horizontally flipped Pixel[][] array
-   */
-  public Pixel[][] horizontallyFlipped() {
-    Pixel[][] flippedPixels = new Pixel[height][width];
-    for (int i = 0; i<height; i++){
-      for (int j = 0; j<width; j++) {
-        flippedPixels[i][j] = pixels[height][width];
-      }
-    }
-    return flippedPixels;
-  }
-
-  /**
-   * returns vertically flipped Pixel Array
-   * @return vertically flipped Pixel[][] array
-   */
-  public Pixel[][] verticallyFlipped() {
-    Pixel[][] flippedPixels = new Pixel[height][width];
-    for (int i = 0; i<height; i++){
-      for (int j = 0; j<width; j++) {
-        flippedPixels[i][j] = pixels[height][width];
-      }
-    }
-    return flippedPixels;
-  }
-
-
   @Override
   public boolean equals(Object o){
     return (this.toString().equals(o.toString()));

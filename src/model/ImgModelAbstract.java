@@ -29,11 +29,11 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @throws IllegalArgumentException if image is not in list
    */
   protected Img getImage(String imageName) {
-    /** Debugging **/
+    /** Debugging
     System.out.println("Num of images in list:" + images.size() + "\n");
     System.out.println("Want to get image " + imageName + "\n");
     System.out.println(printImages());
-
+    **/
 
     if (images.contains(makeImg(imageName,0,0))) {
       return images.get(images.indexOf(makeImg(imageName,0,0)));
@@ -89,11 +89,17 @@ public abstract class ImgModelAbstract implements ImgModel {
   @Override
   public void exportComponentByPixel(Command command, String imageName,
                                       String destinationImageName) {
-    Img targetImage = getImage(imageName);
+    Img targetImage;
+    try {
+      targetImage = getImage(imageName);
+    }
+    catch (Exception e) {
+      System.out.println("Image not in list!");
+      throw new IllegalArgumentException("");
+    }
+    Img destinationImage = copyImage(targetImage, destinationImageName);
     int height = targetImage.getHeight();
     int width = targetImage.getWidth();
-    Img destinationImage = makeImg(imageName, height, height);
-    Pixel[][] destinationPixels = new Pixel[width][height];
     int value = 0;
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -137,18 +143,8 @@ public abstract class ImgModelAbstract implements ImgModel {
     Pixel targetPixel;
     int height = targetImage.getHeight();
     int width = targetImage.getWidth();
-    /** Debugging
-    System.out.println("Height: "
-            + height
-            + "\n Width: "
-            + width+ "\n");
-    **/
-
     for (int i = 0; i<height; i++){
       for (int j = 0; j<width; j++) {
-        /** Debugging
-        System.out.println("i :" + i + ", j: " + j + "\n");
-         **/
         targetPixel = targetImage.getPixel(i, j);
         int r = targetPixel.getRed();
         int g = targetPixel.getGreen();
@@ -167,29 +163,30 @@ public abstract class ImgModelAbstract implements ImgModel {
   public void flip(Command command, String imageName,
                                String destinationImageName) {
     Img targetImage;
-    Img destinationImage;
-    int height;
-    int width;
     try {
       targetImage = getImage(imageName);
-      destinationImage = copyImage(targetImage, destinationImageName);
-      height = targetImage.getHeight();
-      width = targetImage.getWidth();
     }
     catch (Exception e) {
       System.out.println("Image not in list!");
       throw new IllegalArgumentException("");
     }
+    Img destinationImage = copyImage(targetImage, destinationImageName);
+    Pixel targetPixel;
+    int height = targetImage.getHeight();
+    int width = targetImage.getWidth();
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
+        targetPixel = targetImage.getPixel(i, j);
+        int r = targetPixel.getRed();
+        int g = targetPixel.getGreen();
+        int b = targetPixel.getBlue();
         switch (command) {
           case vflip:
-            destinationImage.setPixel(i, j,
-                    targetImage.getPixel(i, j));
+            destinationImage.setPixel(height-i-1, j, makePixel(r,g,b));
+            break;
           case hflip:
-            destinationImage.setPixel(height-i-1,
-                    width-j-1,
-                    targetImage.getPixel(i, j));
+            destinationImage.setPixel(i, width - j - 1, makePixel(r,g,b));
+            break;
         }
       }
     }

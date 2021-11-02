@@ -33,6 +33,7 @@ public class PPMModel extends ImgModelAbstract{
       Scanner scan = new Scanner(in);
       int width = getNextNumericInput(scan);
       int height = getNextNumericInput(scan);
+      getNextNumericInput(scan);
       Img image = new PPM(name, height, width);
       for (int i = 0; i<height; i++){
         for (int j = 0; j<width; j++) {
@@ -48,8 +49,8 @@ public class PPMModel extends ImgModelAbstract{
     }
     catch (FileNotFoundException e) {
       System.out.println("Unable to find file.");
+      throw new IllegalArgumentException("");
     }
-    return null;
   }
 
   private boolean isNumeric(String inp) {

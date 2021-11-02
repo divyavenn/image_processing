@@ -118,22 +118,21 @@ public class PPMController extends ImgControllerAbstract {
         }
       }
     }
-    /**Debugging **/
+    /**Debugging
      for (Parameter p : Parameter.values()) {
      System.out.println(p.toString() + ": " + paramValues.get(p) + "\n");
      }
-
+     **/
 
     Command c = Command.getCommand(commandName);
-    //try {
+    try {
       c.run(model, paramValues);
       view.renderMessage(c.acknowledge(paramValues) + "\n");
-    //}
-    //catch (Exception e) {
-      //view.renderMessage("Command unsuccessful. Try again. \n");
-      //recurse(scan);
-    //}
-
+    }
+    catch (Exception e) {
+      view.renderMessage("Command unsuccessful. Try again. \n");
+      recurse(scan);
+    }
     if (!(c.equals(Command.quit))) {
       recurse(scan);
     }
