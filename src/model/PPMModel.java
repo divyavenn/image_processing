@@ -17,8 +17,8 @@ public class PPMModel extends ImgModelAbstract{
   }
 
   @Override
-  protected Img makeImg(String imageName, int width, int height) {
-    return new PPM(imageName, width, height);
+  protected Img makeImg(String imageName, int height, int width) {
+    return new PPM(imageName, height, width);
   }
 
   @Override
@@ -66,12 +66,6 @@ public class PPMModel extends ImgModelAbstract{
     String next = scan.next();
     if (isNumeric(next)) return Integer.parseInt(next);
     else return getNextNumericInput(scan);
-  }
-
-
-  @Override
-  protected Img copyImage(Img fromImage, String newImageName) {
-    return null;
   }
 
 

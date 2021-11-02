@@ -184,12 +184,11 @@ public abstract class ImgModelAbstract implements ImgModel {
       for (int j = 0; j < width; j++) {
         switch (command) {
           case vflip:
-            destinationImage.setPixel(width-i-1,
-                    height-j-1,
+            destinationImage.setPixel(i, j,
                     targetImage.getPixel(i, j));
           case hflip:
-            destinationImage.setPixel(width-i-1,
-                    height-j-1,
+            destinationImage.setPixel(height-i-1,
+                    width-j-1,
                     targetImage.getPixel(i, j));
         }
       }
