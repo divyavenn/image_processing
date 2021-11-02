@@ -16,9 +16,8 @@ public class TextView extends ImgViewAbstract{
     super(model);
   }
 
-
   @Override
   public void renderMessage(String message) throws IOException {
-    this.out.append(message);a
+    this.out.append(message);
   }
 }

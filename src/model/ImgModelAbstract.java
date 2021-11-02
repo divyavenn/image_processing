@@ -1,5 +1,7 @@
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -51,7 +53,7 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param filepath the file path of the image
    * @return the image represented as a two dimensional array of pixels
    */
-  protected abstract Pixel[][] readPixelsImageFile(String filepath);
+  protected abstract Pixel[][] readPixelsImageFile(String filepath) throws FileNotFoundException;
 
   /**
    * Reads image file and finds height of image
@@ -59,7 +61,7 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param filepath the file path of the image
    * @return the height of the image
    */
-  protected abstract int readHeightImageFile(String filepath);
+  protected abstract int readHeightImageFile(String filepath) throws FileNotFoundException;
 
   /**
    * Reads image file and finds width of image
@@ -67,10 +69,10 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param filepath the file path of the image
    * @return the height of the image
    */
-  protected abstract int readWidthImageFile(String filepath);
+  protected abstract int readWidthImageFile(String filepath) throws FileNotFoundException;
 
   @Override
-  public void load(String filePath, String destinationImageName){
+  public void load(String filePath, String destinationImageName) throws FileNotFoundException {
     Img destinationImage = makeImg(destinationImageName,
             readHeightImageFile(filePath),
             readWidthImageFile(filePath));

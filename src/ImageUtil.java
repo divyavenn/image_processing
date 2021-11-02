@@ -2,6 +2,9 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
+import model.ImgModel;
+import model.PPMModel;
+
 
 /**
  * This class contains utility methods to read a img.PPM image from file and simply print its contents. Feel free to change this method
@@ -61,7 +64,7 @@ public class ImageUtil {
 
   //demo main
   public static void main(String []args) {
-      String filename;
+     /** String filename;
       
       if (args.length>0) {
           filename = args[0];
@@ -71,6 +74,8 @@ public class ImageUtil {
       }
       
       ImageUtil.readPPM(filename);
+      **/
+     ImgModel model = new PPMModel();
   }
 }
 

@@ -14,7 +14,8 @@ public enum Commands {
   lc("just-luma"),
   ic("just-intensity"),
   hflip("hflip"),
-  vflip("hflip");
+  vflip("hflip"),
+  quit("quit");
 
   // Member to hold the name
   private String string;
