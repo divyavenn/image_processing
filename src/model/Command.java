@@ -30,8 +30,7 @@ public enum Command {
 
   private static HashMap<Command, Parameter[]> commandParamMap = new HashMap<>();
 
-  //creates mapping
-  private static void createMapping() {
+  static {
     commandParamMap.put(Command.load, new Parameter[]{
             Parameter.PPMpath,
             Parameter.destinationImage});
@@ -115,11 +114,13 @@ public enum Command {
   public static boolean needsParam(String commandName, Parameter p) {
     Command c = getCommand(commandName);
     if (c == null) {
+      System.out.println("not valid command.");
       return false;
     }
     if (commandParamMap.containsKey(c)) {
       Parameter[] params = commandParamMap.get(c);
       for (int i = 0; i< params.length; i++) {
+        System.out.println(p.toString());
          if (params[i].equals(p)) {
            return true;
          }

@@ -49,6 +49,7 @@ public class PPMModel extends ImgModelAbstract{
   @Override
   protected int readHeightImageFile(String filepath) {
     try {
+      System.out.println(filepath);
       Readable in = new FileReader(filepath);
       Scanner scan = new Scanner(in);
       return scan.nextInt();
