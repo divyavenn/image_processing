@@ -1,5 +1,7 @@
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -88,7 +90,33 @@ public enum Command {
     return string;
   }
 
-  public static boolean needsParam(Command c, Parameter p) {
+
+  /**
+   * Gets the command given its name, returns null if command does not exist
+   * @param commandName the name of the command
+   * @return command or null
+   */
+  public static Command getCommand(String commandName) {
+    for (Command c: Command.values()) {
+      if (c.toString().equals(commandName)) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+
+  /**
+   * Finds if given command (referred to by its name) needs the given parameter
+   * @param commandName name of command
+   * @param p parameter
+   * @return true or false
+   */
+  public static boolean needsParam(String commandName, Parameter p) {
+    Command c = getCommand(commandName);
+    if (c == null) {
+      return false;
+    }
     if (commandParamMap.containsKey(c)) {
       Parameter[] params = commandParamMap.get(c);
       for (int i = 0; i< params.length; i++) {
@@ -98,6 +126,41 @@ public enum Command {
       }
     }
     return false;
+  }
+
+  /**
+   * Runs the appopriate method from a model
+   */
+  public void run(ImgModel model, Map<Parameter, String> paramValues){
+    switch (this){
+      case load:
+        model.load(paramValues.get(Parameter.PPMpath),
+                paramValues.get(Parameter.destinationImage));
+        break;
+      case brighten:
+        model.brighten(Integer.parseInt(paramValues.get(Parameter.increment)),
+                paramValues.get(Parameter.targetImage),
+                paramValues.get(Parameter.destinationImage));
+      case save:
+        model.save(paramValues.get(Parameter.PPMpath),
+                paramValues.get(Parameter.targetImage));
+      case rc:
+      case bc:
+      case gc:
+      case ic:
+      case lc:
+      case vc:
+        model.exportComponentByPixel(this,
+                paramValues.get(Parameter.targetImage),
+                paramValues.get(Parameter.destinationImage));
+      case hflip:
+      case vflip:
+        model.flip(this,
+                paramValues.get(Parameter.targetImage),
+                paramValues.get(Parameter.destinationImage));
+      case quit:
+
+    }
   }
 
 }

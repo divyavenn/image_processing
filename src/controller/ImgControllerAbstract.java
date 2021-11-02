@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import model.Command;
 import model.ImgModel;
 import view.ImgView;
@@ -27,5 +29,5 @@ public abstract class ImgControllerAbstract implements ImgController{
   }
 
   @Override
-  public abstract void start() throws IllegalStateException;
+  public abstract void start();
 }

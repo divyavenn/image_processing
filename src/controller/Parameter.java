@@ -30,16 +30,12 @@ public enum Parameter {
     switch (this) {
       case increment:
         return isNumeric(inp);
-        break;
       case PPMpath:
         return inp.substring(inp.length()-4, inp.length()).equals(".ppm");
-        break;
       case targetImage:
-        return isAlphabetic(inp);
-        break;
       case destinationImage:
         return isAlphabetic(inp);
-        break;
     }
+    throw new IllegalArgumentException("Invalid parameter valued");
   }
 }

@@ -59,9 +59,14 @@ public abstract class Img {
    * @param fPath the path to save the image to
    * @throws java.io.IOException if writing is unsuccessful
    */
-  public void save(String fPath) throws IOException {
+  public void save(String fPath){
     Path file = Path.of(fPath);
-    Files.writeString(file, fileRepresentation());
+    try {
+      Files.writeString(file, fileRepresentation());
+    }
+    catch (IOException e) {
+      System.out.println("Unable to write to file.");
+    }
   }
 
   /**

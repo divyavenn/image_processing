@@ -17,7 +17,12 @@ public class TextView extends ImgViewAbstract{
   }
 
   @Override
-  public void renderMessage(String message) throws IOException {
-    this.out.append(message);
+  public void renderMessage(String message){
+    try {
+      this.out.append(message);
+    }
+    catch (IOException e) {
+      System.out.println("Cannot use Appendable.");
+    }
   }
 }

@@ -9,5 +9,5 @@ public interface ImgView {
    * @param message the message to be transmitted
    * @throws IOException if transmission of the board to the provided data destination fails
    */
-  void renderMessage(String message) throws IOException;
+  void renderMessage(String message);
 }

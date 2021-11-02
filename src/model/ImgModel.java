@@ -15,14 +15,14 @@ public interface ImgModel {
    * @param filePath the path of the target image file.
    * @param destinationImageName the name of the image to load into.
    */
-  public void load(String filePath, String destinationImageName) throws FileNotFoundException;
+  public void load(String filePath, String destinationImageName);
 
   /**
    * Save image to image path file.
    * @param filePath the path of the target image file.
    * @param destinationImageName the name of the image to load into.
    */
-  public void save(String filePath, String destinationImageName) throws IOException;
+  public void save(String filePath, String destinationImageName);
 
 
   /**
@@ -30,7 +30,7 @@ public interface ImgModel {
    * @param imageName the name of the target image file.
    * @param destinationImageName name of the image to load into.
    */
-  public void exportComponentByPixel(String command, String imageName,
+  public void exportComponentByPixel(Command command, String imageName,
                                      String destinationImageName);
 
   /**
@@ -43,10 +43,10 @@ public interface ImgModel {
 
   /**
    * Saves horizontally or vertically flipped version of image
-   * @param axis can be "h" or "v" - determines if flipped horizontally or vertically
+   * @param command verticalFlip or horizontalFlip
    * @param imageName the name of the target image file.
    * @param destinationImageName name of the image to load into.
    */
-  public void flip(String axis, String imageName, String destinationImageName);
+  public void flip(Command command, String imageName, String destinationImageName);
 
 }

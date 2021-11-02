@@ -1,13 +1,8 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import img.Img;
-import img.PPM;
-import img.PPMPixel;
 import img.Pixel;
 
 public abstract class ImgModelAbstract implements ImgModel {
@@ -51,9 +46,8 @@ public abstract class ImgModelAbstract implements ImgModel {
    * Reads image file and exports to two-dimensional array of pixels
    *
    * @param filepath the file path of the image
-   * @return the image represented as a two dimensional array of pixels
    */
-  protected abstract Pixel[][] readPixelsImageFile(String filepath) throws FileNotFoundException;
+  protected abstract Pixel[][] readPixelsImageFile(String filepath);
 
   /**
    * Reads image file and finds height of image
@@ -61,7 +55,7 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param filepath the file path of the image
    * @return the height of the image
    */
-  protected abstract int readHeightImageFile(String filepath) throws FileNotFoundException;
+  protected abstract int readHeightImageFile(String filepath);
 
   /**
    * Reads image file and finds width of image
@@ -69,10 +63,10 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param filepath the file path of the image
    * @return the height of the image
    */
-  protected abstract int readWidthImageFile(String filepath) throws FileNotFoundException;
+  protected abstract int readWidthImageFile(String filepath);
 
   @Override
-  public void load(String filePath, String destinationImageName) throws FileNotFoundException {
+  public void load(String filePath, String destinationImageName) {
     Img destinationImage = makeImg(destinationImageName,
             readHeightImageFile(filePath),
             readWidthImageFile(filePath));
@@ -81,14 +75,14 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   @Override
-  public void save(String filePath, String targetImageName) throws IOException {
+  public void save(String filePath, String targetImageName) {
     Img targetImage = getImage(targetImageName);
     targetImage.save(filePath);
   }
 
 
   @Override
-  public void exportComponentByPixel(String command, String imageName,
+  public void exportComponentByPixel(Command command, String imageName,
                                       String destinationImageName) {
     Img targetImage = getImage(imageName);
     int height = targetImage.getHeight();
@@ -98,23 +92,25 @@ public abstract class ImgModelAbstract implements ImgModel {
     int value = 0;
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
-        if (command.equals(Command.rc)) {
-          value = targetImage.getPixel(i, j).getRed();
-        }
-        else if (command.equals(Command.gc)) {
-          value = targetImage.getPixel(i, j).getGreen();
-        }
-        else if (command.equals(Command.bc)) {
-          value = targetImage.getPixel(i, j).getBlue();
-        }
-        else if (command.equals(Command.vc)) {
-          value = targetImage.getPixel(i, j).getValue();
-        }
-        else if (command.equals(Command.lc)) {
-          value = targetImage.getPixel(i, j).getLuma();
-        }
-        else if (command.equals(Command.ic)) {
-          value = targetImage.getPixel(i, j).getIntensity();
+        switch (command) {
+          case rc:
+            value = targetImage.getPixel(i, j).getRed();
+            break;
+          case gc:
+            value = targetImage.getPixel(i, j).getGreen();
+            break;
+          case bc:
+            value = targetImage.getPixel(i, j).getBlue();
+            break;
+          case lc:
+            value = targetImage.getPixel(i, j).getLuma();
+            break;
+          case vc:
+            value = targetImage.getPixel(i, j).getValue();
+            break;
+          case ic:
+            value = targetImage.getPixel(i, j).getIntensity();
+            break;
         }
         destinationPixels[i][j] = makePixel(value, value, value);
       }
@@ -122,7 +118,6 @@ public abstract class ImgModelAbstract implements ImgModel {
     destinationImage.setPixels(destinationPixels);
     images.add(destinationImage);
   }
-
 
   @Override
   public void brighten(int increment, String imageName, String destinationImageName) {
@@ -148,21 +143,18 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   @Override
-  public void flip(String axis, String imageName,
+  public void flip(Command command, String imageName,
                                String destinationImageName){
     Img targetImage = getImage(imageName);
     int height = targetImage.getHeight();
     int width = targetImage.getWidth();
     Img destinationImage = makeImg(imageName, height, width);
-    Pixel[][] destinationPixels;
-    if (axis.equals("h")) {
-      destinationPixels = destinationImage.horizontallyFlipped();
-    }
-    else if (axis.equals("v")) {
-      destinationPixels = destinationImage.verticallyFlipped();
-    }
-    else {
-      throw new IllegalArgumentException("invalid axis argument.");
+    Pixel[][] destinationPixels = new Pixel[width][height];
+    switch (command) {
+      case vflip:
+        destinationPixels = destinationImage.verticallyFlipped();
+      case hflip:
+        destinationPixels = destinationImage.horizontallyFlipped();
     }
     destinationImage.setPixels(destinationPixels);
     images.add(destinationImage);

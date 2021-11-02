@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import model.Command;
@@ -37,44 +39,19 @@ public class PPMController extends ImgControllerAbstract{
     throw new IllegalArgumentException("'" + inp + "' is not a valid command!");
   }
 
-  /**
-   * Takes next input in scanner and checks if it is a valid filePath
-   * @return the file path if it is valid
-   * @throws IllegalArgumentException
-   */
-  protected String isValidFilePath(Scanner scan){
-    String inp = scan.next();
-    if (inp.substring(inp.length()-4, inp.length()).equals(".ppm")) {
-      return inp;
-    }
-    throw new IllegalArgumentException("Can only write and read to ppm files!");
+
+  protected boolean xnor(boolean a, boolean b) {
+    return (a && b) || (!a && !b);
   }
-
-
   /**
-   * Analyzes if params list has one increment param
-   * @returns if there is one valid increment param
-   * @param params the parameters given for command
+   * Checks if all needed parameters have been inputted
    */
-  protected boolean checkIncrementParam(String[] params) {
-    for (int i = 0; i < params.length; i++) {
-      if ()
+  protected boolean allNeededParamsInputted(String commandName, Map<Parameter, String> hasParam) {
+    boolean b = true;
+    for (Parameter p: Parameter.values()) {
+      b = b && xnor(Command.needsParam(commandName, p), !(hasParam.get(p)==null));
     }
-  }
-
-  /**
-   * Analyzes if params are valid for command
-   * @returns if params are valid
-   * @param command the command being entered
-   * @param params the parameters given for command
-   */
-  protected boolean validParams(String command, String[] params) {
-    boolean valid = false;
-    for (int i = 0; i < params.length; i++) {
-      if (pathArg(command)) {
-
-      }
-    }
+    return b;
   }
 
   /**
@@ -82,39 +59,55 @@ public class PPMController extends ImgControllerAbstract{
    * @throws IllegalStateException
    * @param scan to read input
    */
-  protected void recurse(Scanner scan) throws IllegalStateException, IOException {
-    String command = isValidCommand(scan);
-    if (Command.quit.toString().equals(command)) {
+  protected void recurse(Scanner scan){
+    String commandName = isValidCommand(scan);
+    if (Command.quit.toString().equals(commandName)) {
       programQuit();
     }
     else {
-      boolean mustHavePathArg = true;
-      boolean mustHaveIncrement = true;
-      boolean mustHaveTargetImg = true;
-      boolean mustHaveDestinationImg = true;
-
-      boolean hasPathArg = false;
-      boolean hasIncrement = false;
-      boolean hasTargetImg = false;
-      boolean hasDestinationImg = false;
-
-      while (mustHavePathArg != hasPathArg
-              || mustHaveIncrement != hasIncrement
-              || mustHaveTargetImg != hasTargetImg
-              || mustHaveDestinationImg != hasDestinationImg) {
-
+      //the value is false if not inputted and the correct value if inputted
+      Map<Parameter, String> paramValues  = new HashMap();
+      for (Parameter p: Parameter.values()) {
+        paramValues.put(p,null);
       }
+
+      //Get all needed inputs
+      while (!(allNeededParamsInputted(commandName, paramValues))){
+        String nextInput = scan.next();
+        //the requirement for the targetImage parameter is met either if the command in question
+        //does not need that parameter or if it has already been found
+        boolean targetImageParamRequirementMet = !Command.needsParam(commandName,
+                Parameter.targetImage) || !(paramValues.get(Parameter.targetImage)==null);
+        for (Parameter p: Parameter.values()) {
+          //Fill the scanned value into the parameter if the parameter is needed and the input is
+          // valid
+          if (p.isValidParameter(nextInput) && Command.needsParam(commandName,p)){
+            paramValues.put(p,nextInput);
+          }
+          //if the parameter being tested is destinationImage, since parameters targetImage
+          //and destinationImage follow the same format, ensure that the destinationImage
+          // is not filled unless targetImage is either already filled or not required
+          if (p.equals(Parameter.destinationImage)) {
+            if (!(targetImageParamRequirementMet)) {
+              paramValues.put(Parameter.destinationImage, null);
+            }
+          }
+        }
+      }
+
+      Command c = Command.getCommand(commandName);
+      c.run(model, paramValues);
       recurse(scan);
     }
   }
   @Override
-  public void start() throws IllegalStateException {
+  public void start() {
     Scanner scan = new Scanner(in);
     recurse(scan);
   }
 
   @Override
-  public void programQuit() throws IOException {
+  public void programQuit() {
     view.renderMessage("Thank you for using this program. Goodbye! \n");
   }
 }
