@@ -30,12 +30,15 @@ public class PPMModel extends ImgModelAbstract{
     try {
       Readable in = new FileReader(filepath);
       Scanner scan = new Scanner(in);
-      width = scan.nextInt();
-      height = scan.nextInt();
+      width = getNextNumericInput(scan);
+      height = getNextNumericInput(scan);
       pixels = new Pixel[width][height];
       for (int i = 0; i<width; i++){
         for (int j = 0; j<height; j++) {
-          pixels[i][j] = makePixel(scan.nextInt(), scan.nextInt(), scan.nextInt());
+          pixels[i][j] = makePixel(getNextNumericInput(scan),
+                  getNextNumericInput(scan),
+                  getNextNumericInput(scan));
+
         }
       }
       return pixels;
@@ -46,13 +49,32 @@ public class PPMModel extends ImgModelAbstract{
     return null;
   }
 
+  private boolean isNumeric(String inp) {
+    try {
+      Integer.parseInt(inp);
+      return true;
+    } catch (NumberFormatException e) {
+      // s is not numeric
+      return false;
+    }
+  }
+
+  private int getNextNumericInput(Scanner scan) {
+    String next = scan.next();
+    if (isNumeric(next)) return Integer.parseInt(next);
+    else return getNextNumericInput(scan);
+  }
+
   @Override
   protected int readHeightImageFile(String filepath) {
     try {
       System.out.println(filepath);
       Readable in = new FileReader(filepath);
       Scanner scan = new Scanner(in);
-      return scan.nextInt();
+      int h = getNextNumericInput(scan);
+      /** Debugging **/
+      System.out.println(h);
+      return h;
     }
     catch (FileNotFoundException e) {
       System.out.println("Unable to find file.");
@@ -65,13 +87,30 @@ public class PPMModel extends ImgModelAbstract{
     try {
       Readable in = new FileReader(filepath);
       Scanner scan = new Scanner(in);
-      scan.nextInt();
-      return scan.nextInt();
+      getNextNumericInput(scan);
+      int w = getNextNumericInput(scan);
+      /** Debugging **/
+      System.out.println(w);
+      return w;
     }
     catch (FileNotFoundException e) {
       System.out.println("Unable to find file.");
     }
     return 0;
+  }
+
+  @Override
+  protected boolean isCorrectFileType(String filePath) {
+    try {
+      Readable in = new FileReader(filePath);
+      Scanner scan = new Scanner(in);
+      String tag = scan.next();
+      return (tag.equals("P3"));
+    }
+    catch (FileNotFoundException e) {
+      System.out.println("Unable to find file.");
+    }
+    return false;
   }
 
 }

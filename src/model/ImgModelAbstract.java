@@ -9,6 +9,7 @@ public abstract class ImgModelAbstract implements ImgModel {
 
   ArrayList<Img> images;
 
+  
   /**
    * Returns the image with matching name from the list of images if it exists, otherwise throws
    * IllegalArgumentException
@@ -67,11 +68,13 @@ public abstract class ImgModelAbstract implements ImgModel {
 
   @Override
   public void load(String filePath, String destinationImageName) {
-    Img destinationImage = makeImg(destinationImageName,
-            readHeightImageFile(filePath),
-            readWidthImageFile(filePath));
-    destinationImage.setPixels(readPixelsImageFile(filePath));
-    images.add(destinationImage);
+    if (isCorrectFileType(filePath)) {
+      Img destinationImage = makeImg(destinationImageName,
+              readHeightImageFile(filePath),
+              readWidthImageFile(filePath));
+      destinationImage.setPixels(readPixelsImageFile(filePath));
+      images.add(destinationImage);
+    }
   }
 
   @Override
@@ -160,4 +163,9 @@ public abstract class ImgModelAbstract implements ImgModel {
     images.add(destinationImage);
   }
 
+  /**
+   * Confirms that is correct file type
+   * @return if file is correct type
+   */
+  protected abstract boolean isCorrectFileType(String filePath);
 }

@@ -120,7 +120,6 @@ public enum Command {
     if (commandParamMap.containsKey(c)) {
       Parameter[] params = commandParamMap.get(c);
       for (int i = 0; i< params.length; i++) {
-        System.out.println(p.toString());
          if (params[i].equals(p)) {
            return true;
          }

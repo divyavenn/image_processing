@@ -80,7 +80,6 @@ public class PPMController extends ImgControllerAbstract{
           //Fill the scanned value into the parameter if the parameter is needed and the input is
           // valid
           if (p.isValidParameter(nextInput) && Command.needsParam(commandName,p)){
-            System.out.println("Putting " + nextInput + " into " + p.toString());
             paramValues.put(p,nextInput);
           }
           //if the parameter being tested is destinationImage, since parameters targetImage
