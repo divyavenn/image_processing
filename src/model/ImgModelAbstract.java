@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import img.Img;
@@ -13,6 +14,13 @@ public abstract class ImgModelAbstract implements ImgModel {
     images = new ArrayList<Img>();
   }
 
+  private String printImages(){
+    String list = "";
+    for (Img i: images) {
+      list = list + i.toString() + "\n";
+    }
+    return list;
+  }
 
   /**
    * Returns the image with matching name from the list of images if it exists, otherwise throws
@@ -21,8 +29,12 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @throws IllegalArgumentException if image is not in list
    */
   protected Img getImage(String imageName) {
-    /** Debugging **/
-    System.out.println(images.size());
+    /** Debugging
+    System.out.println("Num of images in list:" + images.size() + "\n");
+    System.out.println("Want to get image " + imageName + "\n");
+    System.out.println(printImages());
+    **/
+
     if (images.contains(makeImg(imageName,0,0))) {
       return images.get(images.indexOf(makeImg(imageName,0,0)));
     }
@@ -47,7 +59,7 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param g the green component.
    * @param b the blue component.
    */
-  protected abstract Pixel makePixel(int r, int g, int b);
+  protected abstract Pixel makePixel(int r, int b, int g);
 
   /**
    * Reads image file and exports to two-dimensional array of pixels
@@ -84,7 +96,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   @Override
-  public void save(String filePath, String targetImageName) {
+  public void save(String filePath, String targetImageName) throws IOException {
     Img targetImage = getImage(targetImageName);
     targetImage.save(filePath);
   }
@@ -132,23 +144,35 @@ public abstract class ImgModelAbstract implements ImgModel {
   public void brighten(int increment, String imageName, String destinationImageName) {
     Img targetImage = makeImg("", 0,0);
     try {
-       targetImage = getImage(imageName);
+      targetImage = getImage(imageName);
     }
-    catch (IllegalArgumentException e){
+    catch (Exception e) {
       System.out.println("Image not in list!");
+      throw new IllegalArgumentException("");
     }
     int height = targetImage.getHeight();
     int width = targetImage.getWidth();
-    Img destinationImage = makeImg(imageName, height, width);
+    Img destinationImage = makeImg(destinationImageName, height, width);
     Pixel[][] destinationPixels = new Pixel[width][height];
     Pixel targetPixel;
+    /** Debugging
+    System.out.println("Height: "
+            + height
+            + "\n Width: "
+            + width+ "\n");
+    **/
+
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
+        /** Debugging
+        System.out.println("i :" + i + ", j: " + j + "\n");
+         **/
         targetPixel = targetImage.getPixel(i, j);
         int r = targetPixel.getRed();
         int g = targetPixel.getBlue();
         int b = targetPixel.getGreen();
-        destinationPixels[i][j] = makePixel(Math.min(Math.max(r + increment, 0), 255),
+        destinationPixels[i][j] = makePixel(
+                Math.min(Math.max(r + increment, 0), 255),
                 Math.min(Math.max(g + increment, 0), 255),
                 Math.min(Math.max(b + increment, 0), 255));
       }

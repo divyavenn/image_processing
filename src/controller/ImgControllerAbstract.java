@@ -29,5 +29,5 @@ public abstract class ImgControllerAbstract implements ImgController{
   }
 
   @Override
-  public abstract void start();
+  public abstract void start() throws IOException;
 }

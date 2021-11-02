@@ -32,13 +32,6 @@ public abstract class Img {
   }
 
   /**
-   * Outputs a string that represents the image as a file according to its image type.
-   *
-   * @return String with file reprenstation of image.
-   */
-  public abstract String fileRepresentation();
-
-  /**
    * Sets pixels.
    */
   public void setPixels(Pixel[][] pixels){
@@ -59,15 +52,7 @@ public abstract class Img {
    * @param fPath the path to save the image to
    * @throws java.io.IOException if writing is unsuccessful
    */
-  public void save(String fPath){
-    Path file = Path.of(fPath);
-    try {
-      Files.writeString(file, fileRepresentation());
-    }
-    catch (IOException e) {
-      System.out.println("Unable to write to file.");
-    }
-  }
+  public abstract void save(String fPath) throws IOException;
 
   /**
    * Gets height of image
@@ -85,15 +70,6 @@ public abstract class Img {
     return this.width;
   }
 
-  protected String allPixelsToString() {
-    String str = "";
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
-        str = str + pixels[i][j];
-      }
-    }
-    return str;
-  }
 
   /**
    * returns horizontally flipped Pixel Array

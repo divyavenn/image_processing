@@ -9,7 +9,7 @@ public interface ImgController {
    *
    * @Throws IllegalStateException if unable to successfully read input/transmitoutput
    */
-  void start();
+  void start() throws IOException;
 
   /**
    * What to do when user indicates they wish to quit program

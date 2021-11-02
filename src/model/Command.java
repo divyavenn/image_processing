@@ -22,7 +22,7 @@ public enum Command {
   lc("just-luma"),
   ic("just-intensity"),
   hflip("hflip"),
-  vflip("hflip"),
+  vflip("vflip"),
   quit("quit");
 
   // Member to hold the name
@@ -133,7 +133,7 @@ public enum Command {
   /**
    * Runs the appopriate method from a model
    */
-  public void run(ImgModel model, Map<Parameter, String> paramValues) {
+  public void run(ImgModel model, Map<Parameter, String> paramValues) throws IOException {
     switch (this) {
       case load:
         model.load(paramValues.get(Parameter.PPMpath),

@@ -34,8 +34,8 @@ public class PPMModel extends ImgModelAbstract{
     try {
       Readable in = new FileReader(filepath);
       Scanner scan = new Scanner(in);
-      width = getNextNumericInput(scan);
       height = getNextNumericInput(scan);
+      width = getNextNumericInput(scan);
       pixels = new Pixel[width][height];
       for (int i = 0; i<width; i++){
         for (int j = 0; j<height; j++) {

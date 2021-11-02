@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -26,12 +27,11 @@ public class ImageUtil {
    */
   public static void readPPM(String filename) {
     Scanner sc;
-    
     try {
         sc = new Scanner(new FileInputStream(filename));
     }
     catch (FileNotFoundException e) {
-        System.out.println("File "+filename+ " not found!");
+        System.out.println("File "+ filename+ " not found!");
         return;
     }
     StringBuilder builder = new StringBuilder();
@@ -53,9 +53,9 @@ public class ImageUtil {
         System.out.println("Invalid img.PPM file: plain RAW file should begin with P3");
     }
     int width = sc.nextInt();
-    System.out.println("Width of image: "+width);
+    System.out.println("Width of image: "+ width);
     int height = sc.nextInt();
-    System.out.println("Height of image: "+height);
+    System.out.println("Height of image: "+ height);
     int maxValue = sc.nextInt();
     System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
     
@@ -70,7 +70,7 @@ public class ImageUtil {
   }
 
   //demo main
-  public static void main(String []args) throws UnsupportedEncodingException {
+  public static void main(String []args) throws IOException {
      /** String filename;
       
       if (args.length>0) {
