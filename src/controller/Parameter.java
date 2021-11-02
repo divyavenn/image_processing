@@ -31,7 +31,12 @@ public enum Parameter {
       case increment:
         return isNumeric(inp);
       case PPMpath:
-        return inp.substring(inp.length()-4, inp.length()).equals(".ppm");
+        if (inp.length() > 4) {
+          return inp.substring(inp.length() - 4, inp.length()).equals(".ppm");
+        }
+        else {
+          return false;
+        }
       case targetImage:
       case destinationImage:
         return isAlphabetic(inp);

@@ -6,6 +6,10 @@ public class PPM extends Img{
     super(name, height, width);
   }
 
+  public PPM(){
+    super("", 0, 0);
+  }
+
   @Override
   public String fileRepresentation() {
     String contents = "P3\n";

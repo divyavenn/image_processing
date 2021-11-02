@@ -143,9 +143,11 @@ public enum Command {
         model.brighten(Integer.parseInt(paramValues.get(Parameter.increment)),
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
+        break;
       case save:
         model.save(paramValues.get(Parameter.PPMpath),
                 paramValues.get(Parameter.targetImage));
+        break;
       case rc:
       case bc:
       case gc:
@@ -155,11 +157,13 @@ public enum Command {
         model.exportComponentByPixel(this,
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
+        break;
       case hflip:
       case vflip:
         model.flip(this,
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
+        break;
       case quit:
         break;
     }

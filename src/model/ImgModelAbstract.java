@@ -21,8 +21,10 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @throws IllegalArgumentException if image is not in list
    */
   protected Img getImage(String imageName) {
-    if (images.contains(imageName)) {
-      return images.get(images.indexOf(imageName));
+    /** Debugging **/
+    System.out.println(images.size());
+    if (images.contains(makeImg(imageName,0,0))) {
+      return images.get(images.indexOf(makeImg(imageName,0,0)));
     }
     else {
       throw new IllegalArgumentException("Image not in list");
@@ -128,7 +130,13 @@ public abstract class ImgModelAbstract implements ImgModel {
 
   @Override
   public void brighten(int increment, String imageName, String destinationImageName) {
-    Img targetImage = getImage(imageName);
+    Img targetImage = makeImg("", 0,0);
+    try {
+       targetImage = getImage(imageName);
+    }
+    catch (IllegalArgumentException e){
+      System.out.println("Image not in list!");
+    }
     int height = targetImage.getHeight();
     int width = targetImage.getWidth();
     Img destinationImage = makeImg(imageName, height, width);

@@ -50,6 +50,15 @@ public class PPMController extends ImgControllerAbstract {
     boolean b = true;
     for (Parameter p : Parameter.values()) {
       b = b && xnor(Command.needsParam(commandName, p), !(hasParam.get(p) == null));
+      /**Debugging
+      System.out.println(commandName
+              + " needs "
+              + p.toString()
+              + " - "
+              + Command.needsParam(commandName, p)
+              + "\n \t \t and was given "
+              + hasParam.get(p));
+       **/
     }
     return b;
   }
@@ -57,16 +66,16 @@ public class PPMController extends ImgControllerAbstract {
   /**
    * Recursively takes input and follows appopriate prompt
    *
-   * @param scan to read input
+   * @param in to read input
    */
-  protected void recurse(Scanner scan) {
+  protected void recurse(Readable in) {
+    Scanner scan = new Scanner(in);
     String commandName = "";
     try {
       commandName = isValidCommand(scan);
-    }
-    catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       System.out.println("Invalid command name! Try again.");
-      recurse(scan);
+      recurse(in);
     }
 
     //the value is false if not inputted and the correct value if inputted
@@ -85,7 +94,7 @@ public class PPMController extends ImgControllerAbstract {
       for (Parameter p : Parameter.values()) {
         //Fill the scanned value into the parameter if the parameter is needed and the input is
         // valid
-        if (p.isValidParameter(nextInput) && Command.needsParam(commandName, p)) {
+        if (Command.needsParam(commandName, p) && p.isValidParameter(nextInput)) {
           paramValues.put(p, nextInput);
         }
         //if the parameter being tested is destinationImage, since parameters targetImage
@@ -93,24 +102,34 @@ public class PPMController extends ImgControllerAbstract {
         // is not filled unless targetImage is either already filled or not required
         if (p.equals(Parameter.destinationImage)) {
           if (!(targetImageParamRequirementMet)) {
+            /** Debugging
+            System.out.println("destinationImage set to null after the fact\n");
+            **/
             paramValues.put(Parameter.destinationImage, null);
           }
         }
       }
-
-      Command c = Command.getCommand(commandName);
-      c.run(model, paramValues);
-      view.renderMessage(c.acknowledge(paramValues));
-      if (!(c.equals(Command.quit))){
-        recurse(scan);
-      }
     }
+
+    /**Debugging
+    for (Parameter p : Parameter.values()) {
+      System.out.println(p.toString() + ": " + paramValues.get(p) + "\n");
+    }
+     **/
+
+
+    Command c = Command.getCommand(commandName);
+    c.run(model, paramValues);
+    view.renderMessage(c.acknowledge(paramValues) + "\n");
+    if (!(c.equals(Command.quit))) {
+      recurse(in);
+    }
+
   }
 
   @Override
   public void start() {
-    Scanner scan = new Scanner(in);
-    recurse(scan);
+    recurse(in);
   }
 
   @Override
