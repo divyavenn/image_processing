@@ -17,8 +17,8 @@ public class PPMModel extends ImgModelAbstract{
   }
 
   @Override
-  protected Img makeImg(String imageName, int height, int width) {
-    return new PPM(imageName, height, width);
+  protected Img makeImg(String imageName, int width, int height) {
+    return new PPM(imageName, width, height);
   }
 
   @Override
@@ -27,25 +27,24 @@ public class PPMModel extends ImgModelAbstract{
   }
 
   @Override
-  protected Pixel[][] readPixelsImageFile(String filepath){
-    int width = 0;
-    int height = 0;
-    Pixel[][] pixels;
+  protected Img makeImgFromFile(String filepath, String name){
     try {
       Readable in = new FileReader(filepath);
       Scanner scan = new Scanner(in);
-      height = getNextNumericInput(scan);
-      width = getNextNumericInput(scan);
-      pixels = new Pixel[width][height];
-      for (int i = 0; i<width; i++){
-        for (int j = 0; j<height; j++) {
-          pixels[i][j] = makePixel(getNextNumericInput(scan),
+      int width = getNextNumericInput(scan);
+      int height = getNextNumericInput(scan);
+      Img image = new PPM(name, height, width);
+      for (int i = 0; i<height; i++){
+        for (int j = 0; j<width; j++) {
+          image.setPixel(
+                  i,
+                  j,
+                  makePixel(getNextNumericInput(scan),
                   getNextNumericInput(scan),
-                  getNextNumericInput(scan));
-
+                  getNextNumericInput(scan)));
         }
       }
-      return pixels;
+      return image;
     }
     catch (FileNotFoundException e) {
       System.out.println("Unable to find file.");
@@ -69,39 +68,12 @@ public class PPMModel extends ImgModelAbstract{
     else return getNextNumericInput(scan);
   }
 
-  @Override
-  protected int readHeightImageFile(String filepath) {
-    try {
-      System.out.println(filepath);
-      Readable in = new FileReader(filepath);
-      Scanner scan = new Scanner(in);
-      int h = getNextNumericInput(scan);
-      /** Debugging **/
-      //System.out.println(h);
-      return h;
-    }
-    catch (FileNotFoundException e) {
-      System.out.println("Unable to find file.");
-    }
-    return 0;
-  }
 
   @Override
-  protected int readWidthImageFile(String filepath) {
-    try {
-      Readable in = new FileReader(filepath);
-      Scanner scan = new Scanner(in);
-      getNextNumericInput(scan);
-      int w = getNextNumericInput(scan);
-      /** Debugging **/
-      //System.out.println(w);
-      return w;
-    }
-    catch (FileNotFoundException e) {
-      System.out.println("Unable to find file.");
-    }
-    return 0;
+  protected Img copyImage(Img fromImage, String newImageName) {
+    return null;
   }
+
 
   @Override
   protected boolean isCorrectFileType(String filePath) {

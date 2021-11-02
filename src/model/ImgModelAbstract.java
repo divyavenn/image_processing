@@ -29,11 +29,11 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @throws IllegalArgumentException if image is not in list
    */
   protected Img getImage(String imageName) {
-    /** Debugging
+    /** Debugging **/
     System.out.println("Num of images in list:" + images.size() + "\n");
     System.out.println("Want to get image " + imageName + "\n");
     System.out.println(printImages());
-    **/
+
 
     if (images.contains(makeImg(imageName,0,0))) {
       return images.get(images.indexOf(makeImg(imageName,0,0)));
@@ -52,6 +52,9 @@ public abstract class ImgModelAbstract implements ImgModel {
    */
   protected abstract Img makeImg(String imageName, int height, int width);
 
+
+  protected abstract Img makeImgFromFile(String filepath, String name);
+
   /**
    * Returns a Pixel Object corresponding to the implementing class
    * @returns a Pixel Object
@@ -61,43 +64,24 @@ public abstract class ImgModelAbstract implements ImgModel {
    */
   protected abstract Pixel makePixel(int r, int b, int g);
 
-  /**
-   * Reads image file and exports to two-dimensional array of pixels
-   *
-   * @param filepath the file path of the image
-   */
-  protected abstract Pixel[][] readPixelsImageFile(String filepath);
-
-  /**
-   * Reads image file and finds height of image
-   *
-   * @param filepath the file path of the image
-   * @return the height of the image
-   */
-  protected abstract int readHeightImageFile(String filepath);
-
-  /**
-   * Reads image file and finds width of image
-   *
-   * @param filepath the file path of the image
-   * @return the height of the image
-   */
-  protected abstract int readWidthImageFile(String filepath);
-
   @Override
   public void load(String filePath, String destinationImageName) {
     if (isCorrectFileType(filePath)) {
-      Img destinationImage = makeImg(destinationImageName,
-              readHeightImageFile(filePath),
-              readWidthImageFile(filePath));
-      destinationImage.setPixels(readPixelsImageFile(filePath));
+      Img destinationImage = makeImgFromFile(filePath, destinationImageName);
       images.add(destinationImage);
     }
   }
 
   @Override
   public void save(String filePath, String targetImageName) throws IOException {
-    Img targetImage = getImage(targetImageName);
+    Img targetImage;
+    try {
+      targetImage = getImage(targetImageName);
+    }
+    catch (Exception e) {
+      System.out.println("Image not in list!");
+      throw new IllegalArgumentException("");
+    }
     targetImage.save(filePath);
   }
 
@@ -108,11 +92,11 @@ public abstract class ImgModelAbstract implements ImgModel {
     Img targetImage = getImage(imageName);
     int height = targetImage.getHeight();
     int width = targetImage.getWidth();
-    Img destinationImage = makeImg(imageName, height, width);
+    Img destinationImage = makeImg(imageName, height, height);
     Pixel[][] destinationPixels = new Pixel[width][height];
     int value = 0;
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         switch (command) {
           case rc:
             value = targetImage.getPixel(i, j).getRed();
@@ -133,16 +117,15 @@ public abstract class ImgModelAbstract implements ImgModel {
             value = targetImage.getPixel(i, j).getIntensity();
             break;
         }
-        destinationPixels[i][j] = makePixel(value, value, value);
+        destinationImage.setPixel(i,j,makePixel(value, value, value));
       }
     }
-    destinationImage.setPixels(destinationPixels);
     images.add(destinationImage);
   }
 
   @Override
   public void brighten(int increment, String imageName, String destinationImageName) {
-    Img targetImage = makeImg("", 0,0);
+    Img targetImage;
     try {
       targetImage = getImage(imageName);
     }
@@ -150,11 +133,10 @@ public abstract class ImgModelAbstract implements ImgModel {
       System.out.println("Image not in list!");
       throw new IllegalArgumentException("");
     }
+    Img destinationImage = copyImage(targetImage, destinationImageName);
+    Pixel targetPixel;
     int height = targetImage.getHeight();
     int width = targetImage.getWidth();
-    Img destinationImage = makeImg(destinationImageName, height, width);
-    Pixel[][] destinationPixels = new Pixel[width][height];
-    Pixel targetPixel;
     /** Debugging
     System.out.println("Height: "
             + height
@@ -162,45 +144,70 @@ public abstract class ImgModelAbstract implements ImgModel {
             + width+ "\n");
     **/
 
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
+    for (int i = 0; i<height; i++){
+      for (int j = 0; j<width; j++) {
         /** Debugging
         System.out.println("i :" + i + ", j: " + j + "\n");
          **/
         targetPixel = targetImage.getPixel(i, j);
         int r = targetPixel.getRed();
-        int g = targetPixel.getBlue();
-        int b = targetPixel.getGreen();
-        destinationPixels[i][j] = makePixel(
+        int g = targetPixel.getGreen();
+        int b = targetPixel.getBlue();
+        destinationImage.setPixel(i,j,
+                makePixel(
                 Math.min(Math.max(r + increment, 0), 255),
                 Math.min(Math.max(g + increment, 0), 255),
-                Math.min(Math.max(b + increment, 0), 255));
+                Math.min(Math.max(b + increment, 0), 255)));
       }
     }
-    destinationImage.setPixels(destinationPixels);
     images.add(destinationImage);
   }
 
   @Override
   public void flip(Command command, String imageName,
                                String destinationImageName) {
-    Img targetImage = getImage(imageName);
-    int height = targetImage.getHeight();
-    int width = targetImage.getWidth();
-    Img destinationImage = makeImg(imageName, height, width);
-    Pixel[][] destinationPixels = new Pixel[width][height];
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
+    Img targetImage;
+    Img destinationImage;
+    int height;
+    int width;
+    try {
+      targetImage = getImage(imageName);
+      destinationImage = copyImage(targetImage, destinationImageName);
+      height = targetImage.getHeight();
+      width = targetImage.getWidth();
+    }
+    catch (Exception e) {
+      System.out.println("Image not in list!");
+      throw new IllegalArgumentException("");
+    }
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         switch (command) {
           case vflip:
-            destinationPixels[i][j] = targetImage.getPixel(i, j);
+            destinationImage.setPixel(width-i-1,
+                    height-j-1,
+                    targetImage.getPixel(i, j));
           case hflip:
-            destinationPixels[i][j] = targetImage.getPixel(i, j);
+            destinationImage.setPixel(width-i-1,
+                    height-j-1,
+                    targetImage.getPixel(i, j));
         }
       }
-      destinationImage.setPixels(destinationPixels);
-      images.add(destinationImage);
     }
+    images.add(destinationImage);
+  }
+
+  /**
+   * Copies all of image's attributes except name
+   * @param fromImage the image you wish to copy
+   * @param newImageName name of copy
+   * @return the copy of the image
+   */
+  protected Img copyImage(Img fromImage, String newImageName){
+    int height = fromImage.getHeight();
+    int width = fromImage.getWidth();
+    Img copy = makeImg(newImageName, height, width);
+    return copy;
   }
 
   /**

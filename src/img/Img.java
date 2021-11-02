@@ -22,7 +22,7 @@ public abstract class Img {
     this.name = name;
     this.height = height;
     this.width = width;
-    pixels = new Pixel[width][height];
+    pixels = new Pixel[height][width];
   }
 
 
@@ -34,16 +34,16 @@ public abstract class Img {
   /**
    * Sets pixels.
    */
-  public void setPixels(Pixel[][] pixels){
-    this.pixels = pixels;
+  public void setPixel(int height, int width, Pixel p) {
+    pixels[height][width] = p;
   }
 
   /**
    * Gets pixel at specific index
    * @returns Pixel at specific index
    */
-  public Pixel getPixel(int width, int height) {
-    return pixels[width][height];
+  public Pixel getPixel(int height, int width) {
+    return pixels[height][width];
   }
 
   /**
@@ -76,10 +76,10 @@ public abstract class Img {
    * @return horizontally flipped Pixel[][] array
    */
   public Pixel[][] horizontallyFlipped() {
-    Pixel[][] flippedPixels = new Pixel[width][height];
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
-        flippedPixels[width - i][height] = pixels[width][height];
+    Pixel[][] flippedPixels = new Pixel[height][width];
+    for (int i = 0; i<height; i++){
+      for (int j = 0; j<width; j++) {
+        flippedPixels[i][j] = pixels[height][width];
       }
     }
     return flippedPixels;
@@ -90,14 +90,15 @@ public abstract class Img {
    * @return vertically flipped Pixel[][] array
    */
   public Pixel[][] verticallyFlipped() {
-    Pixel[][] flippedPixels = new Pixel[width][height];
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
-        flippedPixels[width][height - j] = pixels[width][height];
+    Pixel[][] flippedPixels = new Pixel[height][width];
+    for (int i = 0; i<height; i++){
+      for (int j = 0; j<width; j++) {
+        flippedPixels[i][j] = pixels[height][width];
       }
     }
     return flippedPixels;
   }
+
 
   @Override
   public boolean equals(Object o){

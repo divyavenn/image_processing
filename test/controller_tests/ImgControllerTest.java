@@ -21,10 +21,13 @@ public class ImgControllerTest {
   public void runTest() throws IOException {
     ImgModel model = new PPMModel();
     Appendable out = new StringBuilder();
+
     Readable in = new StringReader("load image_processing/images/koala.ppm koala "
             + "save koala image_processing/images/another_koala.ppm "
             + "\n brighten 50 koala brighterkoala "
             + "save brighterkoala image_processing/images/brighter_koala.ppm "
+            + "vflip koala upsidedownkoala "
+            + "save upsidedownkoala image_processing/images/upside_down_koala.ppm "
             + "quit");
 
     try {

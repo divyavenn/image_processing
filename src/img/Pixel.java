@@ -13,7 +13,7 @@ public abstract class Pixel {
    * @param g the green component.
    * @param b the blue component.
    */
-  public Pixel(int r, int  b, int g){
+  public Pixel(int r, int  g, int b){
     this.r = r;
     this.b = b;
     this.g = g;

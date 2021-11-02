@@ -21,11 +21,10 @@ public class PPM extends Img {
     //try {
     pen = new FileWriter(fPath);
     pen.write("P3\n");
-    pen.write(this.height + " " + this.width + "\n");
+    pen.write(this.width + " " + this.height + "\n");
     pen.write("# Created by Divya Venkatraman " + "\n");
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
-        //System.out.println(getPixel(i, j).toString());
+    for (int i = 0; i<height; i++){
+      for (int j = 0; j<width; j++) {
         pen.write(getPixel(i, j).toString());
       }
     }
