@@ -118,7 +118,12 @@ public class ImgModelTest {
   }
 
   @Test
-  public void testFlip() {
+  public void testVerticalFlip() {
+
+  }
+
+  @Test
+  public void testHorizontalFlip() {
 
   }
 
@@ -163,15 +168,56 @@ public class ImgModelTest {
 
     model.brighten(brightenBy, "littlePic", "alsoBrightLittlePic");
     assertEquals(contentsMatch(brightLittlePic, model.getImage("alsoBrightLittlePic")), true);
+  }
 
+  @Test
+  public void testDarken() throws IOException {
+    Img darkLittlePic;
+    darkLittlePic = new PPM("darkLittlePic", 4, 2);
+    int brightenBy = -120;
+    darkLittlePic.setPixel(0, 0, new PPMPixel(
+            Math.max(110+brightenBy,0),
+            Math.max(115+brightenBy,0),
+            Math.max(119+brightenBy,0)));
+    darkLittlePic.setPixel(0, 1, new PPMPixel(
+            Math.max(120+brightenBy,0),
+            Math.max(125+brightenBy,0),
+            Math.max(129+brightenBy,0)));
+    darkLittlePic.setPixel(1, 0, new PPMPixel(
+            Math.max(130+brightenBy,0),
+            Math.max(135+brightenBy,0),
+            Math.max(139+brightenBy,0)));
+    darkLittlePic.setPixel(1, 1, new PPMPixel(
+            Math.max(140+brightenBy,0),
+            Math.max(145+brightenBy,0),
+            Math.max(149+brightenBy,0)));
 
+    darkLittlePic.setPixel(2, 0, new PPMPixel(
+            Math.max(150+brightenBy,0),
+            Math.max(155+brightenBy,0),
+            Math.max(159+brightenBy,0)));
+    darkLittlePic.setPixel(2, 1, new PPMPixel(
+            Math.max(160+brightenBy,0),
+            Math.max(165+brightenBy,0),
+            Math.max(169+brightenBy,0)));
+    darkLittlePic.setPixel(3, 0, new PPMPixel(
+            Math.max(170+brightenBy,0),
+            Math.max(175+brightenBy,0),
+            Math.max(179+brightenBy,0)));
+    darkLittlePic.setPixel(3, 1, new PPMPixel(
+            Math.max(180+brightenBy,0),
+            Math.max(185+brightenBy,0),
+            Math.max(189+brightenBy,0)));
 
+    model.brighten(brightenBy, "littlePic", "darkLittlePic");
+    assertEquals(contentsMatch(darkLittlePic, model.getImage("darkLittlePic")), true);
 
   }
 
 
 
 
-  
-  
+
+
+
 }
