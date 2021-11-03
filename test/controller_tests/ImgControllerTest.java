@@ -21,8 +21,8 @@ import static org.junit.Assert.assertEquals;
 
 public class ImgControllerTest {
 
-  Img bigPic;
-  public ImgControllerTest() throws IOException {
+  static Img bigPic;
+  static {
     bigPic = new PPM("big", 1080, 1080);
     int r, g, b;
     for (int h = 0; h < 1080; h++) {
@@ -47,7 +47,14 @@ public class ImgControllerTest {
         bigPic.setPixel(h, w, new PPMPixel(r, g, b));
       }
     }
-    bigPic.save("image_processing/res/bigPic.ppm");
+    try {
+      bigPic.save("image_processing/res/bigPic.ppm");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public ImgControllerTest() throws IOException {
   }
   private String fullPathKoala(String name) {
     return " image_processing/res/koala" + name + " ";
@@ -137,5 +144,21 @@ public class ImgControllerTest {
     controller.start();
   }
 
+  @Test
+  public void testIOExceptionSave() throws IOException {
+    ImgModel model = new ExceptionThrowingModel();
+    Appendable out = new StringBuilder();
+    Readable in = new StringReader("save img folder/file.ppm quit");
+    try {
+      out = new PrintStream(System.out, true, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+
+    }
+    ImgView view = new TextView(model, out);
+    ImgController controller = new PPMController(model, view, in);
+    controller.start();
+    assertEquals("Command unsuccessful. Try again. \n Program quit. Goodbye!",
+            out.toString());
+  }
 
 }

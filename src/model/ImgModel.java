@@ -20,9 +20,9 @@ public interface ImgModel {
   /**
    * Save image to image path file.
    * @param filePath the path of the target image file.
-   * @param destinationImageName the name of the image to load into.
+   * @param targetImageName the name of the image to save from
    */
-  public void save(String filePath, String destinationImageName) throws IOException;
+  public void save(String filePath, String targetImageName) throws IOException;
 
 
   /**
