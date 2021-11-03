@@ -2,6 +2,7 @@ package controller_tests;
 
 import java.io.IOException;
 
+import img.Img;
 import model.Command;
 import model.ImgModel;
 import model.ImgModelAbstract;
@@ -34,5 +35,10 @@ public class ExceptionThrowingModel implements ImgModel {
   @Override
   public void flip(Command command, String imageName, String destinationImageName) {
 
+  }
+
+  @Override
+  public Img getImage(String imageName) {
+    return null;
   }
 }

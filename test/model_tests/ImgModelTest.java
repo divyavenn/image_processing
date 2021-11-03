@@ -39,7 +39,7 @@ public class ImgModelTest {
     littlePic.save("image_processing/res/littlePic.ppm");
 
     model = new PPMModel();
-    model.load("image_processing/res/littlePic.ppm", "small");
+    model.load("image_processing/res/littlePic.ppm", "littlePic");
   }
 
   protected boolean contentsMatch(Img a, Img b){
@@ -78,7 +78,7 @@ public class ImgModelTest {
   @Test
   public void testSave() throws IOException {
     String fPath = "image_processing/res/littlePic2.ppm";
-    model.save(fPath,  "small");
+    model.save(fPath,  "littlePic");
     try {
       Readable in = new FileReader(fPath);
       Scanner scan = new Scanner(in);
@@ -102,16 +102,14 @@ public class ImgModelTest {
       System.out.println("Unable to find file.");
       throw new IllegalArgumentException("");
     }
-
-
   }
 
   @Test
   public void testLoad(){
     String fPath = "image_processing/res/littlePic.ppm";
     model.load(fPath, "loadedImage");
-
-
+    Img loadedImage = model.getImage("loadedImage");
+    contentsMatch(littlePic, loadedImage);
   }
 
   @Test
@@ -125,7 +123,49 @@ public class ImgModelTest {
   }
 
   @Test
-  public void testBrighten(){
+  public void testBrighten() throws IOException {
+    Img brightLittlePic;
+    brightLittlePic = new PPM("brightLittlePic", 4, 2);
+    int brightenBy = 50;
+    brightLittlePic.setPixel(0, 0, new PPMPixel(
+            Math.min(110+brightenBy,255),
+            Math.min(115+brightenBy,255),
+            Math.min(119+brightenBy,255)));
+    brightLittlePic.setPixel(0, 1, new PPMPixel(
+            Math.min(120+brightenBy,255),
+            Math.min(125+brightenBy,255),
+            Math.min(129+brightenBy,255)));
+    brightLittlePic.setPixel(1, 0, new PPMPixel(
+            Math.min(130+brightenBy,255),
+            Math.min(135+brightenBy,255),
+            Math.min(139+brightenBy,255)));
+    brightLittlePic.setPixel(1, 1, new PPMPixel(
+            Math.min(140+brightenBy,255),
+            Math.min(145+brightenBy,255),
+            Math.min(149+brightenBy,255)));
+
+    brightLittlePic.setPixel(2, 0, new PPMPixel(
+            Math.min(150+brightenBy,255),
+            Math.min(155+brightenBy,255),
+            Math.min(159+brightenBy,255)));
+    brightLittlePic.setPixel(2, 1, new PPMPixel(
+            Math.min(160+brightenBy,255),
+            Math.min(165+brightenBy,255),
+            Math.min(169+brightenBy,255)));
+    brightLittlePic.setPixel(3, 0, new PPMPixel(
+            Math.min(170+brightenBy,255),
+            Math.min(175+brightenBy,255),
+            Math.min(179+brightenBy,255)));
+    brightLittlePic.setPixel(3, 1, new PPMPixel(
+            Math.min(180+brightenBy,255),
+            Math.min(185+brightenBy,255),
+            Math.min(189+brightenBy,255)));
+
+    model.brighten(brightenBy, "littlePic", "alsoBrightLittlePic");
+    assertEquals(contentsMatch(brightLittlePic, model.getImage("alsoBrightLittlePic")), true);
+
+
+
 
   }
 

@@ -22,19 +22,8 @@ public abstract class ImgModelAbstract implements ImgModel {
     return list;
   }
 
-  /**
-   * Returns the image with matching name from the list of images if it exists, otherwise throws
-   * IllegalArgumentException
-   *
-   * @throws IllegalArgumentException if image is not in list
-   */
-  protected Img getImage(String imageName) {
-    /** Debugging
-    System.out.println("Num of images in list:" + images.size() + "\n");
-    System.out.println("Want to get image " + imageName + "\n");
-    System.out.println(printImages());
-    **/
-
+  @Override
+  public Img getImage(String imageName) {
     if (images.contains(makeImg(imageName,0,0))) {
       return images.get(images.indexOf(makeImg(imageName,0,0)));
     }

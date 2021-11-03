@@ -2,6 +2,7 @@ package controller_tests;
 
 import java.io.IOException;
 
+import img.Img;
 import model.Command;
 import model.ImgModel;
 
@@ -36,5 +37,10 @@ public class TestInputModel implements ImgModel{
   @Override
   public void flip(Command command, String imageName, String destinationImageName) {
     recentlyCalled = (command.toString() + "," + imageName + "," + destinationImageName);
+  }
+
+  @Override
+  public Img getImage(String imageName) {
+    return null;
   }
 }

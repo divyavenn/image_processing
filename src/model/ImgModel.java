@@ -49,5 +49,13 @@ public interface ImgModel {
    */
   public void flip(Command command, String imageName, String destinationImageName);
 
+  /**
+   * Returns the image with matching name from the list of images if it exists, otherwise throws
+   * IllegalArgumentException
+   *
+   * @throws IllegalArgumentException if image is not in list
+   */
+  public Img getImage(String imageName);
+
 
 }
