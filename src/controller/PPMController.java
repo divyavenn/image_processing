@@ -30,7 +30,7 @@ public class PPMController extends ImgControllerAbstract {
    * Takes next input in scanner and checks if it is a valid command.
    *
    * @return the command if it is valid
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException if command not valid
    */
   protected String isValidCommand(Scanner scan) {
     if (scan.hasNext()) {
@@ -42,7 +42,7 @@ public class PPMController extends ImgControllerAbstract {
       }
       throw new IllegalArgumentException("'" + inp + "' is not a valid command!");
     }
-    throw new NullPointerException("Nothing was inputted.");
+    throw new IllegalArgumentException("Nothing was inputted.");
   }
 
 
@@ -66,7 +66,7 @@ public class PPMController extends ImgControllerAbstract {
   protected boolean allNeededParamsInputted(String commandName, Map<Parameter, String> hasParam) {
     boolean b = true;
     for (Parameter p : Parameter.values()) {
-      b = b && xnor(Command.needsParam(commandName, p), !(hasParam.get(p) == null));
+      b = b && xnor(Command.needsParam(commandName, p), (hasParam.get(p) != null));
     }
     return b;
   }
@@ -108,7 +108,7 @@ public class PPMController extends ImgControllerAbstract {
       //the requirement for the targetImage parameter is met either if the command in question
       //does not need that parameter or if it has already been found
       boolean targetImageParamRequirementMet = !Command.needsParam(commandName,
-              Parameter.targetImage) || !(paramValues.get(Parameter.targetImage) == null);
+              Parameter.targetImage) || (paramValues.get(Parameter.targetImage) != null);
       for (Parameter p : Parameter.values()) {
         //Fill the scanned value into the parameter if the parameter is needed and the input is
         // valid

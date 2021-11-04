@@ -42,9 +42,6 @@ public class PPM extends Img {
     out.newLine();
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        /** Debugging
-         System.out.println(getPixel(i, j).toString());
-         **/
         String pixStr = getPixel(i, j).toString();
         out.write(pixStr, 0, pixStr.length());
       }

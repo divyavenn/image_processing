@@ -16,6 +16,7 @@ public enum ImageType {
 
   /**
    * Make model specific to ImageType.
+   *
    * @param type the type.
    * @return the model.
    */
@@ -38,11 +39,11 @@ public enum ImageType {
    */
   public static ImgController makeController(ImageType type, ImgModel model, ImgView view,
                                              Readable in) {
-    switch (type) {
-      case ppm:
-        return new PPMController(model, view, in);
+    if (type.equals(ImageType.ppm)) {
+      return new PPMController(model, view, in);
+    } else {
+      throw new IllegalArgumentException("Not a valid image type");
     }
-    throw new IllegalArgumentException("Not a valid image type");
   }
 
   /**
@@ -55,11 +56,10 @@ public enum ImageType {
    */
   public static ImgController makeController(ImageType type, ImgView view, Readable in) {
     ImgModel model = makeModel(type);
-    switch (type) {
-      case ppm:
-        return new PPMController(model, view, in);
-      default:
-        throw new IllegalArgumentException("Not a valid image type");
+    if (type.equals(ImageType.ppm)) {
+      return new PPMController(model, view, in);
+    } else {
+      throw new IllegalArgumentException("Not a valid image type");
     }
   }
 
@@ -73,11 +73,11 @@ public enum ImageType {
    * @returns an Img Object
    */
   public static Img makeImg(ImageType type, String name, int height, int width) {
-    switch (type) {
-      case ppm:
-        return new PPM(name, height, width);
-      default:
-        throw new IllegalArgumentException("Not a valid image type");
+    if (type.equals(ImageType.ppm)) {
+      return new PPM(name, height, width);
+    } else {
+
+      throw new IllegalArgumentException("Not a valid image type");
     }
   }
 
@@ -90,11 +90,10 @@ public enum ImageType {
    * @returns a Pixel Object
    */
   public static Pixel makePixel(ImageType type, int r, int g, int b) {
-    switch (type) {
-      case ppm:
-        return new PPMPixel(r, g, b);
-      default:
-        throw new IllegalArgumentException("Not a valid image type");
+    if (type.equals(ImageType.ppm)) {
+      return new PPMPixel(r, g, b);
+    } else {
+      throw new IllegalArgumentException("Not a valid image type");
     }
   }
 

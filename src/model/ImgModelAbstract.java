@@ -65,8 +65,8 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param b the blue component.
    * @returns a Pixel Object
    */
-  protected Pixel makePixel(int r, int b, int g){
-    return ImageType.makePixel(type,r,g,b);
+  protected Pixel makePixel(int r, int b, int g) {
+    return ImageType.makePixel(type, r, g, b);
   }
 
   @Override
@@ -186,8 +186,7 @@ public abstract class ImgModelAbstract implements ImgModel {
         int b = targetPixel.getBlue();
         if (command.equals(Command.vflip)) {
           destinationImage.setPixel(height - i - 1, j, makePixel(r, g, b));
-        }
-        else if (command.equals(Command.hflip)) {
+        } else if (command.equals(Command.hflip)) {
           destinationImage.setPixel(i, width - j - 1, makePixel(r, g, b));
         }
       }

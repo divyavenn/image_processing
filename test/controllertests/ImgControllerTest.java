@@ -108,7 +108,7 @@ public abstract class ImgControllerTest {
     ImgView view = new TextView(model, out);
     ImgController controller = ImageType.makeController(type, model, view, in);
     controller.start();
-    assertEquals(true, true);
+    assertEquals(controller != null, true);
   }
 
   @Test
@@ -145,7 +145,7 @@ public abstract class ImgControllerTest {
     ImgView view = new TextView(model, out);
     ImgController controller = ImageType.makeController(type, model, view, in);
     controller.start();
-    assertEquals(true, true);
+    assertEquals(controller != null, true);
   }
 
   @Test
@@ -161,6 +161,7 @@ public abstract class ImgControllerTest {
     ImgView view = new TextView(model, out);
     ImgController controller = ImageType.makeController(type, model, view, in);
     controller.start();
+    assertEquals(controller != null, true);
   }
 
   @Test
@@ -181,7 +182,7 @@ public abstract class ImgControllerTest {
     in = new StringReader("save ");
     controller = ImageType.makeController(type, annoyingModel, view, in);
     controller.start();
-    assertEquals(true, true);
+    assertEquals(controller != null, true);
   }
 
   /**
@@ -234,7 +235,8 @@ public abstract class ImgControllerTest {
 
 
   /**
-   * Ensures that multiple ways of entering commands all result in correct command and inputs
+   * Ensures that multiple ways of entering commands all result
+   * in correct command and inputs.
    *
    * @param entries        multiple ways of entering same command and inputs
    * @param correctCommand the correct Command
@@ -243,7 +245,8 @@ public abstract class ImgControllerTest {
    * @throws IOException if readable or appendable cannot be created
    */
   public boolean multipleSyntaxesWork(Command correctCommand,
-                                      String[] correctInputs, String... entries) throws IOException {
+                                      String[] correctInputs,
+                                      String... entries) throws IOException {
     boolean allSyntaxesWork = true;
     for (String entry : entries) {
       allSyntaxesWork = allSyntaxesWork

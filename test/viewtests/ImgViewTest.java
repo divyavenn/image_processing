@@ -43,6 +43,6 @@ public class ImgViewTest {
     ImgModel model = new PPMModel();
     view = new TextView(model, out);
     view.renderMessage("Valid message");
-    assertEquals(true, true);
+    assertEquals(model != null, true);
   }
 }
