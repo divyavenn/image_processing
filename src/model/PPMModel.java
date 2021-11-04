@@ -9,6 +9,7 @@ import img.Img;
 import img.PPM;
 import img.PPMPixel;
 import img.Pixel;
+import util.Tools;
 
 /**
  * Has the backend operations processing PPM Images.
@@ -37,18 +38,18 @@ public class PPMModel extends ImgModelAbstract {
     try {
       Readable in = new FileReader(filepath);
       Scanner scan = new Scanner(in);
-      int width = getNextNumericInput(scan);
-      int height = getNextNumericInput(scan);
-      getNextNumericInput(scan);
+      int width = Tools.getNextNumericInput(scan);
+      int height = Tools.getNextNumericInput(scan);
+      Tools.getNextNumericInput(scan);
       Img image = new PPM(name, height, width);
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           image.setPixel(
                   i,
                   j,
-                  makePixel(getNextNumericInput(scan),
-                          getNextNumericInput(scan),
-                          getNextNumericInput(scan)));
+                  makePixel(Tools.getNextNumericInput(scan),
+                          Tools.getNextNumericInput(scan),
+                          Tools.getNextNumericInput(scan)));
         }
       }
       return image;
@@ -57,40 +58,6 @@ public class PPMModel extends ImgModelAbstract {
       throw new IllegalArgumentException("");
     }
   }
-
-
-  /**
-   * Checks to see if String is purely numeric.
-   *
-   * @param inp given String
-   * @return true if numeric.
-   */
-  private boolean isNumeric(String inp) {
-    try {
-      Integer.parseInt(inp);
-      return true;
-    } catch (NumberFormatException e) {
-      // s is not numeric
-      return false;
-    }
-  }
-
-  /**
-   * Gets next purely numeric input from file.
-   *
-   * @param scan scanner to read file.
-   * @return the input.
-   */
-  private int getNextNumericInput(Scanner scan) {
-    String next = scan.next();
-    if (isNumeric(next)){
-      return Integer.parseInt(next);
-    }
-    else {
-      return getNextNumericInput(scan);
-    }
-  }
-
 
   @Override
   protected boolean isCorrectFileType(String filePath) {

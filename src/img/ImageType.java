@@ -21,11 +21,11 @@ public enum ImageType {
    * @return the model.
    */
   public static ImgModel makeModel(ImageType type) {
-    switch (type) {
-      case ppm:
-        return new PPMModel();
+    if (type.equals(ImageType.ppm)) {
+      return new PPMModel();
+    } else {
+      throw new IllegalArgumentException("Not a valid image type");
     }
-    throw new IllegalArgumentException("Not a valid image type");
   }
 
 

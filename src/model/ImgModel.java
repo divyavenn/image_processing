@@ -56,7 +56,7 @@ public interface ImgModel {
   /**
    * Returns the image with matching name from the list of
    * images if it exists, otherwise throws
-   * IllegalArgumentException.
+   * IllegalArgumentException.)
    *
    * @throws IllegalArgumentException if image is not in list
    */

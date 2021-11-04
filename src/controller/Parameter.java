@@ -1,5 +1,7 @@
 package controller;
 
+import util.Tools;
+
 /**
  * Represents all the possible parameter types, as well as methods to process parameters.
  */
@@ -9,36 +11,6 @@ public enum Parameter {
   targetImage,
   destinationImage;
 
-  /**
-   * Checks if given String is purely alphabetic.
-   *
-   * @param inp String representing a parameter
-   * @return if is alphabetic
-   */
-  private boolean isAlphabetic(String inp) {
-    for (int i = 0; i != inp.length(); ++i) {
-      if (!Character.isLetter(inp.charAt(i))) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   * Checks if given String is purely numeric.
-   *
-   * @param inp String representing a parameter
-   * @return if is numeric
-   */
-  private boolean isNumeric(String inp) {
-    try {
-      Integer.parseInt(inp);
-      return true;
-    } catch (NumberFormatException e) {
-      // s is not numeric
-      return false;
-    }
-  }
 
 
   /**
@@ -50,7 +22,7 @@ public enum Parameter {
   public boolean isValidParameter(String inp) {
     switch (this) {
       case increment:
-        return isNumeric(inp);
+        return Tools.isNumeric(inp);
       case PPMpath:
         if (inp.length() > 4) {
           return inp.substring(inp.length() - 4, inp.length()).equals(".ppm");
@@ -59,7 +31,7 @@ public enum Parameter {
         }
       case targetImage:
       case destinationImage:
-        return isAlphabetic(inp);
+        return Tools.isAlphabetic(inp);
       default:
         throw new IllegalArgumentException("Invalid parameter valued");
     }

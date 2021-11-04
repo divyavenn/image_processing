@@ -32,17 +32,17 @@ public abstract class ImgControllerTest {
     int r;
     int g;
     int b;
-    for (int h = 0; h < 108; h++) {
-      for (int w = 0; w < 108; w++) {
-        if (h < 18 && w < 18) {
+    for (int h = 0; h < 1080; h++) {
+      for (int w = 0; w < 1080; w++) {
+        if (h < 180 && w < 180) {
           r = 255;
           g = 50;
           b = 0;
-        } else if (h > 100 && w > 100) {
+        } else if (h > 1000 && w > 1000) {
           r = 50;
           g = 255;
           b = 25;
-        } else if (h > 80 && w < 20) {
+        } else if (h > 800 && w < 200) {
           r = 0;
           g = 30;
           b = 255;

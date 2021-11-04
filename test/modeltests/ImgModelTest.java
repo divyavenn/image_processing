@@ -14,6 +14,7 @@ import img.Img;
 import img.Pixel;
 import model.Command;
 import model.ImgModel;
+import util.Tools;
 
 /**
  * Tests the methods of ImageModel.
@@ -40,7 +41,7 @@ public abstract class ImgModelTest {
     littlePic.setPixel(2, 1, ImageType.makePixel(type, 160, 165, 169));
     littlePic.setPixel(3, 0, ImageType.makePixel(type, 170, 175, 179));
     littlePic.setPixel(3, 1, ImageType.makePixel(type, 180, 185, 189));
-    littlePic.save("image_processing/res/littlePic.ppm");
+    littlePic.save("image_processing/res/littlePic/littlePic.ppm");
 
     model = ImageType.makeModel(type);
     model.load("image_processing/res/littlePic.ppm", "littlePic");
@@ -120,56 +121,25 @@ public abstract class ImgModelTest {
   }
 
 
-  /**
-   * Tests if input is numeric.
-   * @param inp the String
-   * @return true if numeric
-   */
-  private boolean isNumeric(String inp) {
-    try {
-      Integer.parseInt(inp);
-      return true;
-    } catch (NumberFormatException e) {
-      // s is not numeric
-      return false;
-    }
-  }
-
-  /**
-   * Gets next numeric input from Scanner.
-   * @param scan the scanner.
-   * @return the next numeric input.
-   */
-  private int getNextNumericInput(Scanner scan) {
-    String next = scan.next();
-    if (isNumeric(next)) {
-      return Integer.parseInt(next);
-    }
-    else {
-      return getNextNumericInput(scan);
-    }
-  }
-
-
   @Test
   public void testSave() throws IOException {
-    String fPath = "image_processing/res/littlePic2.ppm";
+    String fPath = "image_processing/res/littlePic/littlePic2.ppm";
     model.save(fPath, "littlePic");
     try {
       Readable in = new FileReader(fPath);
       Scanner scan = new Scanner(in);
-      int width = getNextNumericInput(scan);
-      int height = getNextNumericInput(scan);
-      getNextNumericInput(scan);
+      int width = Tools.getNextNumericInput(scan);
+      int height = Tools.getNextNumericInput(scan);
+      Tools.getNextNumericInput(scan);
       Img image = ImageType.makeImg(type, "", height, width);
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           image.setPixel(
                   i,
                   j,
-                  ImageType.makePixel(type, getNextNumericInput(scan),
-                          getNextNumericInput(scan),
-                          getNextNumericInput(scan)));
+                  ImageType.makePixel(type, Tools.getNextNumericInput(scan),
+                          Tools.getNextNumericInput(scan),
+                          Tools.getNextNumericInput(scan)));
         }
       }
       assertEquals(contentsMatch(littlePic, image), true);
@@ -187,7 +157,7 @@ public abstract class ImgModelTest {
 
   @Test
   public void testLoad() {
-    String fPath = "image_processing/res/littlePic.ppm";
+    String fPath = "image_processing/res/littlePic/littlePic.ppm";
     model.load(fPath, "loadedImage");
     Img loadedImage = model.getImage("loadedImage");
     assertEquals(contentsMatch(littlePic, loadedImage), true);
