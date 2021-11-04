@@ -24,3 +24,35 @@
 - *ImgView* interface establishes the necessary functionalities of all implementing classes.
 - *ImgViewAbstract* abstract class establishes the necessary class variables and constructor.
 - *TextView* class has methods necessary to write to the console
+
+LIST OF COMMANDS THAT WORKS:
+Run start() method in controller and type, line by line, into console. Alternatively enter as one long string into Readable.
+
+            - load image_processing/res/bigPic/bigPic.ppm square 
+            - save square image_processing/res/bigPic/another_square.ppm
+            - brighten 50 square brightSquare
+            - save brightSquare image_processing/res/bigPic/bright_square.ppm
+            - brighten -50 square darkSquare 
+            - save darkSquare image_processing/res/bigPic/dark_square.ppm
+            - vflip square upsidedownSquare 
+            - save upsidedownSquare  image_processing/res/bigPic/upside_down_square.ppm
+            - hflip square mirrorSquare 
+            - save mirrorSquare image_processing/res/bigPic/mirror_square.ppm
+            - just-green square greenSquare 
+            - save greenSquare  image_processing/res/bigPic/green_square.ppm
+            - just-blue square blueSquare 
+            - save blueSquare image_processing/res/bigPic/blue_square.ppm
+            - just-red square redSquare 
+            - save redSquare image_processing/res/bigPic/red_square.ppm
+            - just-value square valueSquare 
+            - save valueSquare image_processing/res/bigPic/value_square.ppm
+            - just-luma square lumaSquare 
+            - save lumaSquare image_processing/res/bigPic/luma_square.ppm
+            - just-intensity square intenseSquare 
+            - save intenseSquare image_processing/res/bigPic/intense_square.ppm
+            - hflip brightSquare flippedBrightSquare 
+            - save flippedBrightSquare image_processing/res/bigPic/flipped_bright_square.ppm
+            - quit
+
+
+
