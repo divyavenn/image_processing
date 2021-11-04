@@ -48,6 +48,7 @@ public class PPMController extends ImgControllerAbstract {
 
   /**
    * A simple xnor gate - checks if both inputs are same.
+   *
    * @param a one input
    * @param b other input
    * @return true if both are same.q
@@ -58,8 +59,9 @@ public class PPMController extends ImgControllerAbstract {
 
   /**
    * Checks if all needed parameters have been inputted.
+   *
    * @param commandName the name of the command
-   * @param hasParam the parameters it was given
+   * @param hasParam    the parameters it was given
    */
   protected boolean allNeededParamsInputted(String commandName, Map<Parameter, String> hasParam) {
     boolean b = true;
@@ -100,8 +102,7 @@ public class PPMController extends ImgControllerAbstract {
       String nextInput = "";
       if (scan.hasNext()) {
         nextInput = scan.next();
-      }
-      else {
+      } else {
         break;
       }
       //the requirement for the targetImage parameter is met either if the command in question

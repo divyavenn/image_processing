@@ -7,7 +7,7 @@ import view.ImgView;
 /**
  * Controlls the program that processes images.
  */
-public abstract class ImgControllerAbstract implements ImgController{
+public abstract class ImgControllerAbstract implements ImgController {
   ImgModel model;
   ImgView view;
   Readable in;

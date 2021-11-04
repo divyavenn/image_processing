@@ -27,20 +27,20 @@ public class PPM extends Img {
     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
             new FileOutputStream(fPath),
             Charset.forName("UTF-8").newEncoder()));
-    out.write("P3",0,2);
+    out.write("P3", 0, 2);
     out.newLine();
     String widthHeight = this.width + " " + this.height;
-    out.write(widthHeight,0,widthHeight.length());
+    out.write(widthHeight, 0, widthHeight.length());
     out.newLine();
-    out.write("255",0,3);
+    out.write("255", 0, 3);
     out.newLine();
-    for (int i = 0; i<height; i++){
-      for (int j = 0; j<width; j++) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         /** Debugging
-        System.out.println(getPixel(i, j).toString());
+         System.out.println(getPixel(i, j).toString());
          **/
         String pixStr = getPixel(i, j).toString();
-        out.write(pixStr,0,pixStr.length());
+        out.write(pixStr, 0, pixStr.length());
       }
     }
     out.close();

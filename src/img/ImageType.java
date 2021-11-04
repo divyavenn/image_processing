@@ -13,8 +13,8 @@ import view.ImgView;
 public enum ImageType {
   ppm;
 
-  public static ImgModel makeModel(ImageType type){
-    switch(type){
+  public static ImgModel makeModel(ImageType type) {
+    switch (type) {
       case ppm:
         return new PPMModel();
     }
@@ -24,14 +24,15 @@ public enum ImageType {
 
   /**
    * Returns a controller specific to the ImageType.
+   *
    * @param type the type
    * @param view the view for the controller
-   * @param in the Readable for the controller
+   * @param in   the Readable for the controller
    * @return an ImgController
    */
   public static ImgController makeController(ImageType type, ImgModel model, ImgView view,
-                                             Readable in){
-    switch(type){
+                                             Readable in) {
+    switch (type) {
       case ppm:
         return new PPMController(model, view, in);
     }
@@ -40,14 +41,15 @@ public enum ImageType {
 
   /**
    * Returns a controller specific to the ImageType, automatically making an appopriate model.
+   *
    * @param type the type
    * @param view the view for the controller
-   * @param in the Readable for the controller
+   * @param in   the Readable for the controller
    * @return an ImgController
    */
-  public static ImgController makeController(ImageType type, ImgView view, Readable in){
+  public static ImgController makeController(ImageType type, ImgView view, Readable in) {
     ImgModel model = makeModel(type);
-    switch(type){
+    switch (type) {
       case ppm:
         return new PPMController(model, view, in);
     }
@@ -56,14 +58,15 @@ public enum ImageType {
 
   /**
    * Returns an Img Object corresponding to the implementing class.
-   * @returns an Img Object
-   * @param type the type of Image
-   * @param name the name of the image
+   *
+   * @param type   the type of Image
+   * @param name   the name of the image
    * @param height the height of the image
-   * @param width the width of the image
+   * @param width  the width of the image
+   * @returns an Img Object
    */
-  public static Img makeImg(ImageType type, String name, int height, int width){
-    switch(type){
+  public static Img makeImg(ImageType type, String name, int height, int width) {
+    switch (type) {
       case ppm:
         return new PPM(name, height, width);
     }
@@ -72,19 +75,19 @@ public enum ImageType {
 
   /**
    * Returns a Pixel Object corresponding to the implementing class.
-   * @returns a Pixel Object
+   *
    * @param r the red component.
    * @param g the green component.
    * @param b the blue component.
+   * @returns a Pixel Object
    */
-  public static Pixel makePixel(ImageType type, int r, int g, int b){
-    switch(type){
+  public static Pixel makePixel(ImageType type, int r, int g, int b) {
+    switch (type) {
       case ppm:
-        return new PPMPixel(r,g,b);
+        return new PPMPixel(r, g, b);
     }
     throw new IllegalArgumentException("Not a valid image type");
   }
-
 
 
 }

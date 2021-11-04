@@ -131,6 +131,7 @@ public enum Command {
 
   /**
    * Runs the appopriate method from a model.
+   *
    * @param paramValues the values given to the method to run
    */
   public void run(ImgModel model, Map<Parameter, String> paramValues) throws IOException {
@@ -164,13 +165,14 @@ public enum Command {
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
         break;
-       case quit:
+      case quit:
         break;
     }
   }
 
   /**
    * Acknowledges the appropriate command has been run with the correct parameters.
+   *
    * @param paramValues the values given to the method to run
    * @returns a String with the acknowledgement.
    */

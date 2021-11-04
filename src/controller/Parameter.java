@@ -11,6 +11,7 @@ public enum Parameter {
 
   /**
    * Checks if given String is purely alphabetic.
+   *
    * @param inp String representing a parameter
    * @return if is alphabetic
    */
@@ -25,6 +26,7 @@ public enum Parameter {
 
   /**
    * Checks if given String is purely numeric.
+   *
    * @param inp String representing a parameter
    * @return if is numeric
    */
@@ -41,6 +43,7 @@ public enum Parameter {
 
   /**
    * Checks if given String is a valid parameter, based on type of the Parameter calling the method.
+   *
    * @param inp String representing a parameter
    * @return if is valid
    */
@@ -51,8 +54,7 @@ public enum Parameter {
       case PPMpath:
         if (inp.length() > 4) {
           return inp.substring(inp.length() - 4, inp.length()).equals(".ppm");
-        }
-        else {
+        } else {
           return false;
         }
       case targetImage:

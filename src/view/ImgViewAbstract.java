@@ -5,7 +5,7 @@ import model.ImgModel;
 /**
  * Provides tools to show output to user.
  */
-public abstract class ImgViewAbstract implements ImgView{
+public abstract class ImgViewAbstract implements ImgView {
   protected ImgModel model;
   protected Appendable out;
 

@@ -7,7 +7,6 @@ package controller;
 public interface ImgController {
 
 
-
   /**
    * Starts the image processing program. Catches all exceptions, allows for inputs with
    * different orders, only requires that when two image paths are specified, the destination image

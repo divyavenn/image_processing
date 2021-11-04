@@ -7,7 +7,7 @@ import model.ImgModel;
 /**
  * Provides tools to show output to user through command line.
  */
-public class TextView extends ImgViewAbstract{
+public class TextView extends ImgViewAbstract {
 
   /**
    * Creates a TextView object.
@@ -20,14 +20,13 @@ public class TextView extends ImgViewAbstract{
   }
 
   @Override
-  public void renderMessage(String message){
-    if (message == null){
+  public void renderMessage(String message) {
+    if (message == null) {
       throw new NullPointerException("Null String");
     }
     try {
       this.out.append(message);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       System.out.println("Cannot use Appendable.");
     }
   }

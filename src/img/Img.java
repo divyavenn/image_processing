@@ -40,6 +40,7 @@ public abstract class Img {
 
   /**
    * Gets pixel at specific index.
+   *
    * @returns Pixel at specific index
    */
   public Pixel getPixel(int height, int width) {
@@ -56,23 +57,26 @@ public abstract class Img {
 
   /**
    * Gets height of image.
+   *
    * @return height of image
    */
-  public int getHeight(){
+  public int getHeight() {
     return this.height;
   }
 
   /**
    * Gets width of image.
+   *
    * @return width of image
    */
-  public int getWidth(){
+  public int getWidth() {
     return this.width;
   }
 
 
   @Override
-  public boolean equals(Object o){ return (this.toString().equals(o.toString()));
+  public boolean equals(Object o) {
+    return (this.toString().equals(o.toString()));
   }
 
   @Override
