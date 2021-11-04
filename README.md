@@ -27,6 +27,9 @@
 - *ImgViewAbstract* abstract class establishes the necessary class variables and constructor.
 - *TextView* class has methods necessary to write to the console
 
+**util** package
+- *Tools* interface contains static methods that are used repeateadly across different classes. Putting them all in one place reduces code duplication.
+
 LIST OF COMMANDS THAT WORKS:
 Run start() method in controller and type, line by line, into console. Alternatively enter as one long string into Readable.
 
