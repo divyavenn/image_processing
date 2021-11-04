@@ -10,6 +10,9 @@ import model.Command;
 import model.ImgModel;
 import view.ImgView;
 
+/**
+ * Controlls a program that can processs PPM Files
+ */
 public class PPMController extends ImgControllerAbstract {
 
   /**
@@ -31,13 +34,16 @@ public class PPMController extends ImgControllerAbstract {
    * @throws IllegalArgumentException
    */
   protected String isValidCommand(Scanner scan) {
-    String inp = scan.next();
-    for (Command c : Command.values()) {
-      if (inp.equals(c.toString())) {
-        return inp;
+    if (scan.hasNext()) {
+      String inp = scan.next();
+      for (Command c : Command.values()) {
+        if (inp.equals(c.toString())) {
+          return inp;
+        }
       }
+      throw new IllegalArgumentException("'" + inp + "' is not a valid command!");
     }
-    throw new IllegalArgumentException("'" + inp + "' is not a valid command!");
+    throw new NullPointerException("Nothing was inputted.");
   }
 
 
@@ -53,15 +59,13 @@ public class PPMController extends ImgControllerAbstract {
     for (Parameter p : Parameter.values()) {
       b = b && xnor(Command.needsParam(commandName, p), !(hasParam.get(p) == null));
       /**Debugging
-      System.out.println(commandName
-              + " needs "
-              + p.toString()
-              + " - "
-              + Command.needsParam(commandName, p)
-              + "\n \t \t and was given "
-              + hasParam.get(p));
-       **/
-
+       System.out.println(commandName
+       + " needs "
+       + p.toString()
+       + " - "
+       + Command.needsParam(commandName, p)
+       + "\n \t \t and was given "
+       + hasParam.get(p)); **/
     }
     return b;
   }
@@ -76,9 +80,12 @@ public class PPMController extends ImgControllerAbstract {
     try {
       commandName = isValidCommand(scan);
     } catch (IllegalArgumentException e) {
-      System.out.println("Invalid command name! Try again.");
+      view.renderMessage("Invalid command name! Try again.");
       recurse(scan);
     } catch (NoSuchElementException e) {
+      return;
+    } catch (NullPointerException e) {
+      view.renderMessage("Nothing was inputted");
       return;
     }
 
@@ -90,7 +97,9 @@ public class PPMController extends ImgControllerAbstract {
 
     //Get all needed inputs
     while (!(allNeededParamsInputted(commandName, paramValues))) {
+      //if (scan.hasNext()) {
       String nextInput = scan.next();
+      //}
       //the requirement for the targetImage parameter is met either if the command in question
       //does not need that parameter or if it has already been found
       boolean targetImageParamRequirementMet = !Command.needsParam(commandName,
@@ -110,30 +119,21 @@ public class PPMController extends ImgControllerAbstract {
         // is not filled unless targetImage is either already filled or not required
         if (p.equals(Parameter.destinationImage)) {
           if (!(targetImageParamRequirementMet)) {
-            /** Debugging
-             System.out.println("destinationImage set to null after the fact\n");
-             **/
             paramValues.put(Parameter.destinationImage, null);
           }
         }
       }
     }
-    /**Debugging
-     for (Parameter p : Parameter.values()) {
-     System.out.println(p.toString() + ": " + paramValues.get(p) + "\n");
-     }
-     **/
 
     Command c = Command.getCommand(commandName);
     try {
       c.run(model, paramValues);
       view.renderMessage(c.acknowledge(paramValues) + "\n");
-    }
-    catch (Exception e) {
+      if (!(c.equals(Command.quit))) {
+        recurse(scan);
+      }
+    } catch (Exception e) {
       view.renderMessage("Command unsuccessful. Try again. \n");
-      recurse(scan);
-    }
-    if (!(c.equals(Command.quit))) {
       recurse(scan);
     }
 

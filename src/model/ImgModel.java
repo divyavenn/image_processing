@@ -15,7 +15,7 @@ public interface ImgModel {
    * @param filePath the path of the target image file.
    * @param destinationImageName the name of the image to load into.
    */
-  public void load(String filePath, String destinationImageName);
+  public void load(String filePath, String destinationImageName) throws IllegalArgumentException;
 
   /**
    * Save image to image path file.

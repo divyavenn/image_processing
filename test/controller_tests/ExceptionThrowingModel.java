@@ -13,8 +13,8 @@ public class ExceptionThrowingModel implements ImgModel {
   public ExceptionThrowingModel(){
   }
   @Override
-  public void load(String filePath, String destinationImageName) {
-
+  public void load(String filePath, String destinationImageName) throws IllegalArgumentException {
+    throw new IllegalArgumentException();
   }
 
   @Override

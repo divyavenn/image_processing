@@ -9,7 +9,7 @@ import java.util.Map;
 import controller.Parameter;
 
 /**
- * A list of commands the program can run.SS
+ * A list of commands the program can run.
  */
 public enum Command {
   load("load"),
@@ -132,6 +132,7 @@ public enum Command {
 
   /**
    * Runs the appopriate method from a model
+   * @param paramValues the values given to the method to run
    */
   public void run(ImgModel model, Map<Parameter, String> paramValues) throws IOException {
     switch (this) {
@@ -164,13 +165,14 @@ public enum Command {
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
         break;
-      case quit:
+       case quit:
         break;
     }
   }
 
   /**
-   * Runs the appopriate method from a model
+   * Acknowledges the appropriate command has been run with the correct parameters
+   * @param paramValues the values given to the method to run
    */
   public String acknowledge(Map<Parameter, String> paramValues) {
     switch (this) {

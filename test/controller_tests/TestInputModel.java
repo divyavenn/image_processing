@@ -1,6 +1,7 @@
 package controller_tests;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import img.Img;
 import model.Command;
@@ -8,35 +9,55 @@ import model.ImgModel;
 
 public class TestInputModel implements ImgModel{
 
-  String recentlyCalled;
+  Command recentlyCalled;
+  ArrayList<String> recentInputs;
 
-  public String getRecentlyCalled(){
+  public Command getRecentlyCalled(){
     return recentlyCalled;
+  }
+  public  ArrayList<String> getRecentInputs(){
+    return recentInputs;
   }
   @Override
   public void load(String filePath, String destinationImageName) {
-    recentlyCalled = ("load," + filePath + "," + destinationImageName);
+    recentlyCalled = Command.load;
+    recentInputs = new ArrayList<String>();
+    recentInputs.add(filePath);
+    recentInputs.add(destinationImageName);
   }
 
   @Override
   public void save(String filePath, String destinationImageName) throws IOException {
-    recentlyCalled = ("save," + filePath + "," + destinationImageName);
+    recentlyCalled = Command.save;
+    recentInputs = new ArrayList<String>();
+    recentInputs.add(filePath);
+    recentInputs.add(destinationImageName);
   }
 
   @Override
   public void exportComponentByPixel(Command command, String imageName, String destinationImageName) {
-    recentlyCalled = (command.toString() + "," + imageName + "," + destinationImageName);
+    recentlyCalled = command;
+    recentInputs = new ArrayList<String>();
+    recentInputs.add(imageName);
+    recentInputs.add(destinationImageName);
   }
 
   @Override
   public void brighten(int increment, String imageName, String destinationImageName) {
-    recentlyCalled = ("brighten" + "," + increment + "," + "," + destinationImageName);
+    recentlyCalled = Command.brighten;
+    recentInputs = new ArrayList<String>();
+    recentInputs.add(imageName);
+    recentInputs.add(increment + "");
+    recentInputs.add(destinationImageName);
 
   }
 
   @Override
   public void flip(Command command, String imageName, String destinationImageName) {
-    recentlyCalled = (command.toString() + "," + imageName + "," + destinationImageName);
+    recentlyCalled = command;
+    recentInputs = new ArrayList<String>();
+    recentInputs.add(imageName);
+    recentInputs.add(destinationImageName);
   }
 
   @Override

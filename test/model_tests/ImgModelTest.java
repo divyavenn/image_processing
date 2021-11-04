@@ -1,6 +1,7 @@
 package model_tests;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
@@ -12,19 +13,24 @@ import img.Img;
 import img.PPM;
 import img.PPMPixel;
 import img.Pixel;
+import model.Command;
 import model.ImgModel;
 import model.PPMModel;
 
+/**
+ * Tests the methods of ImageModel
+ */
 public class ImgModelTest {
-  private String fullPath(String name){
-    return "image_processing/images/" + name;
-  }
+
   Img littlePic;
   ImgModel model;
 
 
-
-
+  /**
+   * Constructs an image model test object and instantiates the necessary objects and files
+   *
+   * @throws IOException if cannot write to file
+   */
   public ImgModelTest() throws IOException {
     littlePic = new PPM("small", 4, 2);
     littlePic.setPixel(0, 0, new PPMPixel(110, 115, 119));
@@ -42,21 +48,53 @@ public class ImgModelTest {
     model.load("image_processing/res/littlePic.ppm", "littlePic");
   }
 
-  protected boolean contentsMatch(Img a, Img b){
+  protected boolean contentsMatch(Img a, Img b) {
     boolean same = true;
-    if (a.getHeight() == b.getHeight() && a.getWidth() == b.getWidth()){
-      for (int i = 0; i < a.getHeight(); i++){
+    if (a.getHeight() == b.getHeight() && a.getWidth() == b.getWidth()) {
+      for (int i = 0; i < a.getHeight(); i++) {
         for (int j = 0; j < a.getWidth(); j++) {
           same = same
-                  && a.getPixel(i,j).getRed() == b.getPixel(i,j).getRed()
-                  && a.getPixel(i,j).getGreen() == b.getPixel(i,j).getGreen()
-                  && a.getPixel(i,j).getBlue() == b.getPixel(i,j).getBlue();
+                  && a.getPixel(i, j).getRed() == b.getPixel(i, j).getRed()
+                  && a.getPixel(i, j).getGreen() == b.getPixel(i, j).getGreen()
+                  && a.getPixel(i, j).getBlue() == b.getPixel(i, j).getBlue();
         }
       }
       return same;
     }
     return false;
   }
+
+  private boolean pixelEquals(Pixel p, int val) {
+    return (p.getRed() == val) && (p.getGreen() == val) && (p.getBlue() == val);
+  }
+
+  protected boolean testComponent(Img a, Command c) {
+    boolean correct = true;
+    Pixel thisPixel;
+    boolean thisPixelCorrect = true;
+    for (int i = 0; i < a.getHeight(); i++) {
+      for (int j = 0; j < a.getWidth(); j++) {
+        thisPixel = a.getPixel(i, j);
+        switch (c) {
+          case rc:
+            thisPixelCorrect = pixelEquals(thisPixel, thisPixel.getRed());
+          case gc:
+            thisPixelCorrect = pixelEquals(thisPixel, thisPixel.getGreen());
+          case bc:
+            thisPixelCorrect = pixelEquals(thisPixel, thisPixel.getBlue());
+          case ic:
+            thisPixelCorrect = pixelEquals(thisPixel, thisPixel.getIntensity());
+          case vc:
+            thisPixelCorrect = pixelEquals(thisPixel, thisPixel.getValue());
+          case lc:
+            thisPixelCorrect = pixelEquals(thisPixel, thisPixel.getLuma());
+        }
+        correct = correct && thisPixelCorrect;
+      }
+    }
+    return correct;
+  }
+
 
   private boolean isNumeric(String inp) {
     try {
@@ -78,7 +116,7 @@ public class ImgModelTest {
   @Test
   public void testSave() throws IOException {
     String fPath = "image_processing/res/littlePic2.ppm";
-    model.save(fPath,  "littlePic");
+    model.save(fPath, "littlePic");
     try {
       Readable in = new FileReader(fPath);
       Scanner scan = new Scanner(in);
@@ -86,8 +124,8 @@ public class ImgModelTest {
       int height = getNextNumericInput(scan);
       getNextNumericInput(scan);
       Img image = new PPM("", height, width);
-      for (int i = 0; i<height; i++){
-        for (int j = 0; j<width; j++) {
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
           image.setPixel(
                   i,
                   j,
@@ -97,15 +135,20 @@ public class ImgModelTest {
         }
       }
       assertEquals(contentsMatch(littlePic, image), true);
-    }
-    catch (FileNotFoundException e) {
+    } catch (FileNotFoundException e) {
       System.out.println("Unable to find file.");
       throw new IllegalArgumentException("");
     }
   }
 
+  @Test(expected = Exception.class)
+  public void testSaveException() throws Exception {
+    String fPath = "/";
+    model.save(fPath, "littlePic");
+  }
+
   @Test
-  public void testLoad(){
+  public void testLoad() {
     String fPath = "image_processing/res/littlePic.ppm";
     model.load(fPath, "loadedImage");
     Img loadedImage = model.getImage("loadedImage");
@@ -113,18 +156,57 @@ public class ImgModelTest {
   }
 
   @Test
-  public void testGetComponent(){
-
+  public void testAllComponents() {
+    boolean allComponentspassed = true;
+    boolean componentPassed = true;
+    Img img;
+    for (Command c : Command.values()) {
+      model.exportComponentByPixel(c, "littlePic", c.toString() + "littlePic");
+      img = model.getImage(c.toString() + "littlePic");
+      componentPassed = testComponent(img, c);
+      allComponentspassed = allComponentspassed & componentPassed;
+    }
+    assertEquals(allComponentspassed, true);
   }
+
 
   @Test
   public void testVerticalFlip() {
+    Img flipPic = new PPM("flip", 4, 2);
 
+    flipPic.setPixel(0, 0, new PPMPixel(170, 175, 179));
+    flipPic.setPixel(0, 1, new PPMPixel(180, 185, 189));
+    flipPic.setPixel(1, 0, new PPMPixel(150, 155, 159));
+    flipPic.setPixel(1, 1, new PPMPixel(160, 165, 169));
+
+    flipPic.setPixel(2, 0, new PPMPixel(130, 135, 139));
+    flipPic.setPixel(2, 1, new PPMPixel(140, 145, 149));
+    flipPic.setPixel(3, 0, new PPMPixel(110, 115, 119));
+    flipPic.setPixel(3, 1, new PPMPixel(120, 125, 129));
+
+    model.flip(Command.vflip, "littlePic", "vFlipPic");
+    Img modelFlipPic = model.getImage("vFlipPic");
+    assertEquals(contentsMatch(flipPic, modelFlipPic), true);
   }
 
   @Test
   public void testHorizontalFlip() {
+    Img flipPic = new PPM("flip", 4, 2);
 
+    flipPic.setPixel(0, 1, new PPMPixel(110, 115, 119));
+    flipPic.setPixel(0, 0, new PPMPixel(120, 125, 129));
+    flipPic.setPixel(1, 1, new PPMPixel(130, 135, 139));
+    flipPic.setPixel(1, 0, new PPMPixel(140, 145, 149));
+
+    flipPic.setPixel(2, 1, new PPMPixel(150, 155, 159));
+    flipPic.setPixel(2, 0, new PPMPixel(160, 165, 169));
+    flipPic.setPixel(3, 1, new PPMPixel(170, 175, 179));
+    flipPic.setPixel(3, 0, new PPMPixel(180, 185, 189));
+
+
+    model.flip(Command.hflip, "littlePic", "hFlipPic");
+    Img modelFlipPic = model.getImage("hFlipPic");
+    assertEquals(contentsMatch(flipPic, modelFlipPic), true);
   }
 
   @Test
@@ -133,38 +215,38 @@ public class ImgModelTest {
     brightLittlePic = new PPM("brightLittlePic", 4, 2);
     int brightenBy = 50;
     brightLittlePic.setPixel(0, 0, new PPMPixel(
-            Math.min(110+brightenBy,255),
-            Math.min(115+brightenBy,255),
-            Math.min(119+brightenBy,255)));
+            Math.min(110 + brightenBy, 255),
+            Math.min(115 + brightenBy, 255),
+            Math.min(119 + brightenBy, 255)));
     brightLittlePic.setPixel(0, 1, new PPMPixel(
-            Math.min(120+brightenBy,255),
-            Math.min(125+brightenBy,255),
-            Math.min(129+brightenBy,255)));
+            Math.min(120 + brightenBy, 255),
+            Math.min(125 + brightenBy, 255),
+            Math.min(129 + brightenBy, 255)));
     brightLittlePic.setPixel(1, 0, new PPMPixel(
-            Math.min(130+brightenBy,255),
-            Math.min(135+brightenBy,255),
-            Math.min(139+brightenBy,255)));
+            Math.min(130 + brightenBy, 255),
+            Math.min(135 + brightenBy, 255),
+            Math.min(139 + brightenBy, 255)));
     brightLittlePic.setPixel(1, 1, new PPMPixel(
-            Math.min(140+brightenBy,255),
-            Math.min(145+brightenBy,255),
-            Math.min(149+brightenBy,255)));
+            Math.min(140 + brightenBy, 255),
+            Math.min(145 + brightenBy, 255),
+            Math.min(149 + brightenBy, 255)));
 
     brightLittlePic.setPixel(2, 0, new PPMPixel(
-            Math.min(150+brightenBy,255),
-            Math.min(155+brightenBy,255),
-            Math.min(159+brightenBy,255)));
+            Math.min(150 + brightenBy, 255),
+            Math.min(155 + brightenBy, 255),
+            Math.min(159 + brightenBy, 255)));
     brightLittlePic.setPixel(2, 1, new PPMPixel(
-            Math.min(160+brightenBy,255),
-            Math.min(165+brightenBy,255),
-            Math.min(169+brightenBy,255)));
+            Math.min(160 + brightenBy, 255),
+            Math.min(165 + brightenBy, 255),
+            Math.min(169 + brightenBy, 255)));
     brightLittlePic.setPixel(3, 0, new PPMPixel(
-            Math.min(170+brightenBy,255),
-            Math.min(175+brightenBy,255),
-            Math.min(179+brightenBy,255)));
+            Math.min(170 + brightenBy, 255),
+            Math.min(175 + brightenBy, 255),
+            Math.min(179 + brightenBy, 255)));
     brightLittlePic.setPixel(3, 1, new PPMPixel(
-            Math.min(180+brightenBy,255),
-            Math.min(185+brightenBy,255),
-            Math.min(189+brightenBy,255)));
+            Math.min(180 + brightenBy, 255),
+            Math.min(185 + brightenBy, 255),
+            Math.min(189 + brightenBy, 255)));
 
     model.brighten(brightenBy, "littlePic", "alsoBrightLittlePic");
     assertEquals(contentsMatch(brightLittlePic, model.getImage("alsoBrightLittlePic")), true);
@@ -176,48 +258,43 @@ public class ImgModelTest {
     darkLittlePic = new PPM("darkLittlePic", 4, 2);
     int brightenBy = -120;
     darkLittlePic.setPixel(0, 0, new PPMPixel(
-            Math.max(110+brightenBy,0),
-            Math.max(115+brightenBy,0),
-            Math.max(119+brightenBy,0)));
+            Math.max(110 + brightenBy, 0),
+            Math.max(115 + brightenBy, 0),
+            Math.max(119 + brightenBy, 0)));
     darkLittlePic.setPixel(0, 1, new PPMPixel(
-            Math.max(120+brightenBy,0),
-            Math.max(125+brightenBy,0),
-            Math.max(129+brightenBy,0)));
+            Math.max(120 + brightenBy, 0),
+            Math.max(125 + brightenBy, 0),
+            Math.max(129 + brightenBy, 0)));
     darkLittlePic.setPixel(1, 0, new PPMPixel(
-            Math.max(130+brightenBy,0),
-            Math.max(135+brightenBy,0),
-            Math.max(139+brightenBy,0)));
+            Math.max(130 + brightenBy, 0),
+            Math.max(135 + brightenBy, 0),
+            Math.max(139 + brightenBy, 0)));
     darkLittlePic.setPixel(1, 1, new PPMPixel(
-            Math.max(140+brightenBy,0),
-            Math.max(145+brightenBy,0),
-            Math.max(149+brightenBy,0)));
+            Math.max(140 + brightenBy, 0),
+            Math.max(145 + brightenBy, 0),
+            Math.max(149 + brightenBy, 0)));
 
     darkLittlePic.setPixel(2, 0, new PPMPixel(
-            Math.max(150+brightenBy,0),
-            Math.max(155+brightenBy,0),
-            Math.max(159+brightenBy,0)));
+            Math.max(150 + brightenBy, 0),
+            Math.max(155 + brightenBy, 0),
+            Math.max(159 + brightenBy, 0)));
     darkLittlePic.setPixel(2, 1, new PPMPixel(
-            Math.max(160+brightenBy,0),
-            Math.max(165+brightenBy,0),
-            Math.max(169+brightenBy,0)));
+            Math.max(160 + brightenBy, 0),
+            Math.max(165 + brightenBy, 0),
+            Math.max(169 + brightenBy, 0)));
     darkLittlePic.setPixel(3, 0, new PPMPixel(
-            Math.max(170+brightenBy,0),
-            Math.max(175+brightenBy,0),
-            Math.max(179+brightenBy,0)));
+            Math.max(170 + brightenBy, 0),
+            Math.max(175 + brightenBy, 0),
+            Math.max(179 + brightenBy, 0)));
     darkLittlePic.setPixel(3, 1, new PPMPixel(
-            Math.max(180+brightenBy,0),
-            Math.max(185+brightenBy,0),
-            Math.max(189+brightenBy,0)));
+            Math.max(180 + brightenBy, 0),
+            Math.max(185 + brightenBy, 0),
+            Math.max(189 + brightenBy, 0)));
 
     model.brighten(brightenBy, "littlePic", "darkLittlePic");
     assertEquals(contentsMatch(darkLittlePic, model.getImage("darkLittlePic")), true);
 
   }
-
-
-
-
-
 
 
 }

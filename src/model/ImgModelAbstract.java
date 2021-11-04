@@ -42,7 +42,14 @@ public abstract class ImgModelAbstract implements ImgModel {
   protected abstract Img makeImg(String imageName, int height, int width);
 
 
-  protected abstract Img makeImgFromFile(String filepath, String name);
+  /**
+   * Makes an image from the file
+   * @param filepath the path of the file
+   * @param name the name of the image to make
+   * @return the Image made
+   * @throws IllegalArgumentException if could not find file
+   */
+  protected abstract Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException;
 
   /**
    * Returns a Pixel Object corresponding to the implementing class
@@ -54,7 +61,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   protected abstract Pixel makePixel(int r, int b, int g);
 
   @Override
-  public void load(String filePath, String destinationImageName) {
+  public void load(String filePath, String destinationImageName) throws IllegalArgumentException {
     if (isCorrectFileType(filePath)) {
       Img destinationImage = makeImgFromFile(filePath, destinationImageName);
       images.add(destinationImage);

@@ -27,7 +27,7 @@ public class PPMModel extends ImgModelAbstract{
   }
 
   @Override
-  protected Img makeImgFromFile(String filepath, String name){
+  protected Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException{
     try {
       Readable in = new FileReader(filepath);
       Scanner scan = new Scanner(in);
