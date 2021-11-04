@@ -16,7 +16,7 @@ import img.Pixel;
 public class PPMModel extends ImgModelAbstract {
 
   /**
-   * Constructs a PPMModel
+   * Constructs a PPMModel.
    */
   public PPMModel() {
     super();
@@ -83,8 +83,12 @@ public class PPMModel extends ImgModelAbstract {
    */
   private int getNextNumericInput(Scanner scan) {
     String next = scan.next();
-    if (isNumeric(next)) return Integer.parseInt(next);
-    else return getNextNumericInput(scan);
+    if (isNumeric(next)){
+      return Integer.parseInt(next);
+    }
+    else {
+      return getNextNumericInput(scan);
+    }
   }
 
 

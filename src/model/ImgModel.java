@@ -45,7 +45,7 @@ public interface ImgModel {
   public void brighten(int increment, String imageName, String destinationImageName);
 
   /**
-   * Saves horizontally or vertically flipped version of image
+   * Saves horizontally or vertically flipped version of image.
    *
    * @param command              verticalFlip or horizontalFlip
    * @param imageName            the name of the target image file.
@@ -54,8 +54,9 @@ public interface ImgModel {
   public void flip(Command command, String imageName, String destinationImageName);
 
   /**
-   * Returns the image with matching name from the list of images if it exists, otherwise throws
-   * IllegalArgumentException
+   * Returns the image with matching name from the list of
+   * images if it exists, otherwise throws
+   * IllegalArgumentException.
    *
    * @throws IllegalArgumentException if image is not in list
    */

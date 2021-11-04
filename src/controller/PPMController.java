@@ -17,9 +17,9 @@ public class PPMController extends ImgControllerAbstract {
   /**
    * Constructs an ImgController object.
    *
-   * @param model
-   * @param view
-   * @param in
+   * @param model the model
+   * @param view the view
+   * @param in the readable
    * @throws IllegalArgumentException if any inputs are null
    */
   public PPMController(ImgModel model, ImgView view, Readable in) throws IllegalArgumentException {

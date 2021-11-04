@@ -31,49 +31,48 @@ public enum Command {
 
   static {
     commandParamMap.put(Command.load, new Parameter[]{
-            Parameter.PPMpath,
-            Parameter.destinationImage});
+        Parameter.PPMpath,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.save, new Parameter[]{
-            Parameter.PPMpath,
-            Parameter.targetImage});
+        Parameter.PPMpath,
+        Parameter.targetImage});
 
     commandParamMap.put(Command.brighten, new Parameter[]{
-            Parameter.increment,
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.increment,
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.rc, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.gc, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.bc, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.vc, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage, Parameter.destinationImage});
 
     commandParamMap.put(Command.lc, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.ic, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.vflip, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.hflip, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
   }
 
@@ -166,6 +165,7 @@ public enum Command {
                 paramValues.get(Parameter.destinationImage));
         break;
       case quit:
+      default:
         break;
     }
   }
@@ -237,7 +237,8 @@ public enum Command {
                 + paramValues.get(Parameter.destinationImage));
       case quit:
         return ("Program quit. Goodbye!");
+      default:
+        return "";
     }
-    return "";
   }
 }

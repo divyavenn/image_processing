@@ -60,7 +60,8 @@ public enum Parameter {
       case targetImage:
       case destinationImage:
         return isAlphabetic(inp);
+      default:
+        throw new IllegalArgumentException("Invalid parameter valued");
     }
-    throw new IllegalArgumentException("Invalid parameter valued");
   }
 }

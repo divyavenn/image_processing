@@ -13,6 +13,12 @@ import view.ImgView;
 public enum ImageType {
   ppm;
 
+
+  /**
+   * Make model specific to ImageType.
+   * @param type the type.
+   * @return the model.
+   */
   public static ImgModel makeModel(ImageType type) {
     switch (type) {
       case ppm:
@@ -52,8 +58,9 @@ public enum ImageType {
     switch (type) {
       case ppm:
         return new PPMController(model, view, in);
+      default:
+        throw new IllegalArgumentException("Not a valid image type");
     }
-    throw new IllegalArgumentException("Not a valid image type");
   }
 
   /**
@@ -69,8 +76,9 @@ public enum ImageType {
     switch (type) {
       case ppm:
         return new PPM(name, height, width);
+      default:
+        throw new IllegalArgumentException("Not a valid image type");
     }
-    throw new IllegalArgumentException("Not a valid image type");
   }
 
   /**
@@ -85,8 +93,9 @@ public enum ImageType {
     switch (type) {
       case ppm:
         return new PPMPixel(r, g, b);
+      default:
+        throw new IllegalArgumentException("Not a valid image type");
     }
-    throw new IllegalArgumentException("Not a valid image type");
   }
 
 

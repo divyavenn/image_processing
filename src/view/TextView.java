@@ -22,7 +22,7 @@ public class TextView extends ImgViewAbstract {
   @Override
   public void renderMessage(String message) {
     if (message == null) {
-      throw new NullPointerException("Null String");
+      throw new IllegalArgumentException("Null String");
     }
     try {
       this.out.append(message);

@@ -54,7 +54,8 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @return the Image made
    * @throws IllegalArgumentException if could not find file
    */
-  protected abstract Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException;
+  protected abstract Img makeImgFromFile(String filepath, String name)
+          throws IllegalArgumentException;
 
   /**
    * Returns a Pixel Object corresponding to the implementing class.
@@ -64,10 +65,13 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param b the blue component.
    * @returns a Pixel Object
    */
-  protected abstract Pixel makePixel(int r, int b, int g);
+  protected Pixel makePixel(int r, int b, int g){
+    return ImageType.makePixel(type,r,g,b);
+  }
 
   @Override
-  public void load(String filePath, String destinationImageName) throws IllegalArgumentException {
+  public void load(String filePath, String destinationImageName)
+          throws IllegalArgumentException {
     if (isCorrectFileType(filePath)) {
       Img destinationImage = makeImgFromFile(filePath, destinationImageName);
       images.add(destinationImage);
@@ -121,6 +125,8 @@ public abstract class ImgModelAbstract implements ImgModel {
             break;
           case ic:
             value = targetImage.getPixel(i, j).getIntensity();
+            break;
+          default:
             break;
         }
         destinationImage.setPixel(i, j, makePixel(value, value, value));
@@ -178,13 +184,11 @@ public abstract class ImgModelAbstract implements ImgModel {
         int r = targetPixel.getRed();
         int g = targetPixel.getGreen();
         int b = targetPixel.getBlue();
-        switch (command) {
-          case vflip:
-            destinationImage.setPixel(height - i - 1, j, makePixel(r, g, b));
-            break;
-          case hflip:
-            destinationImage.setPixel(i, width - j - 1, makePixel(r, g, b));
-            break;
+        if (command.equals(Command.vflip)) {
+          destinationImage.setPixel(height - i - 1, j, makePixel(r, g, b));
+        }
+        else if (command.equals(Command.hflip)) {
+          destinationImage.setPixel(i, width - j - 1, makePixel(r, g, b));
         }
       }
     }

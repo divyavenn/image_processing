@@ -12,6 +12,12 @@ import java.nio.charset.Charset;
  */
 public class PPM extends Img {
 
+  /**
+   * Make PPM image.
+   * @param name the name of image.
+   * @param height the height.
+   * @param width the width.
+   */
   public PPM(String name, int height, int width) {
     super(name, height, width);
     for (int i = 0; i < height; i++) {
