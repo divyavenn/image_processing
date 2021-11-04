@@ -7,6 +7,9 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 
 
+/**
+ * Represents an Image of type PPM.
+ */
 public class PPM extends Img {
 
   public PPM(String name, int height, int width) {

@@ -6,6 +6,10 @@ import model.ImgModel;
 import model.PPMModel;
 import view.ImgView;
 
+/**
+ * Represents the different image types this program can handle. Has methods
+ * to return appopriate objects based on ImageType.
+ */
 public enum ImageType {
   ppm;
 
@@ -35,7 +39,7 @@ public enum ImageType {
   }
 
   /**
-   * Returns a controller specific to the ImageType, automatically making an appopriate model
+   * Returns a controller specific to the ImageType, automatically making an appopriate model.
    * @param type the type
    * @param view the view for the controller
    * @param in the Readable for the controller
@@ -51,7 +55,7 @@ public enum ImageType {
   }
 
   /**
-   * Returns an Img Object corresponding to the implementing class
+   * Returns an Img Object corresponding to the implementing class.
    * @returns an Img Object
    * @param type the type of Image
    * @param name the name of the image
@@ -67,7 +71,7 @@ public enum ImageType {
   }
 
   /**
-   * Returns a Pixel Object corresponding to the implementing class
+   * Returns a Pixel Object corresponding to the implementing class.
    * @returns a Pixel Object
    * @param r the red component.
    * @param g the green component.

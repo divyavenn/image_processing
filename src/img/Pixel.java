@@ -1,5 +1,8 @@
 package img;
 
+/**
+ * Represents a single Pixel in an Image.
+ */
 public abstract class Pixel {
 
   int r;

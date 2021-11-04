@@ -1,10 +1,12 @@
 package controller;
 
-import java.io.IOException;
 
 import model.ImgModel;
 import view.ImgView;
 
+/**
+ * Controlls the program that processes images.
+ */
 public abstract class ImgControllerAbstract implements ImgController{
   ImgModel model;
   ImgView view;
@@ -28,5 +30,5 @@ public abstract class ImgControllerAbstract implements ImgController{
   }
 
   @Override
-  public abstract void start() throws IOException;
+  public abstract void start();
 }

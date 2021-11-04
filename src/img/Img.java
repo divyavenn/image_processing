@@ -2,9 +2,11 @@ package img;
 
 import java.io.IOException;
 
+/**
+ * Represents an Image.
+ */
 public abstract class Img {
   String name;
-
   int height;
   int width;
   Pixel[][] pixels;
@@ -37,7 +39,7 @@ public abstract class Img {
   }
 
   /**
-   * Gets pixel at specific index
+   * Gets pixel at specific index.
    * @returns Pixel at specific index
    */
   public Pixel getPixel(int height, int width) {
@@ -53,7 +55,7 @@ public abstract class Img {
   public abstract void save(String fPath) throws IOException;
 
   /**
-   * Gets height of image
+   * Gets height of image.
    * @return height of image
    */
   public int getHeight(){
@@ -61,7 +63,7 @@ public abstract class Img {
   }
 
   /**
-   * Gets width of image
+   * Gets width of image.
    * @return width of image
    */
   public int getWidth(){
@@ -70,8 +72,7 @@ public abstract class Img {
 
 
   @Override
-  public boolean equals(Object o){
-    return (this.toString().equals(o.toString()));
+  public boolean equals(Object o){ return (this.toString().equals(o.toString()));
   }
 
   @Override
