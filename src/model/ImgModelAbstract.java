@@ -3,12 +3,14 @@ package model;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import img.ImageType;
 import img.Img;
 import img.Pixel;
 
 public abstract class ImgModelAbstract implements ImgModel {
 
   ArrayList<Img> images;
+  ImageType type;
 
   public ImgModelAbstract(){
     images = new ArrayList<Img>();
@@ -39,7 +41,9 @@ public abstract class ImgModelAbstract implements ImgModel {
    * @param height the height of the image
    * @param width the width of the image
    */
-  protected abstract Img makeImg(String imageName, int height, int width);
+  protected Img makeImg(String imageName, int height, int width) {
+    return ImageType.makeImg(type, imageName, height, width);
+  }
 
 
   /**

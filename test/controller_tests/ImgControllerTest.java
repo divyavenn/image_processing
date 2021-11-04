@@ -9,24 +9,23 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import controller.ImgController;
-import controller.PPMController;
+import img.ImageType;
 import img.Img;
-import img.PPM;
-import img.PPMPixel;
 import model.Command;
 import model.ImgModel;
-import model.PPMModel;
 import view.ImgView;
 import view.TextView;
 
 import static org.junit.Assert.assertEquals;
 
-public class ImgControllerTest {
+public abstract class ImgControllerTest {
 
   static Img bigPic;
+  ImageType type;
 
-  static {
-    bigPic = new PPM("big", 1080, 1080);
+
+  protected void instantiate(){
+    bigPic = ImageType.makeImg(type,"square", 1080, 1080);
     int r, g, b;
     for (int h = 0; h < 1080; h++) {
       for (int w = 0; w < 1080; w++) {
@@ -47,7 +46,7 @@ public class ImgControllerTest {
           g = 255;
           b = 255;
         }
-        bigPic.setPixel(h, w, new PPMPixel(r, g, b));
+        bigPic.setPixel(h, w, ImageType.makePixel(type,r, g, b));
       }
     }
     try {
@@ -71,7 +70,7 @@ public class ImgControllerTest {
 
   @Test
   public void runBigPicTest() throws IOException {
-    ImgModel model = new PPMModel();
+    ImgModel model = ImageType.makeModel(type);
     Appendable out = new StringBuilder();
     Readable in = new StringReader("load" + fullPathBigPic("bigPic.ppm") + "square "
             + "save square" + fullPathBigPic("another_square.ppm") + " "
@@ -105,13 +104,13 @@ public class ImgControllerTest {
 
     }
     ImgView view = new TextView(model, out);
-    ImgController controller = new PPMController(model, view, in);
+    ImgController controller = ImageType.makeController(type,model,view, in);
     controller.start();
   }
 
   @Test
   public void runKoalaTest() throws IOException {
-    ImgModel model = new PPMModel();
+    ImgModel model = ImageType.makeModel(type);
     Appendable out = new StringBuilder();
     Readable in = new StringReader("load" + fullPathKoala("koala.ppm") + "koala "
             + " save koala" + fullPathKoala("another_koala.ppm")
@@ -141,7 +140,7 @@ public class ImgControllerTest {
 
     }
     ImgView view = new TextView(model, out);
-    ImgController controller = new PPMController(model, view, in);
+    ImgController controller = ImageType.makeController(type,model, view, in);
     controller.start();
   }
 
@@ -156,7 +155,7 @@ public class ImgControllerTest {
 
     }
     ImgView view = new TextView(model, out);
-    ImgController controller = new PPMController(model, view, in);
+    ImgController controller = ImageType.makeController(type,model, view, in);
     controller.start();
   }
 
@@ -166,17 +165,17 @@ public class ImgControllerTest {
     Appendable out = new PrintStream(System.out, true, "UTF-8");
     Readable in = new StringReader("load folder/file.ppm img save img folder/file.ppm quit");
     ImgView view = new TextView(annoyingModel, out);
-    ImgController controller = new PPMController(annoyingModel, view, in);
+    ImgController controller = ImageType.makeController(type,annoyingModel, view, in);
     controller.start();
 
-    annoyingModel = new PPMModel();
+    annoyingModel = ImageType.makeModel(type);
     in = new StringReader("");
-    controller = new PPMController(annoyingModel, view, in);
+    controller = ImageType.makeController(type,annoyingModel, view, in);
     controller.start();
 
-    annoyingModel = new PPMModel();
+    annoyingModel = ImageType.makeModel(type);
     in = new StringReader("save ");
-    controller = new PPMController(annoyingModel, view, in);
+    controller = ImageType.makeController(type,annoyingModel, view, in);
     controller.start();
   }
 
@@ -193,7 +192,7 @@ public class ImgControllerTest {
     Appendable out = new StringBuilder();
     Readable in = new StringReader(entry);
     ImgView view = new TextView(chattyModel, out);
-    ImgController controller = new PPMController(chattyModel, view, in);
+    ImgController controller = ImageType.makeController(type,chattyModel, view, in);
     controller.start();
     return chattyModel.recentlyCalled.equals(correctCommand);
   }
@@ -212,7 +211,7 @@ public class ImgControllerTest {
     Appendable out = new StringBuilder();
     Readable in = new StringReader(entry);
     ImgView view = new TextView(chattyModel, out);
-    ImgController controller = new PPMController(chattyModel, view, in);
+    ImgController controller = ImageType.makeController(type,chattyModel, view, in);
     controller.start();
     ArrayList<String> actualInputs = chattyModel.getRecentInputs();
     for (String shouldHaveGotInput : correctInputs) {
@@ -252,13 +251,51 @@ public class ImgControllerTest {
   public void transmitsAllCommandsMultipleSyntaxesCorrectly() throws IOException {
     assertEquals(multipleSyntaxesWork(Command.save,
             new String[]{"koala.ppm", "koala"},
-            "save koala.pmm koala",
-            "save koala koala.ppm"),true);
-
-    assertEquals(multipleSyntaxesWork(Command.save,
-            new String[]{"koala.ppm", "koala"},
             "save koala.ppm koala",
             "save koala koala.ppm"),true);
-  }
 
+    assertEquals(multipleSyntaxesWork(Command.load,
+            new String[]{"koala.ppm", "koala"},
+            "load koala.ppm koala",
+            "load koala koala.ppm"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.brighten,
+            new String[]{"koala", "brighterkoala", "10"},
+            "brighten koala brighterkoala 10",
+            "brighten koala 10 brighterkoala",
+            "brighten 10 koala brighterkoala"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.vflip,
+            new String[]{"koala", "vKoala"},
+            "vflip koala vKoala"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.hflip,
+            new String[]{"koala", "hKoala"},
+            "hflip koala hKoala"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.rc,
+            new String[]{"koala", "newKoala"},
+            "just-red koala newKoala"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.gc,
+            new String[]{"koala", "newKoala"},
+            "just-green koala newKoala"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.bc,
+            new String[]{"koala", "newKoala"},
+            "just-blue koala newKoala"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.vc,
+            new String[]{"koala", "newKoala"},
+            "just-value koala newKoala"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.lc,
+            new String[]{"koala", "newKoala"},
+            "just-luma koala newKoala"),true);
+
+    assertEquals(multipleSyntaxesWork(Command.ic,
+            new String[]{"koala", "newKoala"},
+            "just-intensity koala newKoala"),true);
+
+  }
 }

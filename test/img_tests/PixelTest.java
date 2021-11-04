@@ -2,7 +2,7 @@ package img_tests;
 
 import org.junit.Test;
 
-import img.PPMPixel;
+import img.ImageType;
 import img.Pixel;
 
 import static org.junit.Assert.assertEquals;
@@ -10,18 +10,25 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests the methods in the Pixel class
  */
-public class PixelTest {
+public abstract class PixelTest {
+  ImageType type;
   Pixel a;
   Pixel b;
   Pixel c;
 
   /**
-   * Creates a PixelTestObject and instantiates three pixels
+   * Creates a PixelTestObject.
    */
   public PixelTest(){
-    a = new PPMPixel(10,20,30);
-    b = new PPMPixel(0,0,0);
-    c = new PPMPixel(255,255,255);
+  }
+
+  /**
+   * Instantiates pixels.
+   */
+  protected void instantiatePixels() {
+    a = ImageType.makePixel(type,10,20,30);
+    b = ImageType.makePixel(type,0,0,0);
+    c = ImageType.makePixel(type,255,255,255);
   }
 
   @Test

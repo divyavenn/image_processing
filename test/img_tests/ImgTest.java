@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 
+import img.ImageType;
 import img.Img;
 import img.PPM;
 import img.PPMPixel;
@@ -14,14 +15,13 @@ import img.Pixel;
 /**
  * Tests the methods in the Image class
  */
-public class ImgTest {
+public abstract class ImgTest {
   Img littlePic;
+  ImageType type;
 
-  /**
-   * Constructs an imageTest object
-   */
-  public ImgTest() {
-    littlePic = new PPM("small", 4, 2);
+
+  protected void instantiate(){
+    littlePic = ImageType.makeImg(type, "small", 4, 2);
     littlePic.setPixel(0, 0, new PPMPixel(110, 115, 119));
     littlePic.setPixel(0, 1, new PPMPixel(120, 125, 129));
     littlePic.setPixel(1, 0, new PPMPixel(130, 135, 139));
@@ -32,7 +32,6 @@ public class ImgTest {
     littlePic.setPixel(3, 0, new PPMPixel(170, 175, 179));
     littlePic.setPixel(3, 1, new PPMPixel(180, 185, 189));
   }
-
 
   @Test
   public void testToString() {

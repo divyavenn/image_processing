@@ -58,14 +58,6 @@ public class PPMController extends ImgControllerAbstract {
     boolean b = true;
     for (Parameter p : Parameter.values()) {
       b = b && xnor(Command.needsParam(commandName, p), !(hasParam.get(p) == null));
-      /**Debugging
-       System.out.println(commandName
-       + " needs "
-       + p.toString()
-       + " - "
-       + Command.needsParam(commandName, p)
-       + "\n \t \t and was given "
-       + hasParam.get(p)); **/
     }
     return b;
   }
@@ -97,9 +89,13 @@ public class PPMController extends ImgControllerAbstract {
 
     //Get all needed inputs
     while (!(allNeededParamsInputted(commandName, paramValues))) {
-      //if (scan.hasNext()) {
-      String nextInput = scan.next();
-      //}
+      String nextInput = "";
+      if (scan.hasNext()) {
+        nextInput = scan.next();
+      }
+      else {
+        break;
+      }
       //the requirement for the targetImage parameter is met either if the command in question
       //does not need that parameter or if it has already been found
       boolean targetImageParamRequirementMet = !Command.needsParam(commandName,
@@ -145,8 +141,4 @@ public class PPMController extends ImgControllerAbstract {
     recurse(scan);
   }
 
-  @Override
-  public void programQuit() {
-    view.renderMessage("Thank you for using this program. Goodbye! \n");
-  }
 }

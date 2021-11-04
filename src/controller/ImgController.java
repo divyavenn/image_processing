@@ -11,12 +11,6 @@ public interface ImgController {
    */
   void start() throws IOException;
 
-  /**
-   * What to do when user indicates they wish to quit program
-   */
-  void programQuit();
-
-
 
 
 
