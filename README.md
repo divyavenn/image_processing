@@ -1,5 +1,7 @@
 # image_processing
- 
+
+**Made all sources images myself except koala.ppm which was provided by instructor
+
  **controller** package
 - *ImgController* interface: establishes the necessary functionalities of all implementing classes.
 - *ImgControllerAbstract* class: establishes the necessary class variables and constructor.
