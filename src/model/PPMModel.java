@@ -59,6 +59,12 @@ public class PPMModel extends ImgModelAbstract{
     }
   }
 
+
+  /**
+   * Checks to see if String is purely numeric.
+   * @param inp given String
+   * @return true if numeric.
+   */
   private boolean isNumeric(String inp) {
     try {
       Integer.parseInt(inp);
@@ -69,6 +75,11 @@ public class PPMModel extends ImgModelAbstract{
     }
   }
 
+  /**
+   * Gets next purely numeric input from file.
+   * @param scan scanner to read file.
+   * @return the input.
+   */
   private int getNextNumericInput(Scanner scan) {
     String next = scan.next();
     if (isNumeric(next)) return Integer.parseInt(next);

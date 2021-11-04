@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import model.ImgModel;
 
+/**
+ * Provides tools to show output to user through command line.
+ */
 public class TextView extends ImgViewAbstract{
 
   /**

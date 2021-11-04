@@ -2,6 +2,9 @@ package view;
 
 import java.io.IOException;
 
+/**
+ * Provides tools to show output to user.
+ */
 public interface ImgView {
 
   /**

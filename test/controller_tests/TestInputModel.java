@@ -7,17 +7,22 @@ import img.Img;
 import model.Command;
 import model.ImgModel;
 
-public class TestInputModel implements ImgModel{
+/**
+ * A mock Model which provides access to the command most recently called, as well as its inputs.
+ */
+public class TestInputModel implements ImgModel {
 
   Command recentlyCalled;
   ArrayList<String> recentInputs;
 
-  public Command getRecentlyCalled(){
+  public Command getRecentlyCalled() {
     return recentlyCalled;
   }
-  public  ArrayList<String> getRecentInputs(){
+
+  public ArrayList<String> getRecentInputs() {
     return recentInputs;
   }
+
   @Override
   public void load(String filePath, String destinationImageName) {
     recentlyCalled = Command.load;

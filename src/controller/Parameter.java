@@ -28,7 +28,7 @@ public enum Parameter {
    * @param inp String representing a parameter
    * @return if is numeric
    */
-  private boolean isNumeric(String inp) {
+  public boolean isNumeric(String inp) {
     try {
       Integer.parseInt(inp);
       return true;

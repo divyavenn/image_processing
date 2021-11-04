@@ -5,9 +5,11 @@ import java.io.IOException;
 import img.Img;
 import model.Command;
 import model.ImgModel;
-import model.ImgModelAbstract;
-import model.PPMModel;
 
+
+/**
+ * A model which always throws Exceptions.
+ */
 public class ExceptionThrowingModel implements ImgModel {
 
   public ExceptionThrowingModel(){

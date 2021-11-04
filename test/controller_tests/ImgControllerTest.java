@@ -18,6 +18,9 @@ import view.TextView;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests ImageControllerMethods
+ */
 public abstract class ImgControllerTest {
 
   static Img bigPic;
