@@ -1,8 +1,6 @@
 package model;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +26,7 @@ public enum Command {
   // Member to hold the name
   private String string;
 
+  //maps the command to the parameters it requires.
   private static HashMap<Command, Parameter[]> commandParamMap = new HashMap<>();
 
   static {
@@ -91,7 +90,7 @@ public enum Command {
 
 
   /**
-   * Gets the command given its name, returns null if command does not exist
+   * Gets the command given its name, returns null if command does not exist.
    *
    * @param commandName the name of the command
    * @return command or null
@@ -107,7 +106,7 @@ public enum Command {
 
 
   /**
-   * Finds if given command (referred to by its name) needs the given parameter
+   * Finds if given command (referred to by its name) needs the given parameter.
    *
    * @param commandName name of command
    * @param p           parameter
@@ -131,7 +130,7 @@ public enum Command {
   }
 
   /**
-   * Runs the appopriate method from a model
+   * Runs the appopriate method from a model.
    * @param paramValues the values given to the method to run
    */
   public void run(ImgModel model, Map<Parameter, String> paramValues) throws IOException {
@@ -171,8 +170,9 @@ public enum Command {
   }
 
   /**
-   * Acknowledges the appropriate command has been run with the correct parameters
+   * Acknowledges the appropriate command has been run with the correct parameters.
    * @param paramValues the values given to the method to run
+   * @returns a String with the acknowledgement.
    */
   public String acknowledge(Map<Parameter, String> paramValues) {
     switch (this) {

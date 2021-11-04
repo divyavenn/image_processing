@@ -10,8 +10,14 @@ import img.PPM;
 import img.PPMPixel;
 import img.Pixel;
 
+/**
+ * Has the backend operations processing PPM Images.
+ */
 public class PPMModel extends ImgModelAbstract{
 
+  /**
+   * Constructs a PPMModel
+   */
   public PPMModel(){
     super();
   }

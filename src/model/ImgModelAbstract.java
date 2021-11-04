@@ -7,22 +7,22 @@ import img.ImageType;
 import img.Img;
 import img.Pixel;
 
+/**
+ * Represents the backend operations processing an Image.
+ */
 public abstract class ImgModelAbstract implements ImgModel {
 
   ArrayList<Img> images;
   ImageType type;
 
+
+  /**
+   * Constructs an ImageModelObject.
+   */
   public ImgModelAbstract(){
     images = new ArrayList<Img>();
   }
 
-  private String printImages(){
-    String list = "";
-    for (Img i: images) {
-      list = list + i.toString() + "\n";
-    }
-    return list;
-  }
 
   @Override
   public Img getImage(String imageName) {
@@ -35,7 +35,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   /**
-   * Returns an Img Object corresponding to the implementing class
+   * Returns an Img Object corresponding to the implementing class.
    * @returns an Img Object
    * @param imageName the name of the image
    * @param height the height of the image
@@ -47,7 +47,7 @@ public abstract class ImgModelAbstract implements ImgModel {
 
 
   /**
-   * Makes an image from the file
+   * Makes an image from a file.
    * @param filepath the path of the file
    * @param name the name of the image to make
    * @return the Image made
@@ -56,7 +56,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   protected abstract Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException;
 
   /**
-   * Returns a Pixel Object corresponding to the implementing class
+   * Returns a Pixel Object corresponding to the implementing class.
    * @returns a Pixel Object
    * @param r the red component.
    * @param g the green component.
@@ -194,7 +194,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   /**
-   * Copies all of image's attributes except name
+   * Copies all of image's attributes except name.
    * @param fromImage the image you wish to copy
    * @param newImageName name of copy
    * @return the copy of the image
@@ -207,7 +207,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   /**
-   * Confirms that is correct file type
+   * Confirms that is correct file type.
    * @return if file is correct type
    */
   protected abstract boolean isCorrectFileType(String filePath);

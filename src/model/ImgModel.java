@@ -5,7 +5,7 @@ import java.io.IOException;
 import img.Img;
 
 /**
- *
+ *Represents the backend operations processing an image.
  */
 public interface ImgModel {
   /**
