@@ -103,7 +103,7 @@ public abstract class ImgControllerTest {
     try {
       out = new PrintStream(System.out, true, "UTF-8");
     } catch (UnsupportedEncodingException e) {
-
+      return;
     }
     ImgView view = new TextView(model, out);
     ImgController controller = ImageType.makeController(type, model, view, in);
