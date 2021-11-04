@@ -2,11 +2,11 @@ package img_tests;
 
 import img.ImageType;
 
-public class PPMPixelTest extends PixelTest{
+public class PPMPixelTest extends PixelTest {
   /**
-   * Creates a PPMPixelTestObject and instantiates three pixels
+   * Creates a PPMPixelTestObject and instantiates three PPM pixels.
    */
-  public PPMPixelTest(){
+  public PPMPixelTest() {
     type = ImageType.ppm;
     instantiatePixels();
   }

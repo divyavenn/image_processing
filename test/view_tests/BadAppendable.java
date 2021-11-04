@@ -5,12 +5,12 @@ import java.io.IOException;
 /**
  * Appendable that always outputs an exception.
  */
-public class BadAppendable implements Appendable{
+public class BadAppendable implements Appendable {
 
   /**
    * Constructs a BadAppendable.
    */
-  public BadAppendable(){
+  public BadAppendable() {
   }
 
   @Override

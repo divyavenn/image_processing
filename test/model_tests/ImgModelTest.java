@@ -11,15 +11,12 @@ import java.util.Scanner;
 
 import img.ImageType;
 import img.Img;
-import img.PPM;
-import img.PPMPixel;
 import img.Pixel;
 import model.Command;
 import model.ImgModel;
-import model.PPMModel;
 
 /**
- * Tests the methods of ImageModel
+ * Tests the methods of ImageModel.
  */
 public abstract class ImgModelTest {
 
@@ -28,6 +25,10 @@ public abstract class ImgModelTest {
   ImageType type;
 
 
+  /**
+   * Instantiates class fields based on type.
+   * @throws IOException if cannot save to file.
+   */
   protected void instantiate() throws IOException {
     littlePic = ImageType.makeImg(type, "small", 4, 2);
     littlePic.setPixel(0, 0, ImageType.makePixel(type, 110, 115, 119));
@@ -45,6 +46,12 @@ public abstract class ImgModelTest {
     model.load("image_processing/res/littlePic.ppm", "littlePic");
   }
 
+  /**
+   * Checks if the pixels of two images match.
+   * @param a first image
+   * @param b second image.
+   * @return if they both match.
+   */
   protected boolean contentsMatch(Img a, Img b) {
     boolean same = true;
     if (a.getHeight() == b.getHeight() && a.getWidth() == b.getWidth()) {
@@ -61,10 +68,22 @@ public abstract class ImgModelTest {
     return false;
   }
 
+  /**
+   * Checks if all the three values in a pixel match the given value.
+   * @param p Pixel to check
+   * @param val the given value
+   * @return true if the pixel equals the given value.
+   */
   private boolean pixelEquals(Pixel p, int val) {
     return (p.getRed() == val) && (p.getGreen() == val) && (p.getBlue() == val);
   }
 
+  /**
+   * Tests all the getComponent commands
+   * @param a the Image
+   * @param c the command
+   * @return if all components are working correctly.
+   */
   protected boolean testComponent(Img a, Command c) {
     boolean correct = true;
     Pixel thisPixel;
@@ -93,6 +112,11 @@ public abstract class ImgModelTest {
   }
 
 
+  /**
+   * Tests if input is numeric.
+   * @param inp the String
+   * @return true if numeric
+   */
   private boolean isNumeric(String inp) {
     try {
       Integer.parseInt(inp);
@@ -103,6 +127,11 @@ public abstract class ImgModelTest {
     }
   }
 
+  /**
+   * Gets next numeric input from Scanner.
+   * @param scan the scanner.
+   * @return the next numeric input.
+   */
   private int getNextNumericInput(Scanner scan) {
     String next = scan.next();
     if (isNumeric(next)) return Integer.parseInt(next);

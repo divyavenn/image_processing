@@ -8,19 +8,21 @@ import static org.junit.Assert.assertEquals;
 
 import img.ImageType;
 import img.Img;
-import img.PPM;
 import img.PPMPixel;
 import img.Pixel;
 
 /**
- * Tests the methods in the Image class
+ * Tests the methods in the Image class.
  */
 public abstract class ImgTest {
   Img littlePic;
   ImageType type;
 
 
-  protected void instantiate(){
+  /**
+   * Instantiates class variables based on type.
+   */
+  protected void instantiate() {
     littlePic = ImageType.makeImg(type, "small", 4, 2);
     littlePic.setPixel(0, 0, new PPMPixel(110, 115, 119));
     littlePic.setPixel(0, 1, new PPMPixel(120, 125, 129));

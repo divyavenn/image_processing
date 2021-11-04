@@ -12,8 +12,9 @@ import model.ImgModel;
  */
 public class ExceptionThrowingModel implements ImgModel {
 
-  public ExceptionThrowingModel(){
+  public ExceptionThrowingModel() {
   }
+
   @Override
   public void load(String filePath, String destinationImageName) throws IllegalArgumentException {
     throw new IllegalArgumentException();

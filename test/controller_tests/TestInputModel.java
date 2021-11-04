@@ -15,10 +15,20 @@ public class TestInputModel implements ImgModel {
   Command recentlyCalled;
   ArrayList<String> recentInputs;
 
+  /**
+   * Get most recently called command.
+   *
+   * @return command.
+   */
   public Command getRecentlyCalled() {
     return recentlyCalled;
   }
 
+  /**
+   * Get the most recently given inputs.
+   *
+   * @return inputs in an Arraylist.
+   */
   public ArrayList<String> getRecentInputs() {
     return recentInputs;
   }

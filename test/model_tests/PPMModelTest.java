@@ -4,7 +4,10 @@ import java.io.IOException;
 
 import img.ImageType;
 
-public class PPMModelTest extends ImgModelTest{
+/**
+ * Specifically tests PPM Model Objects.
+ */
+public class PPMModelTest extends ImgModelTest {
 
   /**
    * Constructs an image model test object and instantiates the necessary objects and files
