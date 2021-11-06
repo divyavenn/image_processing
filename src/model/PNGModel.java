@@ -1,7 +1,7 @@
 package model;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -11,23 +11,19 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
 import img.Img;
-import img.JPG;
+import img.JPEG;
+import img.PNG;
 
 /**
- * Has backend operations for processing JPG images.
+ * Has backend operations for processing JPG images
  */
-public class JPGModel extends ImgModelAbstract {
+public class PNGModel extends ImgModelAbstract{
 
   /**
-   * Constructs a JPGModel
+   * Constructs a PNGModel
    */
-  public JPGModel() {
+  public PNGModel() {
     super();
-  }
-
-  @Override
-  protected Img makeImg(String imageName, int height, int width) {
-    return new JPG(imageName, height, width);
   }
 
   @Override
@@ -37,7 +33,7 @@ public class JPGModel extends ImgModelAbstract {
       buffImg = ImageIO.read(new File(filepath));
       int width = buffImg.getWidth();
       int height = buffImg.getHeight();
-      Img image = new JPG(name, height, width);
+      Img image = new PNG(name, height, width);
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           Color c = new Color(buffImg.getRGB(j, i));
@@ -64,7 +60,7 @@ public class JPGModel extends ImgModelAbstract {
       }
       ImageReader tag = iter.next();
       iis.close();
-      return (tag.getFormatName().equals("JPG"));
+      return (tag.getFormatName().equals("png"));
     } catch (IOException e) {
       System.out.println("Unable to find file.");
     }

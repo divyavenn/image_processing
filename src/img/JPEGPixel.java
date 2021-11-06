@@ -1,6 +1,6 @@
 package img;
 
-public class JPGPixel extends Pixel{
+public class JPEGPixel extends Pixel{
   /**
    * Constructs a Pixel object.
    *
@@ -8,7 +8,7 @@ public class JPGPixel extends Pixel{
    * @param g the green component.
    * @param b the blue component.
    */
-  public JPGPixel(int r, int g, int b) {
+  public JPEGPixel(int r, int g, int b) {
     super(r, g, b);
   }
 

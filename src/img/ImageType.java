@@ -3,6 +3,8 @@ package img;
 import controller.ImgController;
 import controller.PPMController;
 import model.ImgModel;
+import model.JPEGModel;
+import model.PNGModel;
 import model.PPMModel;
 import view.ImgView;
 
@@ -11,7 +13,8 @@ import view.ImgView;
  * to return appopriate objects based on ImageType.
  */
 public enum ImageType {
-  ppm;
+  ppm, jpeg, png;
+
 
 
   /**
@@ -23,7 +26,12 @@ public enum ImageType {
   public static ImgModel makeModel(ImageType type) {
     if (type.equals(ImageType.ppm)) {
       return new PPMModel();
-    } else {
+    } if (type.equals(ImageType.jpeg)) {
+      return new JPEGModel();
+    } if (type.equals(ImageType.png)) {
+     return new PNGModel();
+  }
+    else {
       throw new IllegalArgumentException("Not a valid image type");
     }
   }
@@ -92,7 +100,12 @@ public enum ImageType {
   public static Pixel makePixel(ImageType type, int r, int g, int b) {
     if (type.equals(ImageType.ppm)) {
       return new PPMPixel(r, g, b);
-    } else {
+    } if (type.equals(ImageType.jpeg)) {
+      return new JPEGPixel(r, g, b);
+    }
+    if (type.equals(ImageType.png)) {
+      return new PNGPixel(r, g, b);
+    }else {
       throw new IllegalArgumentException("Not a valid image type");
     }
   }

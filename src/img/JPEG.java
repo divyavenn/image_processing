@@ -3,14 +3,13 @@ package img;
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.awt.Color;
 
 import javax.imageio.ImageIO;
 
 /**
  * Represents a JPG format Img.
  */
-public class JPG extends Img{
+public class JPEG extends Img{
 
   /**
    * Creates a JPG image.
@@ -18,7 +17,7 @@ public class JPG extends Img{
    * @param height height of image.
    * @param width width of image.
    */
-  public JPG(String name, int height, int width) {
+  public JPEG(String name, int height, int width) {
     super(name, height, width);
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -39,6 +38,6 @@ public class JPG extends Img{
           buffImg.setRGB(j, i, rgb);
         }
       }
-    ImageIO.write(buffImg, "jpg" , new FileOutputStream(fPath));
+    ImageIO.write(buffImg, "jpeg" , new FileOutputStream(fPath));
     }
 }
