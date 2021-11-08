@@ -5,24 +5,20 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-
-import img.ImageType;
 import img.Img;
 import img.Pixel;
 
 /**
  * Tests the methods in the Image class.
  */
-public abstract class ImgTest {
+public class ImgTest {
   Img littlePic;
-  ImageType type;
-
 
   /**
    * Instantiates class variables based on type.
    */
   protected void instantiate() {
-    littlePic = type.makeImg( "small", 4, 2);
+    littlePic = new Img( "small", 4, 2);
     littlePic.setPixel(0, 0, 110, 115, 119);
     littlePic.setPixel(0, 1, 120, 125, 129);
     littlePic.setPixel(1, 0, 130, 135, 139);
