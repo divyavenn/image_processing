@@ -99,12 +99,12 @@ public enum ImageType {
    */
   public static Pixel makePixel(ImageType type, int r, int g, int b) {
     if (type.equals(ImageType.ppm)) {
-      return new PPMPixel(r, g, b);
+      return new Pixel(r, g, b);
     } if (type.equals(ImageType.jpeg)) {
-      return new JPEGPixel(r, g, b);
+      return new Pixel(r, g, b);
     }
     if (type.equals(ImageType.png)) {
-      return new PNGPixel(r, g, b);
+      return new Pixel(r, g, b);
     }else {
       throw new IllegalArgumentException("Not a valid image type");
     }

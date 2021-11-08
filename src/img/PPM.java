@@ -22,7 +22,7 @@ public class PPM extends Img {
     super(name, height, width);
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        setPixel(i, j, new PPMPixel());
+        setPixel(i, j, new Pixel());
       }
     }
   }
