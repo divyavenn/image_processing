@@ -51,7 +51,7 @@ public abstract class ImgControllerTest {
           g = 255;
           b = 255;
         }
-        bigPic.setPixel(h, w, ImageType.makePixel(type, r, g, b));
+        bigPic.setPixel(h, w,r, g, b);
       }
     }
     try {

@@ -3,6 +3,8 @@ package modeltests;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import img.ImageType;
 import img.Img;
 import model.ImgModel;
@@ -24,12 +26,9 @@ public class JPEGModelTest {
 
   @Test
   public void testIsCorrectFileType() {
-//     made the method public for a sec so I could test it
-//    model = new JPEGModel();
-//
-//    assertEquals(model.makeImgFromFile("C:\\Users\\Brandon\\Desktop\\OOD\\img_processing" +
-//            "\\image_processing\\res\\HappyFace\\HappyFace.jpeg", "happyFace").getHeight(), 500);
-//
+    model = new JPEGModel();
+    System.out.println(ImageType.getCorrectFileType("C:\\Users\\Brandon\\Desktop\\OOD\\img_processing\\image_processing\\res\\HappyFace\\HappyFace.jpeg"));
+
 
   }
 }

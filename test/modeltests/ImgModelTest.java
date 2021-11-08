@@ -33,15 +33,15 @@ public abstract class ImgModelTest {
    */
   protected void instantiate() throws IOException {
     littlePic = ImageType.makeImg(type, "small", 4, 2);
-    littlePic.setPixel(0, 0, ImageType.makePixel(type, 110, 115, 119));
-    littlePic.setPixel(0, 1, ImageType.makePixel(type, 120, 125, 129));
-    littlePic.setPixel(1, 0, ImageType.makePixel(type, 130, 135, 139));
-    littlePic.setPixel(1, 1, ImageType.makePixel(type, 140, 145, 149));
+    littlePic.setPixel(0, 0, 110, 115, 119);
+    littlePic.setPixel(0, 1, 120, 125, 129);
+    littlePic.setPixel(1, 0, 130, 135, 139);
+    littlePic.setPixel(1, 1, 140, 145, 149);
 
-    littlePic.setPixel(2, 0, ImageType.makePixel(type, 150, 155, 159));
-    littlePic.setPixel(2, 1, ImageType.makePixel(type, 160, 165, 169));
-    littlePic.setPixel(3, 0, ImageType.makePixel(type, 170, 175, 179));
-    littlePic.setPixel(3, 1, ImageType.makePixel(type, 180, 185, 189));
+    littlePic.setPixel(2, 0, 150, 155, 159);
+    littlePic.setPixel(2, 1, 160, 165, 169);
+    littlePic.setPixel(3, 0, 170, 175, 179);
+    littlePic.setPixel(3, 1, 180, 185, 189);
     littlePic.save("image_processing/res/littlePic/littlePic.ppm");
 
     model = ImageType.makeModel(type);
@@ -141,9 +141,9 @@ public abstract class ImgModelTest {
           image.setPixel(
                   i,
                   j,
-                  ImageType.makePixel(type, Tools.getNextNumericInput(scan),
+                  Tools.getNextNumericInput(scan),
                           Tools.getNextNumericInput(scan),
-                          Tools.getNextNumericInput(scan)));
+                          Tools.getNextNumericInput(scan));
         }
       }
       assertEquals(contentsMatch(littlePic, image), true);
@@ -186,15 +186,15 @@ public abstract class ImgModelTest {
   public void testVerticalFlip() {
     Img flipPic = ImageType.makeImg(type, "flip", 4, 2);
 
-    flipPic.setPixel(0, 0, ImageType.makePixel(type, 170, 175, 179));
-    flipPic.setPixel(0, 1, ImageType.makePixel(type, 180, 185, 189));
-    flipPic.setPixel(1, 0, ImageType.makePixel(type, 150, 155, 159));
-    flipPic.setPixel(1, 1, ImageType.makePixel(type, 160, 165, 169));
+    flipPic.setPixel(0, 0, 170, 175, 179);
+    flipPic.setPixel(0, 1, 180, 185, 189);
+    flipPic.setPixel(1, 0, 150, 155, 159);
+    flipPic.setPixel(1, 1, 160, 165, 169);
 
-    flipPic.setPixel(2, 0, ImageType.makePixel(type, 130, 135, 139));
-    flipPic.setPixel(2, 1, ImageType.makePixel(type, 140, 145, 149));
-    flipPic.setPixel(3, 0, ImageType.makePixel(type, 110, 115, 119));
-    flipPic.setPixel(3, 1, ImageType.makePixel(type, 120, 125, 129));
+    flipPic.setPixel(2, 0, 130, 135, 139);
+    flipPic.setPixel(2, 1, 140, 145, 149);
+    flipPic.setPixel(3, 0, 110, 115, 119);
+    flipPic.setPixel(3, 1, 120, 125, 129);
 
     model.flip(Command.vflip, "littlePic", "vFlipPic");
     Img modelFlipPic = model.getImage("vFlipPic");
@@ -205,15 +205,15 @@ public abstract class ImgModelTest {
   public void testHorizontalFlip() {
     Img flipPic = ImageType.makeImg(type, "flip", 4, 2);
 
-    flipPic.setPixel(0, 1, ImageType.makePixel(type, 110, 115, 119));
-    flipPic.setPixel(0, 0, ImageType.makePixel(type, 120, 125, 129));
-    flipPic.setPixel(1, 1, ImageType.makePixel(type, 130, 135, 139));
-    flipPic.setPixel(1, 0, ImageType.makePixel(type, 140, 145, 149));
+    flipPic.setPixel(0, 1, 110, 115, 119);
+    flipPic.setPixel(0, 0, 120, 125, 129);
+    flipPic.setPixel(1, 1, 130, 135, 139);
+    flipPic.setPixel(1, 0, 140, 145, 149);
 
-    flipPic.setPixel(2, 1, ImageType.makePixel(type, 150, 155, 159));
-    flipPic.setPixel(2, 0, ImageType.makePixel(type, 160, 165, 169));
-    flipPic.setPixel(3, 1, ImageType.makePixel(type, 170, 175, 179));
-    flipPic.setPixel(3, 0, ImageType.makePixel(type, 180, 185, 189));
+    flipPic.setPixel(2, 1, 150, 155, 159);
+    flipPic.setPixel(2, 0, 160, 165, 169);
+    flipPic.setPixel(3, 1, 170, 175, 179);
+    flipPic.setPixel(3, 0, 180, 185, 189);
 
 
     model.flip(Command.hflip, "littlePic", "hFlipPic");
@@ -226,39 +226,39 @@ public abstract class ImgModelTest {
     Img brightLittlePic;
     brightLittlePic = ImageType.makeImg(type, "brightLittlePic", 4, 2);
     int brightenBy = 50;
-    brightLittlePic.setPixel(0, 0, ImageType.makePixel(type,
+    brightLittlePic.setPixel(0, 0,
             Math.min(110 + brightenBy, 255),
             Math.min(115 + brightenBy, 255),
-            Math.min(119 + brightenBy, 255)));
-    brightLittlePic.setPixel(0, 1, ImageType.makePixel(type,
+            Math.min(119 + brightenBy, 255));
+    brightLittlePic.setPixel(0, 1,
             Math.min(120 + brightenBy, 255),
             Math.min(125 + brightenBy, 255),
-            Math.min(129 + brightenBy, 255)));
-    brightLittlePic.setPixel(1, 0, ImageType.makePixel(type,
+            Math.min(129 + brightenBy, 255));
+    brightLittlePic.setPixel(1, 0,
             Math.min(130 + brightenBy, 255),
             Math.min(135 + brightenBy, 255),
-            Math.min(139 + brightenBy, 255)));
-    brightLittlePic.setPixel(1, 1, ImageType.makePixel(type,
+            Math.min(139 + brightenBy, 255));
+    brightLittlePic.setPixel(1, 1,
             Math.min(140 + brightenBy, 255),
             Math.min(145 + brightenBy, 255),
-            Math.min(149 + brightenBy, 255)));
+            Math.min(149 + brightenBy, 255));
 
-    brightLittlePic.setPixel(2, 0, ImageType.makePixel(type,
+    brightLittlePic.setPixel(2, 0,
             Math.min(150 + brightenBy, 255),
             Math.min(155 + brightenBy, 255),
-            Math.min(159 + brightenBy, 255)));
-    brightLittlePic.setPixel(2, 1, ImageType.makePixel(type,
+            Math.min(159 + brightenBy, 255));
+    brightLittlePic.setPixel(2, 1,
             Math.min(160 + brightenBy, 255),
             Math.min(165 + brightenBy, 255),
-            Math.min(169 + brightenBy, 255)));
-    brightLittlePic.setPixel(3, 0, ImageType.makePixel(type,
+            Math.min(169 + brightenBy, 255));
+    brightLittlePic.setPixel(3, 0,
             Math.min(170 + brightenBy, 255),
             Math.min(175 + brightenBy, 255),
-            Math.min(179 + brightenBy, 255)));
-    brightLittlePic.setPixel(3, 1, ImageType.makePixel(type,
+            Math.min(179 + brightenBy, 255));
+    brightLittlePic.setPixel(3, 1,
             Math.min(180 + brightenBy, 255),
             Math.min(185 + brightenBy, 255),
-            Math.min(189 + brightenBy, 255)));
+            Math.min(189 + brightenBy, 255));
 
     model.brighten(brightenBy, "littlePic", "alsoBrightLittlePic");
     assertEquals(contentsMatch(brightLittlePic, model.getImage("alsoBrightLittlePic")), true);
@@ -269,39 +269,39 @@ public abstract class ImgModelTest {
     Img darkLittlePic;
     darkLittlePic = ImageType.makeImg(type, "darkLittlePic", 4, 2);
     int brightenBy = -120;
-    darkLittlePic.setPixel(0, 0, ImageType.makePixel(type,
+    darkLittlePic.setPixel(0, 0,
             Math.max(110 + brightenBy, 0),
             Math.max(115 + brightenBy, 0),
-            Math.max(119 + brightenBy, 0)));
-    darkLittlePic.setPixel(0, 1, ImageType.makePixel(type,
+            Math.max(119 + brightenBy, 0));
+    darkLittlePic.setPixel(0, 1,
             Math.max(120 + brightenBy, 0),
             Math.max(125 + brightenBy, 0),
-            Math.max(129 + brightenBy, 0)));
-    darkLittlePic.setPixel(1, 0, ImageType.makePixel(type,
+            Math.max(129 + brightenBy, 0));
+    darkLittlePic.setPixel(1, 0,
             Math.max(130 + brightenBy, 0),
             Math.max(135 + brightenBy, 0),
-            Math.max(139 + brightenBy, 0)));
-    darkLittlePic.setPixel(1, 1, ImageType.makePixel(type,
+            Math.max(139 + brightenBy, 0));
+    darkLittlePic.setPixel(1, 1,
             Math.max(140 + brightenBy, 0),
             Math.max(145 + brightenBy, 0),
-            Math.max(149 + brightenBy, 0)));
+            Math.max(149 + brightenBy, 0));
 
-    darkLittlePic.setPixel(2, 0, ImageType.makePixel(type,
+    darkLittlePic.setPixel(2, 0,
             Math.max(150 + brightenBy, 0),
             Math.max(155 + brightenBy, 0),
-            Math.max(159 + brightenBy, 0)));
-    darkLittlePic.setPixel(2, 1, ImageType.makePixel(type,
+            Math.max(159 + brightenBy, 0));
+    darkLittlePic.setPixel(2, 1,
             Math.max(160 + brightenBy, 0),
             Math.max(165 + brightenBy, 0),
-            Math.max(169 + brightenBy, 0)));
-    darkLittlePic.setPixel(3, 0, ImageType.makePixel(type,
+            Math.max(169 + brightenBy, 0));
+    darkLittlePic.setPixel(3, 0,
             Math.max(170 + brightenBy, 0),
             Math.max(175 + brightenBy, 0),
-            Math.max(179 + brightenBy, 0)));
-    darkLittlePic.setPixel(3, 1, ImageType.makePixel(type,
+            Math.max(179 + brightenBy, 0));
+    darkLittlePic.setPixel(3, 1,
             Math.max(180 + brightenBy, 0),
             Math.max(185 + brightenBy, 0),
-            Math.max(189 + brightenBy, 0)));
+            Math.max(189 + brightenBy, 0));
 
     model.brighten(brightenBy, "littlePic", "darkLittlePic");
     assertEquals(contentsMatch(darkLittlePic, model.getImage("darkLittlePic")), true);
