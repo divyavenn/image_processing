@@ -41,7 +41,7 @@ public class PNGModel extends ImgModelAbstract{
           int r = c.getRed();
           int g = c.getGreen();
           int b = c.getBlue();
-          image.setPixel(i, j, makePixel(r, b, g));
+          image.setPixel(i, j, r, b, g);
         }
       }
       return image;

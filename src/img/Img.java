@@ -10,6 +10,7 @@ public abstract class Img {
   int height;
   int width;
   Pixel[][] pixels;
+  ImageType type;
 
   /**
    * Constructs an Img Object.
@@ -23,6 +24,11 @@ public abstract class Img {
     this.height = height;
     this.width = width;
     pixels = new Pixel[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        setPixel(i, j, 0,0,0);
+      }
+    }
   }
 
 
@@ -34,8 +40,11 @@ public abstract class Img {
   /**
    * Sets pixels.
    */
-  public void setPixel(int height, int width, Pixel p) {
-    pixels[height][width] = p;
+  public void setPixel(int height, int width, int r, int g, int b) {
+    pixels[height][width] = ImageType.makePixel(type,
+            Math.min(Math.max(r, 0), 255),
+            Math.min(Math.max(g, 0), 255),
+            Math.min(Math.max(b, 0), 255));
   }
 
   /**
@@ -44,7 +53,12 @@ public abstract class Img {
    * @returns Pixel at specific index
    */
   public Pixel getPixel(int height, int width) {
-    return pixels[height][width];
+    if (height > 0 && height < this.height) {
+      if (width > 0 && width < this.width) {
+        return pixels[height][width];
+      }
+    }
+    return null;
   }
 
   /**

@@ -20,11 +20,6 @@ public class PPM extends Img {
    */
   public PPM(String name, int height, int width) {
     super(name, height, width);
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        setPixel(i, j, new Pixel());
-      }
-    }
   }
 
 

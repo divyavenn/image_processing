@@ -21,7 +21,13 @@ public enum Command {
   ic("just-intensity"),
   hflip("hflip"),
   vflip("vflip"),
-  quit("quit");
+  quit("quit"),
+  blur("blur"),
+  sharpen("sharpen"),
+  grey("grey"),
+  sepia("sepia");
+
+
 
   // Member to hold the name
   private String string;
@@ -73,6 +79,22 @@ public enum Command {
     commandParamMap.put(Command.hflip, new Parameter[]{
         Parameter.targetImage,
         Parameter.destinationImage});
+
+    commandParamMap.put(Command.blur, new Parameter[]{
+            Parameter.targetImage,
+            Parameter.destinationImage});
+
+    commandParamMap.put(Command.sharpen, new Parameter[]{
+            Parameter.targetImage,
+            Parameter.destinationImage});
+
+    commandParamMap.put(Command.grey, new Parameter[]{
+            Parameter.targetImage,
+            Parameter.destinationImage});
+
+    commandParamMap.put(Command.sepia, new Parameter[]{
+            Parameter.targetImage,
+            Parameter.destinationImage});
 
   }
 

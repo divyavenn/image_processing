@@ -62,5 +62,23 @@ public interface ImgModel {
    */
   public Img getImage(String imageName);
 
+  /**
+   * Applies the given filter to every single pixel in the image.
+   * @param filter a filter
+   * @param imageName the target image
+   * @param destinationImageName the destination image
+   */
+  public void applyFilter(float[][] filter, String imageName, String destinationImageName);
+
+
+  /**
+   * Applies color transformation to every single pixel image.
+   * @param transformationMatrix the color transformation.
+   * @param imageName the image name.
+   * @param destinationImageName the destination image.
+   */
+  public void applyColorTransformation(int transformationMatrix[][], String imageName,
+                                       String destinationImageName);
+
 
 }
