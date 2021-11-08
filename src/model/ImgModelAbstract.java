@@ -13,7 +13,6 @@ import img.Pixel;
 public abstract class ImgModelAbstract implements ImgModel {
 
   ArrayList<Img> images;
-  ImageType type;
 
 
   /**
@@ -60,6 +59,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   @Override
   public void load(String filePath, String destinationImageName)
           throws IllegalArgumentException {
+    ImageType =
     if (isCorrectFileType(filePath)) {
       Img destinationImage = makeImgFromFile(filePath, destinationImageName);
       images.add(destinationImage);
@@ -193,7 +193,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   @Override
-  public void applyFilter(float[][] filter, String imageName, String destinationImageName){
+  public void applyFilter(double[][] filter, String imageName, String destinationImageName){
     if (filter.length != filter[0].length) {
       if (filter.length%2 == 0) {
         throw new IllegalArgumentException("Filter must be square array of odd length");
@@ -229,7 +229,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   @Override
-  public void applyColorTransformation(int matrix[][], String imageName,
+  public void applyColorTransformation(double matrix[][], String imageName,
                                        String destinationImageName){
     if (matrix.length != matrix[0].length) {
       if (matrix.length != 3) {
@@ -247,9 +247,9 @@ public abstract class ImgModelAbstract implements ImgModel {
         int red = targetPixel.getRed();
         int green = targetPixel.getGreen();
         int blue = targetPixel.getBlue();
-        int newRed = red * matrix[0][0] + green * matrix[0][1] + blue * matrix[0][2];
-        int newGreen = red * matrix[1][0] + green * matrix[1][1] + blue * matrix[2][2];
-        int newBlue = red * matrix[2][0] + green * matrix[2][1] + blue * matrix[2][2];
+        int newRed = (int)(red * matrix[0][0] + green * matrix[0][1] + blue * matrix[0][2]);
+        int newGreen = (int)(red * matrix[1][0] + green * matrix[1][1] + blue * matrix[2][2]);
+        int newBlue = (int)(red * matrix[2][0] + green * matrix[2][1] + blue * matrix[2][2]);
         destinationImage.setPixel(i,j,newRed, newGreen, newBlue);
       }
     }
@@ -259,7 +259,9 @@ public abstract class ImgModelAbstract implements ImgModel {
   /**
    * Confirms that is correct file type.
    *
-   * @return if file is correct type
+   * @return the file type of the file
    */
-  protected abstract boolean isCorrectFileType(String filePath);
+  protected ImageType getCorrectFileType(String filePath){
+
+  }
 }

@@ -22,7 +22,6 @@ public class PPM extends Img {
     super(name, height, width);
   }
 
-
   @Override
   public void save(String fPath) throws IOException {
     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(

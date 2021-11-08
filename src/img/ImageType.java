@@ -78,12 +78,11 @@ public enum ImageType {
   /**
    * Returns a controller specific to the ImageType, automatically making an appopriate model.
    *
-   * @param type the type
    * @param view the view for the controller
    * @param in   the Readable for the controller
    * @return an ImgController
    */
-  public static ImgController makeController(ImageType type, ImgView view, Readable in) {
+  public static ImgController makeController(ImgView view, Readable in) {
     ImgModel model = makeModel(type);
     if (type.equals(ImageType.ppm)) {
       return new PPMController(model, view, in);

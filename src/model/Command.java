@@ -28,6 +28,31 @@ public enum Command {
   sepia("sepia");
 
 
+  static final double[][] blurFilter =
+          {{1/16, 1/8, 1/16},
+          {1/8, 1/4, 1/8},
+          {1/16,1/8,1/16}};
+
+  static final double[][] sharpenFilter = {
+          {-1/8, -1/8, -1/8, -1/8, -1/8},
+          {-1/8, 1/4, 1/4, 1/4, -1/8},
+          {-1/8, 1/4, 1, 1/4, -1/8},
+          {-1/8, 1/4, 1/4, 1/4, -1/8},
+          {-1/8, -1/8, -1/8, 1/8, 1/8}};
+
+  static final double[][] greyTransform = {
+          {0.2126, 0.7156, 0.0722},
+          {0.2126, 0.7152, 0.0722},
+          {0.2126, 0.7152, 0.0722}};
+
+  static final double[][] sepiaTransform = {
+          {0.393, 0.769, 0.189},
+          {0.349, 0.686, 0.168},
+          {0.272, 0.534, 0.131}};
+
+
+
+
 
   // Member to hold the name
   private String string;
@@ -186,6 +211,23 @@ public enum Command {
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
         break;
+      case blur:
+        model.applyFilter(blurFilter,
+                paramValues.get(Parameter.targetImage),
+                paramValues.get(Parameter.destinationImage));
+        break;
+      case sharpen:
+        model.applyFilter(sharpenFilter,
+                paramValues.get(Parameter.targetImage),
+                paramValues.get(Parameter.destinationImage));
+      case grey:
+        model.applyColorTransformation(greyTransform,
+                paramValues.get(Parameter.targetImage),
+                paramValues.get(Parameter.destinationImage));
+      case sepia:
+        model.applyColorTransformation(sepiaTransform,
+                paramValues.get(Parameter.targetImage),
+                paramValues.get(Parameter.destinationImage));
       case quit:
       default:
         break;
