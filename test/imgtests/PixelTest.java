@@ -9,16 +9,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests the methods in the Pixel class.
  */
-public abstract class PixelTest {
+public class PixelTest {
   Pixel a;
   Pixel b;
   Pixel c;
 
 
-  /**
-   * Instantiates pixels.
-   */
-  protected void instantiatePixels() {
+  public PixelTest(){
     a = new Pixel( 10, 20, 30);
     b = new Pixel( 0, 0, 0);
     c = new Pixel( 255, 255, 255);

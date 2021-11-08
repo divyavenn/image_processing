@@ -59,8 +59,8 @@ public class Img {
    * @returns Pixel at specific index
    */
   public Pixel getPixel(int height, int width) {
-    if (height > 0 && height < this.height) {
-      if (width > 0 && width < this.width) {
+    if (height >= 0 && height < this.height) {
+      if (width >= 0 && width < this.width) {
         return pixels[height][width];
       }
     }

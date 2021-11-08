@@ -14,11 +14,9 @@ import img.Pixel;
 public class ImgTest {
   Img littlePic;
 
-  /**
-   * Instantiates class variables based on type.
-   */
-  protected void instantiate() {
-    littlePic = new Img( "small", 4, 2);
+
+  public ImgTest() {
+    littlePic = new Img("small", 4, 2);
     littlePic.setPixel(0, 0, 110, 115, 119);
     littlePic.setPixel(0, 1, 120, 125, 129);
     littlePic.setPixel(1, 0, 130, 135, 139);
