@@ -28,8 +28,8 @@ public class ImgModelImplementation implements ImgModel {
   public Img getImage(String imageName) {
     //the Img equals method is overridden to only compare name, so it does not matter what the
     // type is
-    if (images.contains(ImageType.ppm.makeImg(imageName,0, 0))) {
-      return images.get(images.indexOf(ImageType.ppm.makeImg(imageName, 0, 0)));
+    if (images.contains(new Img(imageName,0, 0))) {
+      return images.get(images.indexOf(new Img(imageName,0, 0)));
     } else {
       throw new IllegalArgumentException("Image not in list");
     }
@@ -47,15 +47,22 @@ public class ImgModelImplementation implements ImgModel {
   }
 
   @Override
-  public void save(String filePath, String targetImageName) throws IOException {
+  public void save(String formatName, String filePath, String targetImageName) throws IOException {
     Img targetImage;
+    FileType type;
     try {
       targetImage = getImage(targetImageName);
     } catch (Exception e) {
       System.out.println("Image not in list!");
-      throw new IllegalArgumentException("");
+      throw new IOException("");
     }
-    targetImage.save(filePath);
+    try {
+      type = FileType.getFileType(formatName);
+    } catch (Exception e) {
+      System.out.println("Not a valid file type!");
+      throw new IOException("");
+    }
+    targetImage.save(type, filePath);
   }
 
 

@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
+import model.Command;
 import util.Tools;
 
 /**
@@ -25,7 +26,38 @@ import util.Tools;
  * to return appopriate objects based on ImageType.
  */
 public enum FileType {
-  ppm, jpeg, png;
+  ppm("PPM"),
+  jpeg("JPEG"),
+  png("PNG");
+
+
+  private String formatName;
+
+  // constructor to set the string
+  FileType(String name) {
+    formatName = name;
+  }
+
+  // the toString just returns the given name
+  @Override
+  public String toString() {
+    return formatName;
+  }
+
+  /**
+   * Gets the FileType given its name, returns null if type does not exist.
+   *
+   * @param formatName the name of the type
+   * @return command or null
+   */
+  public static FileType getFileType(String formatName) {
+    for (FileType f : FileType.values()) {
+      if (f.toString().equals(formatName)) {
+        return f;
+      }
+    }
+    throw new IllegalArgumentException("Bad format name");
+  }
 
 
 
