@@ -25,7 +25,7 @@ public enum Parameter {
         return Tools.isNumeric(inp);
       case filePath:
         if (inp.length() > 4) {
-          return (FileType.getFileType(inp) != null);
+          return (FileType.fileTypeOfPath(inp) != null);
         } else {
           return false;
         }

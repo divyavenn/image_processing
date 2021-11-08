@@ -263,6 +263,7 @@ public class ImgControllerTest {
             "save koala.ppm koala",
             "save koala koala.ppm"), true);
 
+
     assertEquals(multipleSyntaxesWork(Command.load,
             new String[]{"koala.ppm", "koala"},
             "load koala.ppm koala",
@@ -305,6 +306,7 @@ public class ImgControllerTest {
     assertEquals(multipleSyntaxesWork(Command.ic,
             new String[]{"koala", "newKoala"},
             "just-intensity koala newKoala"), true);
+
 
   }
 }

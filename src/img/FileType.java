@@ -44,16 +44,21 @@ public enum FileType {
     return formatName;
   }
 
+
   /**
-   * Gets the FileType given its name, returns null if type does not exist.
+   * Returns the format the proposed file path based on file extension.
    *
-   * @param formatName the name of the type
-   * @return command or null
+   * @param filePath The directory of the file.
+   * @return The ImageType enum of the file.
    */
-  public static FileType getFileType(String formatName) {
-    for (FileType f : FileType.values()) {
-      if (f.toString().equals(formatName)) {
-        return f;
+  public static FileType fileTypeOfPath(String filePath) {
+    String extension  = "";
+    if (filePath.length() > 4) {
+      extension = filePath.substring(filePath.length() - 4, filePath.length());
+      for (FileType f : FileType.values()) {
+        if (extension.equals("." + f.toString())) {
+          return f;
+        }
       }
     }
     return null;
@@ -61,7 +66,7 @@ public enum FileType {
 
 
   /**
-   * Returns the format of the image of the given file path.
+   * Returns the format of the image at the given file path.
    *
    * @param filePath The directory of the file.
    * @return The ImageType enum of the file.

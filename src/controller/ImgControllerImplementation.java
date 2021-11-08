@@ -145,6 +145,11 @@ public class ImgControllerImplementation implements ImgController {
     }
 
     Command c = Command.getCommand(commandName);
+    /** Debugging
+    for (Parameter p: Parameter.values()) {
+      System.out.println(p.toString() + paramValues.get(p));
+    } **/
+
     try {
       c.run(model, paramValues);
       view.renderMessage(c.acknowledge(paramValues) + "\n");
