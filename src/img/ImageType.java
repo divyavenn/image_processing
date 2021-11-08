@@ -76,28 +76,6 @@ public enum ImageType {
   }
 
   /**
-   * Returns a controller specific to the ImageType, automatically making an appopriate model.
-   *
-   * @param view the view for the controller
-   * @param in   the Readable for the controller
-   * @return an ImgController
-   */
-  public static ImgController makeController(ImgView view, Readable in) {
-    ImgModel model = makeModel(type);
-    if (type.equals(ImageType.ppm)) {
-      return new PPMController(model, view, in);
-    }
-    if (type.equals(ImageType.jpeg)) {
-      return new PPMController(model, view, in);
-    }
-    if (type.equals(ImageType.png)) {
-      return new PPMController(model, view, in);
-    } else {
-      throw new IllegalArgumentException("Not a valid image type");
-    }
-  }
-
-  /**
    * Returns an Img Object corresponding to the implementing class.
    *
    * @param type   the type of Image
