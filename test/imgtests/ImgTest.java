@@ -22,16 +22,16 @@ public abstract class ImgTest {
    * Instantiates class variables based on type.
    */
   protected void instantiate() {
-    littlePic = ImageType.makeImg(type, "small", 4, 2);
-    littlePic.setPixel(0, 0, new Pixel(110, 115, 119));
-    littlePic.setPixel(0, 1, new Pixel(120, 125, 129));
-    littlePic.setPixel(1, 0, new Pixel(130, 135, 139));
-    littlePic.setPixel(1, 1, new Pixel(140, 145, 149));
+    littlePic = type.makeImg( "small", 4, 2);
+    littlePic.setPixel(0, 0, 110, 115, 119);
+    littlePic.setPixel(0, 1, 120, 125, 129);
+    littlePic.setPixel(1, 0, 130, 135, 139);
+    littlePic.setPixel(1, 1, 140, 145, 149);
 
-    littlePic.setPixel(2, 0, new Pixel(150, 155, 159));
-    littlePic.setPixel(2, 1, new Pixel(160, 165, 169));
-    littlePic.setPixel(3, 0, new Pixel(170, 175, 179));
-    littlePic.setPixel(3, 1, new Pixel(180, 185, 189));
+    littlePic.setPixel(2, 0, 150, 155, 159);
+    littlePic.setPixel(2, 1, 160, 165, 169);
+    littlePic.setPixel(3, 0, 170, 175, 179);
+    littlePic.setPixel(3, 1, 180, 185, 189);
   }
 
   @Test

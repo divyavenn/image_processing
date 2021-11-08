@@ -14,6 +14,7 @@ import img.Img;
 import img.Pixel;
 import model.Command;
 import model.ImgModel;
+import model.ImgModelImplementation;
 import util.Tools;
 
 /**
@@ -32,19 +33,19 @@ public abstract class ImgModelTest {
    * @throws IOException if cannot save to file.
    */
   protected void instantiate() throws IOException {
-    littlePic = ImageType.makeImg(type, "small", 4, 2);
+    littlePic = type.makeImg( "small", 4, 2);
     littlePic.setPixel(0, 0, 110, 115, 119);
     littlePic.setPixel(0, 1, 120, 125, 129);
     littlePic.setPixel(1, 0, 130, 135, 139);
-    littlePic.setPixel(1, 1, 140, 145, 149);
+    littlePic.setPixel(1, 1,  140, 145, 149);
 
-    littlePic.setPixel(2, 0, 150, 155, 159);
-    littlePic.setPixel(2, 1, 160, 165, 169);
-    littlePic.setPixel(3, 0, 170, 175, 179);
-    littlePic.setPixel(3, 1, 180, 185, 189);
+    littlePic.setPixel(2, 0,  150, 155, 159);
+    littlePic.setPixel(2, 1,  160, 165, 169);
+    littlePic.setPixel(3, 0,  170, 175, 179);
+    littlePic.setPixel(3, 1,  180, 185, 189);
     littlePic.save("image_processing/res/littlePic/littlePic.ppm");
 
-    model = ImageType.makeModel(type);
+    model = new ImgModelImplementation();
     model.load("image_processing/res/littlePic.ppm", "littlePic");
   }
 
@@ -135,7 +136,7 @@ public abstract class ImgModelTest {
       int width = Tools.getNextNumericInput(scan);
       int height = Tools.getNextNumericInput(scan);
       Tools.getNextNumericInput(scan);
-      Img image = ImageType.makeImg(type, "", height, width);
+      Img image = type.makeImg( "", height, width);
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           image.setPixel(
@@ -184,16 +185,16 @@ public abstract class ImgModelTest {
 
   @Test
   public void testVerticalFlip() {
-    Img flipPic = ImageType.makeImg(type, "flip", 4, 2);
+    Img flipPic = type.makeImg("flip", 4, 2);
 
     flipPic.setPixel(0, 0, 170, 175, 179);
-    flipPic.setPixel(0, 1, 180, 185, 189);
-    flipPic.setPixel(1, 0, 150, 155, 159);
-    flipPic.setPixel(1, 1, 160, 165, 169);
+    flipPic.setPixel(0, 1,  180, 185, 189);
+    flipPic.setPixel(1, 0,  150, 155, 159);
+    flipPic.setPixel(1, 1,  160, 165, 169);
 
-    flipPic.setPixel(2, 0, 130, 135, 139);
-    flipPic.setPixel(2, 1, 140, 145, 149);
-    flipPic.setPixel(3, 0, 110, 115, 119);
+    flipPic.setPixel(2, 0,  130, 135, 139);
+    flipPic.setPixel(2, 1,  140, 145, 149);
+    flipPic.setPixel(3, 0,  110, 115, 119);
     flipPic.setPixel(3, 1, 120, 125, 129);
 
     model.flip(Command.vflip, "littlePic", "vFlipPic");
@@ -203,17 +204,17 @@ public abstract class ImgModelTest {
 
   @Test
   public void testHorizontalFlip() {
-    Img flipPic = ImageType.makeImg(type, "flip", 4, 2);
+    Img flipPic = type.makeImg( "flip", 4, 2);
 
     flipPic.setPixel(0, 1, 110, 115, 119);
-    flipPic.setPixel(0, 0, 120, 125, 129);
-    flipPic.setPixel(1, 1, 130, 135, 139);
-    flipPic.setPixel(1, 0, 140, 145, 149);
+    flipPic.setPixel(0, 0,  120, 125, 129);
+    flipPic.setPixel(1, 1,  130, 135, 139);
+    flipPic.setPixel(1, 0,  140, 145, 149);
 
-    flipPic.setPixel(2, 1, 150, 155, 159);
+    flipPic.setPixel(2, 1,  150, 155, 159);
     flipPic.setPixel(2, 0, 160, 165, 169);
-    flipPic.setPixel(3, 1, 170, 175, 179);
-    flipPic.setPixel(3, 0, 180, 185, 189);
+    flipPic.setPixel(3, 1,  170, 175, 179);
+    flipPic.setPixel(3, 0,  180, 185, 189);
 
 
     model.flip(Command.hflip, "littlePic", "hFlipPic");
@@ -224,7 +225,7 @@ public abstract class ImgModelTest {
   @Test
   public void testBrighten() throws IOException {
     Img brightLittlePic;
-    brightLittlePic = ImageType.makeImg(type, "brightLittlePic", 4, 2);
+    brightLittlePic = type.makeImg( "brightLittlePic", 4, 2);
     int brightenBy = 50;
     brightLittlePic.setPixel(0, 0,
             Math.min(110 + brightenBy, 255),
@@ -267,7 +268,7 @@ public abstract class ImgModelTest {
   @Test
   public void testDarken() throws IOException {
     Img darkLittlePic;
-    darkLittlePic = ImageType.makeImg(type, "darkLittlePic", 4, 2);
+    darkLittlePic = type.makeImg("darkLittlePic", 4, 2);
     int brightenBy = -120;
     darkLittlePic.setPixel(0, 0,
             Math.max(110 + brightenBy, 0),

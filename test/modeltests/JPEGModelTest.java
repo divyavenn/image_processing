@@ -7,8 +7,7 @@ import java.awt.*;
 
 import img.ImageType;
 import img.Img;
-import model.ImgModel;
-import model.JPEGModel;
+
 import static org.junit.Assert.assertEquals;
 
 /**

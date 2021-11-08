@@ -6,7 +6,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import model.ImgModel;
-import model.PPMModel;
 import view.ImgView;
 import view.TextView;
 

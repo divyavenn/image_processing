@@ -1,16 +1,22 @@
 package img;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
+
+import javax.imageio.ImageIO;
 
 /**
  * Represents an Image.
  */
-public abstract class Img {
+public class Img {
   String name;
   int height;
   int width;
   Pixel[][] pixels;
-  ImageType type;
 
   /**
    * Constructs an Img Object.
@@ -61,13 +67,6 @@ public abstract class Img {
     return null;
   }
 
-  /**
-   * Saves image to specified file path.
-   *
-   * @param fPath the path to save the image to
-   * @throws java.io.IOException if writing is unsuccessful
-   */
-  public abstract void save(String fPath) throws IOException;
 
   /**
    * Gets height of image.
@@ -87,7 +86,6 @@ public abstract class Img {
     return this.width;
   }
 
-
   @Override
   public boolean equals(Object o) {
     return (this.toString().equals(o.toString()));
@@ -97,5 +95,55 @@ public abstract class Img {
   public int hashCode() {
     return Integer.parseInt(toString() + height + width);
   }
+
+  /**
+   * Saves image to specified file path.
+   *
+   * @param fPath the path to save the image to
+   * @param type the file format to save to.
+   * @throws java.io.IOException if writing is unsuccessful
+   */
+  public void save(ImageType type, String fPath) throws IOException {
+    String formatName = "";
+    switch (type) {
+      case ppm:
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(fPath),
+                Charset.forName("UTF-8").newEncoder()));
+        out.write("P3", 0, 2);
+        out.newLine();
+        String widthHeight = this.width + " " + this.height;
+        out.write(widthHeight, 0, widthHeight.length());
+        out.newLine();
+        out.write("255", 0, 3);
+        out.newLine();
+        for (int i = 0; i < height; i++) {
+          for (int j = 0; j < width; j++) {
+            String pixStr = getPixel(i, j).toString();
+            out.write(pixStr, 0, pixStr.length());
+          }
+        }
+        out.close();
+        return;
+      case png:
+        formatName = "png";
+        break;
+      case jpeg:
+        formatName = "jpeg";
+        break;
+    }
+    BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+      for (int i = 0; i < height; i ++) {
+        for (int j = 0; j < width; j ++) {
+          int r = pixels[i][j].getRed();
+          int g = pixels[i][j].getGreen();
+          int b = pixels[i][j].getBlue();
+          int rgb = (r << 16) | (g << 8) | b;
+          buffImg.setRGB(j, i, rgb);
+        }
+      }
+      ImageIO.write(buffImg,  formatName, new FileOutputStream(fPath));
+  }
+}
 
 }

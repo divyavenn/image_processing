@@ -9,10 +9,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import controller.ImgController;
+import controller.ImgControllerImplementation;
 import img.ImageType;
 import img.Img;
+import img.Pixel;
 import model.Command;
 import model.ImgModel;
+import model.ImgModelImplementation;
 import view.ImgView;
 import view.TextView;
 
@@ -28,7 +31,7 @@ public abstract class ImgControllerTest {
 
 
   protected void instantiate() {
-    bigPic = ImageType.makeImg(type, "square", 1080, 1080);
+    bigPic = type.makeImg("square", 1080, 1080);
     int r;
     int g;
     int b;
@@ -51,7 +54,7 @@ public abstract class ImgControllerTest {
           g = 255;
           b = 255;
         }
-        bigPic.setPixel(h, w,r, g, b);
+        bigPic.setPixel(h, w, r, g, b);
       }
     }
     try {
@@ -72,7 +75,7 @@ public abstract class ImgControllerTest {
 
   @Test
   public void runBigPicTest() throws IOException {
-    ImgModel model = ImageType.makeModel(type);
+    ImgModel model = new ImgModelImplementation();
     Appendable out = new StringBuilder();
     Readable in = new StringReader("load" + fullPathBigPic("bigPic.ppm") + "square "
             + "save square" + fullPathBigPic("another_square.ppm") + " "
@@ -106,14 +109,14 @@ public abstract class ImgControllerTest {
       return;
     }
     ImgView view = new TextView(model, out);
-    ImgController controller = ImageType.makeController(type, model, view, in);
+    ImgController controller = new ImgControllerImplementation( model, view, in);
     controller.start();
     assertEquals(controller != null, true);
   }
 
   @Test
   public void runKoalaTest() throws IOException {
-    ImgModel model = ImageType.makeModel(type);
+    ImgModel model = new ImgModelImplementation();
     Appendable out = new StringBuilder();
     Readable in = new StringReader("load" + fullPathKoala("koala.ppm") + "koala "
             + " save koala" + fullPathKoala("another_koala.ppm")
@@ -143,7 +146,7 @@ public abstract class ImgControllerTest {
       return;
     }
     ImgView view = new TextView(model, out);
-    ImgController controller = ImageType.makeController(type, model, view, in);
+    ImgController controller = new ImgControllerImplementation( model, view, in);
     controller.start();
     assertEquals(controller != null, true);
   }
@@ -159,7 +162,7 @@ public abstract class ImgControllerTest {
       return;
     }
     ImgView view = new TextView(model, out);
-    ImgController controller = ImageType.makeController(type, model, view, in);
+    ImgController controller = new ImgControllerImplementation(model, view, in);
     controller.start();
     assertEquals(controller != null, true);
   }
@@ -170,17 +173,17 @@ public abstract class ImgControllerTest {
     Appendable out = new PrintStream(System.out, true, "UTF-8");
     Readable in = new StringReader("load folder/file.ppm img save img folder/file.ppm quit");
     ImgView view = new TextView(annoyingModel, out);
-    ImgController controller = ImageType.makeController(type, annoyingModel, view, in);
+    ImgController controller = new ImgControllerImplementation(annoyingModel, view, in);
     controller.start();
 
-    annoyingModel = ImageType.makeModel(type);
+    annoyingModel = new ImgModelImplementation();
     in = new StringReader("");
-    controller = ImageType.makeController(type, annoyingModel, view, in);
+    controller = new ImgControllerImplementation(annoyingModel, view, in);
     controller.start();
 
-    annoyingModel = ImageType.makeModel(type);
+    annoyingModel = new ImgModelImplementation();
     in = new StringReader("save ");
-    controller = ImageType.makeController(type, annoyingModel, view, in);
+    controller = new ImgControllerImplementation(annoyingModel, view, in);
     controller.start();
     assertEquals(controller != null, true);
   }
@@ -198,7 +201,7 @@ public abstract class ImgControllerTest {
     Appendable out = new StringBuilder();
     Readable in = new StringReader(entry);
     ImgView view = new TextView(chattyModel, out);
-    ImgController controller = ImageType.makeController(type, chattyModel, view, in);
+    ImgController controller = new ImgControllerImplementation(chattyModel, view, in);
     controller.start();
     return chattyModel.recentlyCalled.equals(correctCommand);
   }
@@ -218,7 +221,7 @@ public abstract class ImgControllerTest {
     Appendable out = new StringBuilder();
     Readable in = new StringReader(entry);
     ImgView view = new TextView(chattyModel, out);
-    ImgController controller = ImageType.makeController(type, chattyModel, view, in);
+    ImgController controller = new ImgControllerImplementation(chattyModel, view, in);
     controller.start();
     ArrayList<String> actualInputs = chattyModel.getRecentInputs();
     for (String shouldHaveGotInput : correctInputs) {

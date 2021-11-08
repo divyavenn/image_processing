@@ -9,7 +9,8 @@ public enum Parameter {
   increment,
   PPMpath,
   targetImage,
-  destinationImage;
+  destinationImage,
+  fileType;
 
 
 
@@ -32,6 +33,8 @@ public enum Parameter {
       case targetImage:
       case destinationImage:
         return Tools.isAlphabetic(inp);
+      case fileType:
+        return
       default:
         throw new IllegalArgumentException("Invalid parameter valued");
     }

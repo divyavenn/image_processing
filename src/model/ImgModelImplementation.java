@@ -3,14 +3,15 @@ package model;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import img.ImageType;
+import img.FileType;
+import img.FileType;
 import img.Img;
 import img.Pixel;
 
 /**
  * Represents the backend operations processing an Image.
  */
-public abstract class ImgModelAbstract implements ImgModel {
+public class ImgModelImplementation implements ImgModel {
 
   ArrayList<Img> images;
 
@@ -18,37 +19,29 @@ public abstract class ImgModelAbstract implements ImgModel {
   /**
    * Constructs an ImageModelObject.
    */
-  public ImgModelAbstract() {
+  public ImgModelImplementation() {
     images = new ArrayList<Img>();
   }
 
 
   @Override
   public Img getImage(String imageName) {
-    if (images.contains(makeImg(imageName, 0, 0))) {
-      return images.get(images.indexOf(makeImg(imageName, 0, 0)));
+    //the Img equals method is overridden to only compare name, so it does not matter what the
+    // type is
+    if (images.contains(ImageType.ppm.makeImg(imageName,0, 0))) {
+      return images.get(images.indexOf(ImageType.ppm.makeImg(imageName, 0, 0)));
     } else {
       throw new IllegalArgumentException("Image not in list");
     }
   }
 
-  /**
-   * Makes an image from a file.
-   *
-   * @param filepath the path of the file
-   * @param name     the name of the image to make
-   * @return the Image made
-   * @throws IllegalArgumentException if could not find file
-   */
-  protected abstract Img makeImgFromFile(String filepath, String name)
-          throws IllegalArgumentException;
 
   @Override
   public void load(String filePath, String destinationImageName)
           throws IllegalArgumentException {
-    ImageType type = getCorrectFileType(filePath);
+    FileType type = FileType.getCorrectFileType(filePath);
     if (type != null) {
-      Img destinationImage = makeImgFromFile(filePath, destinationImageName);
+      Img destinationImage = type.makeImgFromFile(filePath, destinationImageName);
       images.add(destinationImage);
     }
   }
@@ -175,7 +168,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   protected Img copyImage(Img fromImage, String newImageName) {
     int height = fromImage.getHeight();
     int width = fromImage.getWidth();
-    Img copy = makeImg(newImageName, height, width);
+    Img copy = new Img(newImageName, height, width);
     return copy;
   }
 
@@ -243,12 +236,5 @@ public abstract class ImgModelAbstract implements ImgModel {
     images.add(destinationImage);
   }
 
-  /**
-   * Confirms that is correct file type.
-   *
-   * @return the file type of the file
-   */
-  protected ImageType getCorrectFileType(String filePath){
 
-  }
 }
