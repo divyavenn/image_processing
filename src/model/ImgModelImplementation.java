@@ -55,9 +55,8 @@ public class ImgModelImplementation implements ImgModel {
       System.out.println("Image not in list!");
       throw new IOException("");
     }
-    try {
-      type = FileType.getFileType(formatName);
-    } catch (Exception e) {
+    type = FileType.getFileType(formatName);
+    if (type == null) {
       System.out.println("Not a valid file type!");
       throw new IOException("");
     }

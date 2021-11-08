@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests ImageControllerMethods.
  */
-public abstract class ImgControllerTest {
+public class ImgControllerTest {
 
   static Img bigPic;
 

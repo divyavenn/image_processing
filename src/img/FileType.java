@@ -26,9 +26,9 @@ import util.Tools;
  * to return appopriate objects based on ImageType.
  */
 public enum FileType {
-  ppm("PPM"),
-  jpeg("JPEG"),
-  png("PNG");
+  ppm("ppm"),
+  jpeg("jpeg"),
+  png("png");
 
 
   private String formatName;
@@ -60,7 +60,6 @@ public enum FileType {
   }
 
 
-
   /**
    * Returns the format of the image of the given file path.
    *
@@ -80,21 +79,20 @@ public enum FileType {
     } catch (FileNotFoundException e) {
       System.out.println("Unable to find file.");
     }
-    if (format.equals("")) {
-      try {
-        FileInputStream in = new FileInputStream(filePath);
-        ImageInputStream iis = ImageIO.createImageInputStream(in);
-        Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
-        if (!iter.hasNext()) {
-          type = null;
-          System.out.println("File not supported");
-        }
-        format = iter.next().getFormatName();
-        iis.close();
-      } catch (IOException e) {
-        System.out.println("Unable to find file.");
+    try {
+      FileInputStream in = new FileInputStream(filePath);
+      ImageInputStream iis = ImageIO.createImageInputStream(in);
+      Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
+      if (!iter.hasNext()) {
+        type = null;
+        System.out.println("File not supported");
       }
+      format = iter.next().getFormatName();
+      iis.close();
+    } catch (IOException e) {
+      System.out.println("Unable to find file.");
     }
+
     if (format.equals("JPEG")) return FileType.jpeg;
     else if (format.equals("PNG")) return FileType.png;
     else return null;
@@ -102,8 +100,9 @@ public enum FileType {
 
   /**
    * Makes image from contents stored at given filepath.
+   *
    * @param filepath the file path.
-   * @param name the name of the image.
+   * @param name     the name of the image.
    * @return an Img.
    * @throws IllegalArgumentException
    */

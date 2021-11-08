@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import model.ImgModel;
+import model.ImgModelImplementation;
 import view.ImgView;
 import view.TextView;
 
@@ -21,7 +22,7 @@ public class ImgViewTest {
    */
   public ImgViewTest() {
     out = new StringBuilder();
-    ImgModel model = new PPMModel();
+    ImgModel model = new ImgModelImplementation();
     view = new TextView(model, out);
   }
 
@@ -39,7 +40,7 @@ public class ImgViewTest {
   @Test
   public void catchesIOException() {
     out = new BadAppendable();
-    ImgModel model = new PPMModel();
+    ImgModel model = new ImgModelImplementation();
     view = new TextView(model, out);
     view.renderMessage("Valid message");
     assertEquals(model != null, true);
