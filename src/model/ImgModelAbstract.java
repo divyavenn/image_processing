@@ -13,7 +13,6 @@ import img.Pixel;
 public abstract class ImgModelAbstract implements ImgModel {
 
   ArrayList<Img> images;
-  ImageType type;
 
 
   /**
@@ -60,6 +59,7 @@ public abstract class ImgModelAbstract implements ImgModel {
   @Override
   public void load(String filePath, String destinationImageName)
           throws IllegalArgumentException {
+    ImageType =
     if (isCorrectFileType(filePath)) {
       Img destinationImage = makeImgFromFile(filePath, destinationImageName);
       images.add(destinationImage);
@@ -259,7 +259,9 @@ public abstract class ImgModelAbstract implements ImgModel {
   /**
    * Confirms that is correct file type.
    *
-   * @return if file is correct type
+   * @return the file type of the file
    */
-  protected abstract boolean isCorrectFileType(String filePath);
+  protected ImageType getCorrectFileType(String filePath){
+
+  }
 }

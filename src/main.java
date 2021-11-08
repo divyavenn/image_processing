@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 
 import controller.ImgController;
 import img.ImageType;
@@ -14,5 +15,8 @@ public class main {
   Readable in = new StringReader("load folder/file.ppm img save img folder/file.ppm quit");
   ImgView view = new TextView(annoyingModel, out);
   ImgController controller = ImageType.makeController(type, annoyingModel, view, in);
+
+  public main() throws UnsupportedEncodingException {
+  }
     controller.start();
 }

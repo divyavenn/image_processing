@@ -64,12 +64,11 @@ public enum ImageType {
   /**
    * Returns a controller specific to the ImageType, automatically making an appopriate model.
    *
-   * @param type the type
    * @param view the view for the controller
    * @param in   the Readable for the controller
    * @return an ImgController
    */
-  public static ImgController makeController(ImageType type, ImgView view, Readable in) {
+  public static ImgController makeController(ImgView view, Readable in) {
     ImgModel model = makeModel(type);
     if (type.equals(ImageType.ppm)) {
       return new PPMController(model, view, in);
@@ -110,26 +109,6 @@ public enum ImageType {
     }
   }
 
-  /**
-   * Returns a Pixel Object corresponding to the implementing class.
-   *
-   * @param r the red component.
-   * @param g the green component.
-   * @param b the blue component.
-   * @returns a Pixel Object
-   */
-  public static Pixel makePixel(ImageType type, int r, int g, int b) {
-    if (type.equals(ImageType.ppm)) {
-      return new Pixel(r, g, b);
-    } if (type.equals(ImageType.jpeg)) {
-      return new Pixel(r, g, b);
-    }
-    if (type.equals(ImageType.png)) {
-      return new Pixel(r, g, b);
-    }else {
-      throw new IllegalArgumentException("Not a valid image type");
-    }
-  }
 
 
 }

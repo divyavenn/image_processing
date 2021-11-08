@@ -28,11 +28,6 @@ public class PPMModel extends ImgModelAbstract {
   }
 
   @Override
-  protected Pixel makePixel(int r, int g, int b) {
-    return new Pixel(r, g, b);
-  }
-
-  @Override
   protected Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException {
     try {
       Readable in = new FileReader(filepath);
@@ -46,9 +41,9 @@ public class PPMModel extends ImgModelAbstract {
           image.setPixel(
                   i,
                   j,
-                  makePixel(Tools.getNextNumericInput(scan),
-                          Tools.getNextNumericInput(scan),
-                          Tools.getNextNumericInput(scan)));
+                  Tools.getNextNumericInput(scan),
+                  Tools.getNextNumericInput(scan),
+                  Tools.getNextNumericInput(scan));
         }
       }
       return image;
