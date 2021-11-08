@@ -162,7 +162,7 @@ public enum Command {
   public static boolean needsParam(String commandName, Parameter p) {
     Command c = getCommand(commandName);
     if (c == null) {
-      System.out.println("not valid command.");
+      System.out.println( "'" + commandName + "' is not a valid command.");
       return false;
     }
     if (commandParamMap.containsKey(c)) {

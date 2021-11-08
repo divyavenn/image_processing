@@ -104,7 +104,7 @@ public class Img {
    */
   public void save(String fPath) throws IOException {
     String formatName = "";
-    FileType type = FileType.getFileType(fPath);
+    FileType type = FileType.getCorrectFileType()FileType(fPath);
     if (type == null) {
       System.out.println("Not a valid file extension!");
       throw new IOException("");

@@ -152,7 +152,7 @@ public class ImgControllerImplementation implements ImgController {
         recurse(scan);
       }
     } catch (Exception e) {
-      view.renderMessage("Command unsuccessful. Try again. \n");
+      view.renderMessage("Command " + commandName + " unsuccessful. Try again. \n");
       recurse(scan);
     }
 
