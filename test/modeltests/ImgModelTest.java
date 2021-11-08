@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-import img.ImageType;
+import img.FileType;
 import img.Img;
 import img.Pixel;
 import model.Command;
@@ -24,7 +24,7 @@ public abstract class ImgModelTest {
 
   Img littlePic;
   ImgModel model;
-  ImageType type;
+  FileType type;
 
 
   /**
@@ -33,7 +33,7 @@ public abstract class ImgModelTest {
    * @throws IOException if cannot save to file.
    */
   protected void instantiate() throws IOException {
-    littlePic = type.makeImg( "small", 4, 2);
+    littlePic = new Img( "small", 4, 2);
     littlePic.setPixel(0, 0, 110, 115, 119);
     littlePic.setPixel(0, 1, 120, 125, 129);
     littlePic.setPixel(1, 0, 130, 135, 139);
@@ -43,7 +43,7 @@ public abstract class ImgModelTest {
     littlePic.setPixel(2, 1,  160, 165, 169);
     littlePic.setPixel(3, 0,  170, 175, 179);
     littlePic.setPixel(3, 1,  180, 185, 189);
-    littlePic.save("image_processing/res/littlePic/littlePic.ppm");
+    littlePic.save(FileType.ppm, "image_processing/res/littlePic/littlePic.ppm");
 
     model = new ImgModelImplementation();
     model.load("image_processing/res/littlePic.ppm", "littlePic");
@@ -129,14 +129,14 @@ public abstract class ImgModelTest {
   @Test
   public void testSave() throws IOException {
     String fPath = "image_processing/res/littlePic/littlePic2.ppm";
-    model.save(fPath, "littlePic");
+    model.save("ppm", fPath, "littlePic");
     try {
       Readable in = new FileReader(fPath);
       Scanner scan = new Scanner(in);
       int width = Tools.getNextNumericInput(scan);
       int height = Tools.getNextNumericInput(scan);
       Tools.getNextNumericInput(scan);
-      Img image = type.makeImg( "", height, width);
+      Img image = new Img( "", height, width);
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           image.setPixel(
@@ -157,7 +157,7 @@ public abstract class ImgModelTest {
   @Test(expected = Exception.class)
   public void testSaveException() throws Exception {
     String fPath = "/";
-    model.save(fPath, "littlePic");
+    model.save("ppm",fPath, "littlePic");
   }
 
   @Test
@@ -185,7 +185,7 @@ public abstract class ImgModelTest {
 
   @Test
   public void testVerticalFlip() {
-    Img flipPic = type.makeImg("flip", 4, 2);
+    Img flipPic = new Img("flip", 4, 2);
 
     flipPic.setPixel(0, 0, 170, 175, 179);
     flipPic.setPixel(0, 1,  180, 185, 189);
@@ -204,7 +204,7 @@ public abstract class ImgModelTest {
 
   @Test
   public void testHorizontalFlip() {
-    Img flipPic = type.makeImg( "flip", 4, 2);
+    Img flipPic = new Img( "flip", 4, 2);
 
     flipPic.setPixel(0, 1, 110, 115, 119);
     flipPic.setPixel(0, 0,  120, 125, 129);
@@ -225,7 +225,7 @@ public abstract class ImgModelTest {
   @Test
   public void testBrighten() throws IOException {
     Img brightLittlePic;
-    brightLittlePic = type.makeImg( "brightLittlePic", 4, 2);
+    brightLittlePic = new Img( "brightLittlePic", 4, 2);
     int brightenBy = 50;
     brightLittlePic.setPixel(0, 0,
             Math.min(110 + brightenBy, 255),
@@ -268,7 +268,7 @@ public abstract class ImgModelTest {
   @Test
   public void testDarken() throws IOException {
     Img darkLittlePic;
-    darkLittlePic = type.makeImg("darkLittlePic", 4, 2);
+    darkLittlePic = new Img("darkLittlePic", 4, 2);
     int brightenBy = -120;
     darkLittlePic.setPixel(0, 0,
             Math.max(110 + brightenBy, 0),

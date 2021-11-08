@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controller.Parameter;
+import img.FileType;
 
 /**
  * A list of commands the program can run.
@@ -192,7 +193,7 @@ public enum Command {
                 paramValues.get(Parameter.destinationImage));
         break;
       case save:
-        model.save(paramValues.get(Parameter.PPMpath),
+        model.save("ppm", paramValues.get(Parameter.PPMpath),
                 paramValues.get(Parameter.targetImage));
         break;
       case rc:

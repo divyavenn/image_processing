@@ -43,9 +43,10 @@ public class TestInputModel implements ImgModel {
   }
 
   @Override
-  public void save(String filePath, String destinationImageName) throws IOException {
+  public void save(String formatName, String filePath, String destinationImageName) throws IOException {
     recentlyCalled = Command.save;
     recentInputs = new ArrayList<String>();
+    recentInputs.add(formatName);
     recentInputs.add(filePath);
     recentInputs.add(destinationImageName);
   }
@@ -81,5 +82,19 @@ public class TestInputModel implements ImgModel {
   @Override
   public Img getImage(String imageName) {
     return null;
+  }
+
+  @Override
+  public void applyFilter(double[][] filter, String imageName, String destinationImageName) {
+    recentInputs = new ArrayList<String>();
+    recentInputs.add(imageName);
+    recentInputs.add(destinationImageName);
+  }
+
+  @Override
+  public void applyColorTransformation(double[][] matrix, String imageName, String destinationImageName) {
+    recentInputs = new ArrayList<String>();
+    recentInputs.add(imageName);
+    recentInputs.add(destinationImageName);
   }
 }

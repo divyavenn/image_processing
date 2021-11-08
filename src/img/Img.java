@@ -145,5 +145,3 @@ public class Img {
       ImageIO.write(buffImg,  formatName, new FileOutputStream(fPath));
   }
 }
-
-}

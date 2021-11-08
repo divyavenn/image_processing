@@ -1,5 +1,6 @@
 package controller;
 
+import img.FileType;
 import util.Tools;
 
 /**
@@ -34,7 +35,7 @@ public enum Parameter {
       case destinationImage:
         return Tools.isAlphabetic(inp);
       case fileType:
-        return
+        return (FileType.getFileType(inp) != null);
       default:
         throw new IllegalArgumentException("Invalid parameter valued");
     }

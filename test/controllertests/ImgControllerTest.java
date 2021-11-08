@@ -10,9 +10,8 @@ import java.util.ArrayList;
 
 import controller.ImgController;
 import controller.ImgControllerImplementation;
-import img.ImageType;
+import img.FileType;
 import img.Img;
-import img.Pixel;
 import model.Command;
 import model.ImgModel;
 import model.ImgModelImplementation;
@@ -27,11 +26,9 @@ import static org.junit.Assert.assertEquals;
 public abstract class ImgControllerTest {
 
   static Img bigPic;
-  ImageType type;
-
 
   protected void instantiate() {
-    bigPic = type.makeImg("square", 1080, 1080);
+    bigPic = new Img("square", 1080, 1080);
     int r;
     int g;
     int b;
@@ -58,7 +55,7 @@ public abstract class ImgControllerTest {
       }
     }
     try {
-      bigPic.save("image_processing/res/bigPic/bigPic.ppm");
+      bigPic.save(FileType.ppm, "image_processing/res/bigPic/bigPic.ppm");
     } catch (IOException e) {
       e.printStackTrace();
     }
