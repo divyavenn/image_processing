@@ -20,7 +20,7 @@ import util.Tools;
 /**
  * Tests the methods of ImageModel.
  */
-public abstract class ImgModelTest {
+public class ImgModelTest {
 
   Img littlePic;
   ImgModel model;
