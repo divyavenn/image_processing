@@ -15,10 +15,7 @@ public class PixelTest {
   Pixel c;
 
 
-  /**
-   * Instantiates pixels.
-   */
-  protected void instantiatePixels() {
+  public PixelTest(){
     a = new Pixel( 10, 20, 30);
     b = new Pixel( 0, 0, 0);
     c = new Pixel( 255, 255, 255);
