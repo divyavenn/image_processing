@@ -32,7 +32,7 @@ public class Img {
     pixels = new Pixel[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        setPixel(i, j, 0,0,0);
+        setPixel(i, j, 0, 0, 0);
       }
     }
   }
@@ -100,7 +100,7 @@ public class Img {
    * Saves image to specified file path.
    *
    * @param fPath the path to save the image to
-   * @param type the file format to save to.
+   * @param type  the file format to save to.
    * @throws java.io.IOException if writing is unsuccessful
    */
   public void save(FileType type, String fPath) throws IOException {
@@ -126,22 +126,19 @@ public class Img {
         out.close();
         return;
       case png:
-        formatName = "png";
-        break;
       case jpeg:
-        formatName = "jpeg";
+        BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < height; i++) {
+          for (int j = 0; j < width; j++) {
+            int r = pixels[i][j].getRed();
+            int g = pixels[i][j].getGreen();
+            int b = pixels[i][j].getBlue();
+            int rgb = (r << 16) | (g << 8) | b;
+            buffImg.setRGB(j, i, rgb);
+          }
+        }
+        ImageIO.write(buffImg, type.toString(), new FileOutputStream(fPath));
         break;
     }
-    BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-      for (int i = 0; i < height; i ++) {
-        for (int j = 0; j < width; j ++) {
-          int r = pixels[i][j].getRed();
-          int g = pixels[i][j].getGreen();
-          int b = pixels[i][j].getBlue();
-          int rgb = (r << 16) | (g << 8) | b;
-          buffImg.setRGB(j, i, rgb);
-        }
-      }
-      ImageIO.write(buffImg,  formatName, new FileOutputStream(fPath));
   }
 }

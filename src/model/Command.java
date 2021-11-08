@@ -193,7 +193,7 @@ public enum Command {
                 paramValues.get(Parameter.destinationImage));
         break;
       case save:
-        model.save("ppm", paramValues.get(Parameter.PPMpath),
+        model.save(paramValues.get(Parameter.fileType), paramValues.get(Parameter.PPMpath),
                 paramValues.get(Parameter.targetImage));
         break;
       case rc:
@@ -297,6 +297,26 @@ public enum Command {
                 + paramValues.get(Parameter.destinationImage));
       case vflip:
         return ("Vertically flipped value of "
+                + paramValues.get(Parameter.targetImage)
+                + " and loaded result into "
+                + paramValues.get(Parameter.destinationImage));
+      case blur:
+        return ("Blurred"
+                + paramValues.get(Parameter.targetImage)
+                + " and loaded result into "
+                + paramValues.get(Parameter.destinationImage));
+      case sharpen:
+        return ("Sharpened"
+                + paramValues.get(Parameter.targetImage)
+                + " and loaded result into "
+                + paramValues.get(Parameter.destinationImage));
+      case grey:
+        return ("Greyed out"
+                + paramValues.get(Parameter.targetImage)
+                + " and loaded result into "
+                + paramValues.get(Parameter.destinationImage));
+      case sepia:
+        return ("Added sepia tone to"
                 + paramValues.get(Parameter.targetImage)
                 + " and loaded result into "
                 + paramValues.get(Parameter.destinationImage));
