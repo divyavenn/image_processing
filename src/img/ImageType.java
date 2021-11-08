@@ -49,7 +49,14 @@ public enum ImageType {
                                              Readable in) {
     if (type.equals(ImageType.ppm)) {
       return new PPMController(model, view, in);
-    } else {
+    }
+    if (type.equals(ImageType.jpeg)) {
+      return new PPMController(model, view, in);
+    }
+    if (type.equals(ImageType.png)) {
+      return new PPMController(model, view, in);
+    }
+    else {
       throw new IllegalArgumentException("Not a valid image type");
     }
   }
@@ -66,7 +73,14 @@ public enum ImageType {
     ImgModel model = makeModel(type);
     if (type.equals(ImageType.ppm)) {
       return new PPMController(model, view, in);
-    } else {
+    }
+    if (type.equals(ImageType.jpeg)) {
+      return new PPMController(model, view, in);
+    }
+    if (type.equals(ImageType.png)) {
+      return new PPMController(model, view, in);
+    }
+    else {
       throw new IllegalArgumentException("Not a valid image type");
     }
   }
@@ -83,7 +97,14 @@ public enum ImageType {
   public static Img makeImg(ImageType type, String name, int height, int width) {
     if (type.equals(ImageType.ppm)) {
       return new PPM(name, height, width);
-    } else {
+    }
+    if (type.equals(ImageType.jpeg)) {
+      return new JPEG(name, height, width);
+    }
+    if (type.equals(ImageType.png)) {
+      return new PNG(name, height, width);
+    }
+    else {
 
       throw new IllegalArgumentException("Not a valid image type");
     }
@@ -99,12 +120,12 @@ public enum ImageType {
    */
   public static Pixel makePixel(ImageType type, int r, int g, int b) {
     if (type.equals(ImageType.ppm)) {
-      return new PPMPixel(r, g, b);
+      return new Pixel(r, g, b);
     } if (type.equals(ImageType.jpeg)) {
-      return new JPEGPixel(r, g, b);
+      return new Pixel(r, g, b);
     }
     if (type.equals(ImageType.png)) {
-      return new PNGPixel(r, g, b);
+      return new Pixel(r, g, b);
     }else {
       throw new IllegalArgumentException("Not a valid image type");
     }

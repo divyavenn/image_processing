@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import img.Img;
 import img.PPM;
-import img.PPMPixel;
 import img.Pixel;
 import util.Tools;
 
@@ -30,7 +29,7 @@ public class PPMModel extends ImgModelAbstract {
 
   @Override
   protected Pixel makePixel(int r, int g, int b) {
-    return new PPMPixel(r, g, b);
+    return new Pixel(r, g, b);
   }
 
   @Override

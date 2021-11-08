@@ -3,7 +3,7 @@ package img;
 /**
  * Represents a single Pixel in an Image.
  */
-public abstract class Pixel {
+public class Pixel {
 
   int r;
   int g;
@@ -21,6 +21,15 @@ public abstract class Pixel {
     this.r = r;
     this.b = b;
     this.g = g;
+  }
+
+  /**
+   * Defaults to a white pixel.
+   */
+  public Pixel() {
+    this.r = 255;
+    this.b = 255;
+    this.g = 255;
   }
 
   /**
@@ -65,6 +74,11 @@ public abstract class Pixel {
   public int getLuma() {
     double w_sum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
     return (int) (Math.ceil(w_sum));
+  }
+
+  @Override
+  public String toString() {
+    return r + " " + g + " " + b + "\n";
   }
 
 }

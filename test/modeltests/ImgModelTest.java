@@ -28,6 +28,7 @@ public abstract class ImgModelTest {
 
   /**
    * Instantiates class fields based on type.
+   *
    * @throws IOException if cannot save to file.
    */
   protected void instantiate() throws IOException {
@@ -49,6 +50,7 @@ public abstract class ImgModelTest {
 
   /**
    * Checks if the pixels of two images match.
+   *
    * @param a first image
    * @param b second image.
    * @return if they both match.
@@ -71,7 +73,8 @@ public abstract class ImgModelTest {
 
   /**
    * Checks if all the three values in a pixel match the given value.
-   * @param p Pixel to check
+   *
+   * @param p   Pixel to check
    * @param val the given value
    * @return true if the pixel equals the given value.
    */
@@ -81,6 +84,7 @@ public abstract class ImgModelTest {
 
   /**
    * Tests all the getComponent commands.
+   *
    * @param a the Image
    * @param c the command
    * @return if all components are working correctly.
