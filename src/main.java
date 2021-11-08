@@ -1,3 +1,4 @@
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
@@ -19,7 +20,8 @@ public class main {
       e.printStackTrace();
     }
   }
-  static Readable in = new StringReader("load folder/file.ppm img save img folder/file.ppm quit");
+  static Readable in = new StringReader("load image_processing/res/koala/koala.ppm koala quit");
+  //static Readable in = new InputStreamReader(System.in);
   static ImgView view = new TextView(annoyingModel, out);
   static ImgController controller = new ImgControllerImplementation(annoyingModel, view, in);
 

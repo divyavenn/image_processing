@@ -96,8 +96,8 @@ public class ImgControllerImplementation implements ImgController {
     try {
       commandName = isValidCommand(scan);
     } catch (IllegalArgumentException e) {
-      view.renderMessage("Invalid command name! Try again.");
-      recurse(scan);
+      view.renderMessage("Invalid command name + ' " + commandName + " 'Try again.");
+      //recurse(scan);
     } catch (NoSuchElementException e) {
       return;
     } catch (NullPointerException e) {
