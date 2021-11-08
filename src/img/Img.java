@@ -103,7 +103,7 @@ public class Img {
    * @param type the file format to save to.
    * @throws java.io.IOException if writing is unsuccessful
    */
-  public void save(ImageType type, String fPath) throws IOException {
+  public void save(FileType type, String fPath) throws IOException {
     String formatName = "";
     switch (type) {
       case ppm:
