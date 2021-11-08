@@ -43,10 +43,9 @@ public class TestInputModel implements ImgModel {
   }
 
   @Override
-  public void save(String formatName, String filePath, String destinationImageName) throws IOException {
+  public void save(String filePath, String destinationImageName) throws IOException {
     recentlyCalled = Command.save;
     recentInputs = new ArrayList<String>();
-    recentInputs.add(formatName);
     recentInputs.add(filePath);
     recentInputs.add(destinationImageName);
   }

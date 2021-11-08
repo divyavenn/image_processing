@@ -100,11 +100,15 @@ public class Img {
    * Saves image to specified file path.
    *
    * @param fPath the path to save the image to
-   * @param type  the file format to save to.
    * @throws java.io.IOException if writing is unsuccessful
    */
-  public void save(FileType type, String fPath) throws IOException {
+  public void save(String fPath) throws IOException {
     String formatName = "";
+    FileType type = FileType.getFileType(fPath);
+    if (type == null) {
+      System.out.println("Not a valid file extension!");
+      throw new IOException("");
+    }
     switch (type) {
       case ppm:
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(

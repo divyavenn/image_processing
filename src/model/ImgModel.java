@@ -20,11 +20,10 @@ public interface ImgModel {
   /**
    * Save image to image path file.
    *
-   * @param formatName  the format of the file
    * @param filePath        the path of the target image file.
    * @param targetImageName the name of the image to save from
    */
-  public void save(String formatName, String filePath, String targetImageName) throws IOException;
+  public void save(String filePath, String targetImageName) throws IOException;
 
 
   /**

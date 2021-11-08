@@ -46,7 +46,7 @@ public class ImgModelImplementation implements ImgModel {
   }
 
   @Override
-  public void save(String formatName, String filePath, String targetImageName) throws IOException {
+  public void save(String filePath, String targetImageName) throws IOException {
     Img targetImage;
     FileType type;
     try {
@@ -55,12 +55,7 @@ public class ImgModelImplementation implements ImgModel {
       System.out.println("Image not in list!");
       throw new IOException("");
     }
-    type = FileType.getFileType(formatName);
-    if (type == null) {
-      System.out.println("Not a valid file type!");
-      throw new IOException("");
-    }
-    targetImage.save(type, filePath);
+    targetImage.save(filePath);
   }
 
 

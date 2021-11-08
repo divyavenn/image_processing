@@ -8,11 +8,9 @@ import util.Tools;
  */
 public enum Parameter {
   increment,
-  PPMpath,
+  filePath,
   targetImage,
-  destinationImage,
-  fileType;
-
+  destinationImage;
 
 
   /**
@@ -25,17 +23,15 @@ public enum Parameter {
     switch (this) {
       case increment:
         return Tools.isNumeric(inp);
-      case PPMpath:
+      case filePath:
         if (inp.length() > 4) {
-          return inp.substring(inp.length() - 4, inp.length()).equals(".ppm");
+          return (FileType.getFileType(inp) != null);
         } else {
           return false;
         }
       case targetImage:
       case destinationImage:
         return Tools.isAlphabetic(inp);
-      case fileType:
-        return (FileType.getFileType(inp) != null);
       default:
         throw new IllegalArgumentException("Invalid parameter valued");
     }

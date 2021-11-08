@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controller.Parameter;
-import img.FileType;
+
 
 /**
  * A list of commands the program can run.
@@ -63,11 +63,11 @@ public enum Command {
 
   static {
     commandParamMap.put(Command.load, new Parameter[]{
-        Parameter.PPMpath,
+        Parameter.filePath,
         Parameter.destinationImage});
 
     commandParamMap.put(Command.save, new Parameter[]{
-        Parameter.PPMpath,
+        Parameter.filePath,
         Parameter.targetImage});
 
     commandParamMap.put(Command.brighten, new Parameter[]{
@@ -184,7 +184,7 @@ public enum Command {
   public void run(ImgModel model, Map<Parameter, String> paramValues) throws IOException {
     switch (this) {
       case load:
-        model.load(paramValues.get(Parameter.PPMpath),
+        model.load(paramValues.get(Parameter.filePath),
                 paramValues.get(Parameter.destinationImage));
         break;
       case brighten:
@@ -193,7 +193,7 @@ public enum Command {
                 paramValues.get(Parameter.destinationImage));
         break;
       case save:
-        model.save(paramValues.get(Parameter.fileType), paramValues.get(Parameter.PPMpath),
+        model.save(paramValues.get(Parameter.filePath),
                 paramValues.get(Parameter.targetImage));
         break;
       case rc:
@@ -245,7 +245,7 @@ public enum Command {
     switch (this) {
       case load:
         return ("Loaded "
-                + paramValues.get(Parameter.PPMpath)
+                + paramValues.get(Parameter.filePath)
                 + " into "
                 + paramValues.get(Parameter.destinationImage));
       case brighten:
@@ -259,7 +259,7 @@ public enum Command {
         return ("Saved "
                 + paramValues.get(Parameter.targetImage)
                 + " to "
-                + paramValues.get(Parameter.PPMpath));
+                + paramValues.get(Parameter.filePath));
       case rc:
         return ("Exported red component of "
                 + paramValues.get(Parameter.targetImage)
