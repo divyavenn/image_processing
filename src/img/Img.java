@@ -103,17 +103,8 @@ public class Img {
    * @throws java.io.IOException if writing is unsuccessful
    */
   public void save(String fPath) throws IOException {
-    FileType type = null;
-    if (fPath.endsWith(".ppm")) {
-      type = FileType.ppm;
-    }
-    if (fPath.endsWith(".png")) {
-      type = FileType.png;
-    }
-    if (fPath.endsWith(".jpeg")) {
-      type = FileType.jpeg;
-    }
-    else if (type == null) {
+    FileType type = FileType.fileTypeOfPath(fPath);
+    if (type == null) {
       System.out.println("Not a valid file extension!");
       throw new IOException("");
     }

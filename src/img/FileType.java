@@ -52,14 +52,14 @@ public enum FileType {
    * @return The ImageType enum of the file.
    */
   public static FileType fileTypeOfPath(String filePath) {
-    String extension  = "";
-    if (filePath.length() > 4) {
-      extension = filePath.substring(filePath.length() - 4, filePath.length());
-      for (FileType f : FileType.values()) {
-        if (extension.equals("." + f.toString())) {
-          return f;
-        }
-      }
+    if (filePath.endsWith(".ppm")) {
+      return FileType.ppm;
+    }
+    if (filePath.endsWith(".png")) {
+      return FileType.png;
+    }
+    if (filePath.endsWith(".jpeg")) {
+      return FileType.jpeg;
     }
     return null;
   }
