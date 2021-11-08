@@ -3,6 +3,8 @@ package model;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -10,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
+import img.ImageType;
 import img.Img;
 import img.JPEG;
 
@@ -55,9 +58,10 @@ public class JPEGModel extends ImgModelAbstract {
   }
 
   @Override
-  protected boolean isCorrectFileType(String filePath) {
+  public boolean isCorrectFileType(String filePath) {
     try {
-      ImageInputStream iis = ImageIO.createImageInputStream(filePath);
+      FileInputStream in = new FileInputStream(filePath);
+      ImageInputStream iis = ImageIO.createImageInputStream(in);
       Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
       if (!iter.hasNext()) {
         return false;
