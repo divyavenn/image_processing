@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -10,21 +11,34 @@ import model.ImgModel;
 import view.ImgView;
 
 /**
- * Controlls a program that can processs PPM Files.
+ * Controls the program that processes images.
  */
-public class PPMController extends ImgControllerAbstract {
+public class ImgControllerImplementation implements ImgController {
+  ImgModel model;
+  ImgView view;
+  Readable in;
+
 
   /**
    * Constructs an ImgController object.
+   *
    *
    * @param model the model
    * @param view the view
    * @param in the readable
    * @throws IllegalArgumentException if any inputs are null
    */
-  public PPMController(ImgModel model, ImgView view, Readable in) throws IllegalArgumentException {
-    super(model, view, in);
+  public ImgControllerImplementation(ImgModel model,
+                                     ImgView view,
+                                     Readable in) throws IllegalArgumentException {
+    if (model == null || view == null || in == null) {
+      throw new IllegalArgumentException("Null input.");
+    }
+    this.model = model;
+    this.view = view;
+    this.in = in;
   }
+
 
   /**
    * Takes next input in scanner and checks if it is a valid command.
@@ -149,5 +163,4 @@ public class PPMController extends ImgControllerAbstract {
     Scanner scan = new Scanner(in);
     recurse(scan);
   }
-
 }

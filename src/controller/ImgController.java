@@ -12,7 +12,7 @@ public interface ImgController {
    * different orders, only requires that when two image paths are specified, the destination image
    * path goes second. Runs appopriate command with given parameters.
    */
-  void start();
+   void start();
 
 
 }
