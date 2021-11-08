@@ -16,7 +16,7 @@ public class ExceptionThrowingModel extends ImgModelImplementation {
   }
 
   @Override
-  public void save(String filePath, String destinationImageName) throws IOException {
+  public void save(String formatName, String filePath, String destinationImageName) throws IOException {
     throw new IOException();
   }
 

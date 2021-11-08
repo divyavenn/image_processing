@@ -56,7 +56,7 @@ public enum FileType {
         return f;
       }
     }
-    throw new IllegalArgumentException("Bad format name");
+    return null;
   }
 
 

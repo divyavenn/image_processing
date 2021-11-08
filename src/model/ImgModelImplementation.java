@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import img.FileType;
-import img.FileType;
 import img.Img;
 import img.Pixel;
 
@@ -20,7 +19,7 @@ public class ImgModelImplementation implements ImgModel {
    * Constructs an ImageModelObject.
    */
   public ImgModelImplementation() {
-    images = new ArrayList<Img>();
+    images = new ArrayList<>();
   }
 
 
