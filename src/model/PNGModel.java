@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -53,7 +54,8 @@ public class PNGModel extends ImgModelAbstract{
   @Override
   protected boolean isCorrectFileType(String filePath) {
     try {
-      ImageInputStream iis = ImageIO.createImageInputStream(filePath);
+      FileInputStream in = new FileInputStream(filePath);
+      ImageInputStream iis = ImageIO.createImageInputStream(in);
       Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
       if (!iter.hasNext()) {
         return false;
