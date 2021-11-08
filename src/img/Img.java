@@ -41,7 +41,7 @@ public abstract class Img {
    * Sets pixels.
    */
   public void setPixel(int height, int width, int r, int g, int b) {
-    pixels[height][width] = ImageType.makePixel(type,
+    pixels[height][width] = new Pixel(
             Math.min(Math.max(r, 0), 255),
             Math.min(Math.max(g, 0), 255),
             Math.min(Math.max(b, 0), 255));

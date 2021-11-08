@@ -33,19 +33,6 @@ public abstract class ImgModelAbstract implements ImgModel {
   }
 
   /**
-   * Returns an Img Object corresponding to the implementing class.
-   *
-   * @param imageName the name of the image
-   * @param height    the height of the image
-   * @param width     the width of the image
-   * @returns an Img Object
-   */
-  protected Img makeImg(String imageName, int height, int width) {
-    return ImageType.makeImg(type, imageName, height, width);
-  }
-
-
-  /**
    * Makes an image from a file.
    *
    * @param filepath the path of the file
@@ -59,8 +46,8 @@ public abstract class ImgModelAbstract implements ImgModel {
   @Override
   public void load(String filePath, String destinationImageName)
           throws IllegalArgumentException {
-    ImageType =
-    if (isCorrectFileType(filePath)) {
+    ImageType type = getCorrectFileType(filePath);
+    if (type != null) {
       Img destinationImage = makeImgFromFile(filePath, destinationImageName);
       images.add(destinationImage);
     }

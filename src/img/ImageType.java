@@ -53,29 +53,6 @@ public enum ImageType {
 
 
   /**
-   * Returns a controller specific to the ImageType.
-   *
-   * @param type the type
-   * @param view the view for the controller
-   * @param in   the Readable for the controller
-   * @return an ImgController
-   */
-  public static ImgController makeController(ImageType type, ImgModel model, ImgView view,
-                                             Readable in) {
-    if (type.equals(ImageType.ppm)) {
-      return new PPMController(model, view, in);
-    }
-    if (type.equals(ImageType.jpeg)) {
-      return new PPMController(model, view, in);
-    }
-    if (type.equals(ImageType.png)) {
-      return new PPMController(model, view, in);
-    } else {
-      throw new IllegalArgumentException("Not a valid image type");
-    }
-  }
-
-  /**
    * Returns an Img Object corresponding to the implementing class.
    *
    * @param type   the type of Image
@@ -99,28 +76,6 @@ public enum ImageType {
     }
   }
 
-  /**
-   * Returns a Pixel Object corresponding to the implementing class.
-   *
-   * @param r the red component.
-   * @param g the green component.
-   * @param b the blue component.
-   * @returns a Pixel Object
-   */
-  public static Pixel makePixel(ImageType type, int r, int g, int b) {
-    if (type.equals(ImageType.ppm)) {
-      return new Pixel(r, g, b);
-    }
-    if (type.equals(ImageType.jpeg)) {
-      return new Pixel(r, g, b);
-    }
-    if (type.equals(ImageType.png)) {
-      return new Pixel(r, g, b);
-    } else {
-      throw new IllegalArgumentException("Not a valid image type");
-    }
-  }
-
 
   /**
    * Returns the format of the image of the given file path.
@@ -136,7 +91,7 @@ public enum ImageType {
       Scanner scan = new Scanner(in);
       String tag = scan.next();
       if (tag.equals("P3")) {
-        format = "PPM";
+        return ImageType.ppm;
       }
     } catch (FileNotFoundException e) {
       System.out.println("Unable to find file.");
@@ -156,28 +111,17 @@ public enum ImageType {
         System.out.println("Unable to find file.");
       }
     }
-    switch (format) {
-      case ("JPEG"):
-        type = ImageType.jpeg;
-        break;
-      case ("PNG"):
-        type = ImageType.png;
-        break;
-      case ("PPM"):
-        type = ImageType.ppm;
-        break;
-      default:
-        break;
-    }
-    return type;
+    if (format.equals("JPEG")) return ImageType.jpeg;
+    else if (format.equals("PNG")) return ImageType.png;
+    else return null;
   }
 
   public Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException {
     BufferedImage buffImg;
     Img image = null;
     ImageType type = getCorrectFileType(filepath);
-    switch (type.toString()) {
-      case ("ppm"):
+    switch (type) {
+      case ppm:
         try {
           Readable in = new FileReader(filepath);
           Scanner scan = new Scanner(in);
@@ -200,32 +144,13 @@ public enum ImageType {
           throw new IllegalArgumentException("");
         }
         break;
-      case ("jpeg"):
+      case jpeg:
+      case png:
         try {
           buffImg = ImageIO.read(new File(filepath));
           int width = buffImg.getWidth();
           int height = buffImg.getHeight();
-          image = new JPEG(name, height, width);
-          for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-              Color c = new Color(buffImg.getRGB(j, i));
-              int r = c.getRed();
-              int g = c.getGreen();
-              int b = c.getBlue();
-              image.setPixel(i, j, r, b, g);
-            }
-          }
-        } catch (IOException e) {
-          System.out.println("Unable to find file.");
-          throw new IllegalArgumentException("");
-        }
-        break;
-      case ("png"):
-        try {
-          buffImg = ImageIO.read(new File(filepath));
-          int width = buffImg.getWidth();
-          int height = buffImg.getHeight();
-          image = new PNG(name, height, width);
+          image = makeImg(type, name, height, width);
           for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
               Color c = new Color(buffImg.getRGB(j, i));
