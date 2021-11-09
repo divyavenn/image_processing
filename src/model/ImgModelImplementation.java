@@ -180,6 +180,7 @@ public class ImgModelImplementation implements ImgModel {
         throw new IllegalArgumentException("Filter must be square array of odd length");
       }
     }
+    //filter being passed correctly
     int center = (int) Math.floor(filter.length/2);
     Img img = getImage(imageName);
     Img destinationImage = copyImage(img, destinationImageName);
@@ -203,6 +204,7 @@ public class ImgModelImplementation implements ImgModel {
             }
           }
         }
+        System.out.println("r: " +  filteredRed + ", g: " + filteredGreen + ", b: " + filteredBlue);
         destinationImage.setPixel(i,j, (int)Math.round(filteredRed),(int)Math.round(filteredGreen),
                 (int)Math.round(filteredBlue));
       }
