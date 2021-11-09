@@ -49,7 +49,7 @@ public class ImgModelImplementation implements ImgModel {
   public void save(String filePath, String targetImageName) throws IOException {
     Img targetImage;
     FileType type;
-    if (targetImageName == null) {
+    if (targetImageName == null || filePath == null) {
       throw new IOException("");
     }
     try {
