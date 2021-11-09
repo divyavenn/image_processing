@@ -22,7 +22,7 @@ public class main {
   }
 
   private static String getfPath(String fileName) {
-    return " image_processing/res/koala/" + fileName + ".ppm";
+    return " image_processing/res/koala/" + fileName + ".png";
   }
 
   private static String getName(String adjective) {
@@ -34,9 +34,9 @@ public class main {
   }
 
   private static String makeReadable(){
-    return "load " + getfPath("koala") + " " + getName("") + "\n" +
+    return "load image_processing/res/koala/koala.ppm " + getName("") +
+            "\n" +
             "blur " + getName("") + " " + getName("blurry") + "\n" +
-            "blur " + getName("blurry") + " " + getName("blurry") + "\n" +
             getSave(getName("blurry")) + "\n" +
             "sharpen " + getName("") + " " + getName("sharp") + "\n" +
             getSave(getName("sharp")) + "\n" +
