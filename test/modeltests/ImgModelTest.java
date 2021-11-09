@@ -1,13 +1,19 @@
 package modeltests;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 import img.FileType;
 import img.Img;
@@ -32,7 +38,8 @@ public class ImgModelTest {
    *
    * @throws IOException if cannot save to file.
    */
-  protected void instantiate() throws IOException {
+  @Before
+  public void instantiate() throws IOException {
     littlePic = new Img( "small", 4, 2);
     littlePic.setPixel(0, 0, 110, 115, 119);
     littlePic.setPixel(0, 1, 120, 125, 129);
@@ -44,6 +51,8 @@ public class ImgModelTest {
     littlePic.setPixel(3, 0,  170, 175, 179);
     littlePic.setPixel(3, 1,  180, 185, 189);
     littlePic.save("image_processing/res/littlePic/littlePic.ppm");
+    littlePic.save("image_processing/res/littlePic/littlePic.png");
+    littlePic.save("image_processing/res/littlePic/littlePic.jpeg");
 
     model = new ImgModelImplementation();
     model.load("image_processing/res/littlePic.ppm", "littlePic");
@@ -127,7 +136,7 @@ public class ImgModelTest {
 
 
   @Test
-  public void testSave() throws IOException {
+  public void testSavePPM() throws IOException {
     String fPath = "image_processing/res/littlePic/littlePic2.ppm";
     model.save( fPath, "littlePic");
     try {
@@ -154,6 +163,58 @@ public class ImgModelTest {
     }
   }
 
+  @Test
+  public void testSaveJPEG() throws IOException {
+    String fPath = "image_processing/res/littlePic/littlePic2.jpeg";
+    model.save( fPath, "littlePic");
+    BufferedImage buffImg;
+    try {
+      buffImg = ImageIO.read(new File(fPath));
+      int width = buffImg.getWidth();
+      int height = buffImg.getHeight();
+      Img image = new Img("", height, width);
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          Color c = new Color(buffImg.getRGB(j, i));
+          int r = c.getRed();
+          int g = c.getGreen();
+          int b = c.getBlue();
+          image.setPixel(i, j, r, g, b);
+        }
+      }
+      assertEquals(contentsMatch(littlePic, image), true);
+    } catch (FileNotFoundException e) {
+      System.out.println("Unable to find file.");
+      throw new IllegalArgumentException("");
+    }
+  }
+
+  @Test
+  public void testSavePNG() throws IOException {
+    String fPath = "image_processing/res/littlePic/littlePic2.png";
+    model.save( fPath, "littlePic");
+    BufferedImage buffImg;
+    try {
+      buffImg = ImageIO.read(new File(fPath));
+      int width = buffImg.getWidth();
+      int height = buffImg.getHeight();
+      Img image = new Img("", height, width);
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          Color c = new Color(buffImg.getRGB(j, i));
+          int r = c.getRed();
+          int g = c.getGreen();
+          int b = c.getBlue();
+          image.setPixel(i, j, r, g, b);
+        }
+      }
+      assertEquals(contentsMatch(littlePic, image), true);
+    } catch (FileNotFoundException e) {
+      System.out.println("Unable to find file.");
+      throw new IllegalArgumentException("");
+    }
+  }
+
   @Test(expected = Exception.class)
   public void testSaveException() throws Exception {
     String fPath = "/";
@@ -161,12 +222,29 @@ public class ImgModelTest {
   }
 
   @Test
-  public void testLoad() {
-    String fPath = "image_processing/res/littlePic/littlePic.ppm";
+  public void testLoadPPM() {
+    String fPath = "image_processing/res/littlePic.ppm";
     model.load(fPath, "loadedImage");
     Img loadedImage = model.getImage("loadedImage");
     assertEquals(contentsMatch(littlePic, loadedImage), true);
   }
+
+  @Test
+  public void testLoadJPEG() {
+    String fPath = "image_processing/res/littlePic.jpeg";
+    model.load(fPath, "loadedImage");
+    Img loadedImage = model.getImage("loadedImage");
+    assertEquals(contentsMatch(littlePic, loadedImage), true);
+  }
+
+  @Test
+  public void testLoadPNG() {
+    String fPath = "image_processing/res/littlePic.png";
+    model.load(fPath, "loadedImage");
+    Img loadedImage = model.getImage("loadedImage");
+    assertEquals(contentsMatch(littlePic, loadedImage), true);
+  }
+
 
   @Test
   public void testAllComponents() {

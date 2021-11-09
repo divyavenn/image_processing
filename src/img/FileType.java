@@ -93,8 +93,8 @@ public enum FileType {
       System.out.println("Unable to find file.");
     }
 
-    if (format.equals("JPEG")) return FileType.jpeg;
-    else if (format.equals("PNG")) return FileType.png;
+    if (format.equals("JPEG")) return FileType.jpeg; //HAS TO BE UPPERCASE!!
+    else if (format.equals("png")) return FileType.png; // HAS TO BE LOWERCASE!!
     else return null;
   }
 
@@ -106,7 +106,7 @@ public enum FileType {
    * @return an Img.
    * @throws IllegalArgumentException
    */
-  public Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException {
+  public static Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException {
     BufferedImage buffImg;
     Img image = null;
     FileType type = getCorrectFileType(filepath);
@@ -147,7 +147,7 @@ public enum FileType {
               int r = c.getRed();
               int g = c.getGreen();
               int b = c.getBlue();
-              image.setPixel(i, j, r, b, g);
+              image.setPixel(i, j, r, g, b);
             }
           }
         } catch (IOException e) {
