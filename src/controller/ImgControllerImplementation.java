@@ -151,7 +151,8 @@ public class ImgControllerImplementation implements ImgController {
     /** Debugging
     for (Parameter p: Parameter.values()) {
       System.out.println(p.toString() + paramValues.get(p));
-    } **/
+    }
+    **/
 
     try {
       c.run(model, paramValues);

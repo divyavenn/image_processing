@@ -48,7 +48,6 @@ public class ImgModelImplementation implements ImgModel {
   @Override
   public void save(String filePath, String targetImageName) throws IOException {
     Img targetImage;
-    FileType type;
     if (targetImageName == null || filePath == null) {
       throw new IOException("");
     }
@@ -198,13 +197,14 @@ public class ImgModelImplementation implements ImgModel {
             int yDelta = center - y;
             targetPixel = img.getPixel(i - xDelta, j - yDelta);
             if (targetPixel != null) {
-              filteredRed = Math.round(filteredRed + targetPixel.getRed()*filter[x][y]);
-              filteredBlue = Math.round(filteredBlue + targetPixel.getBlue()*filter[x][y]);
-              filteredGreen = Math.round(filteredGreen + targetPixel.getGreen()*filter[x][y]);
+              filteredRed = filteredRed + targetPixel.getRed()*filter[x][y];
+              filteredBlue = filteredBlue + targetPixel.getBlue()*filter[x][y];
+              filteredGreen = filteredGreen + targetPixel.getGreen()*filter[x][y];
             }
           }
         }
-        destinationImage.setPixel(i,j, (int)(filteredRed),(int)filteredGreen, (int)filteredBlue);
+        destinationImage.setPixel(i,j, (int)Math.round(filteredRed),(int)Math.round(filteredGreen),
+                (int)Math.round(filteredBlue));
       }
     }
     images.add(destinationImage);

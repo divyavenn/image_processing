@@ -261,9 +261,9 @@ public class ImgControllerTest {
   @Test
   public void transmitsAllCommandsMultipleSyntaxesCorrectly() throws IOException {
     assertEquals(multipleSyntaxesWork(Command.save,
-            new String[]{"koala.ppm", "koala"},
-            "save koala.ppm koala",
-            "save koala koala.ppm"), true);
+            new String[]{"koala.png", "koala"},
+            "save koala.png koala",
+            "save koala koala.png"), true);
 
 
     assertEquals(multipleSyntaxesWork(Command.load,
