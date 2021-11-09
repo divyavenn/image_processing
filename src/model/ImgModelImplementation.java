@@ -180,6 +180,7 @@ public class ImgModelImplementation implements ImgModel {
         throw new IllegalArgumentException("Filter must be square array of odd length");
       }
     }
+
     //filter being passed correctly
     int center = (int) Math.floor(filter.length/2);
     Img img = getImage(imageName);
@@ -198,13 +199,15 @@ public class ImgModelImplementation implements ImgModel {
             int yDelta = center - y;
             targetPixel = img.getPixel(i - xDelta, j - yDelta);
             if (targetPixel != null) {
+              //System.out.println(targetPixel.getRed()+ " * " + filter[x][y]);
               filteredRed = filteredRed + targetPixel.getRed()*filter[x][y];
               filteredBlue = filteredBlue + targetPixel.getBlue()*filter[x][y];
               filteredGreen = filteredGreen + targetPixel.getGreen()*filter[x][y];
             }
           }
         }
-        System.out.println("r: " +  filteredRed + ", g: " + filteredGreen + ", b: " + filteredBlue);
+        //System.out.println("r: " +  filteredRed + ", g: " + filteredGreen + ", b: " +
+        // filteredBlue);
         destinationImage.setPixel(i,j, (int)Math.round(filteredRed),(int)Math.round(filteredGreen),
                 (int)Math.round(filteredBlue));
       }

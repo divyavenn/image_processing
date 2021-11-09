@@ -140,36 +140,36 @@ public class ImgModelTest {
     Img blurPic = new Img("blur", 4, 2);
 
     blurPic.setPixel(0, 0,
-            (int)Math.round(62.5),
+            (int)Math.round(67.5),
             (int)Math.round(70.31) ,
             (int)Math.round(72.56));
     blurPic.setPixel(0, 1,
-            (int)Math.round(54.38),
+            (int)Math.round(69.38),
             (int)Math.round(72.19) ,
             (int)Math.round(74.44));
     blurPic.setPixel(1, 0,
-            (int)Math.round(101.25),
+            (int)Math.round(100.00),
             (int)Math.round(103.75) ,
             (int)Math.round(106.75));
     blurPic.setPixel(1, 1,
-            (int)Math.round(85),
+            (int)Math.round(102.50),
             (int)Math.round(106.25) ,
             (int)Math.round(109.25));
 
     blurPic.setPixel(2, 0,
-            (int)Math.round(116.25),
+            (int)Math.round(115.00),
             (int)Math.round(118.75) ,
             (int)Math.round(121.75));
     blurPic.setPixel(2, 1,
-            (int)Math.round(97.5),
+            (int)Math.round(117.50),
             (int)Math.round(121.25) ,
             (int)Math.round(124.25));
     blurPic.setPixel(3, 0,
-            (int)Math.round(82.5),
+            (int)Math.round(93.75),
             (int)Math.round(96.56) ,
             (int)Math.round(98.81));
     blurPic.setPixel(3, 1,
-            (int)Math.round(73.13),
+            (int)Math.round(95.63),
             (int)Math.round(98.44) ,
             (int)Math.round(100.69));
 
