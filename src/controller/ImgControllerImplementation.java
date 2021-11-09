@@ -49,14 +49,17 @@ public class ImgControllerImplementation implements ImgController {
   protected String isValidCommand(Scanner scan) {
     if (scan.hasNext()) {
       String inp = scan.next();
+      if (inp.equals("")) {
+        throw new NoSuchElementException("Nothing was inputted.");
+      }
       for (Command c : Command.values()) {
         if (inp.equals(c.toString())) {
           return inp;
         }
       }
-      throw new IllegalArgumentException("'" + inp + "' is not a valid command!");
+      throw new IllegalArgumentException("'" + inp + "' is not a valid command!\n");
     }
-    throw new IllegalArgumentException("Nothing was inputted.");
+    throw new NoSuchElementException("Nothing was inputted.");
   }
 
 
@@ -96,8 +99,8 @@ public class ImgControllerImplementation implements ImgController {
     try {
       commandName = isValidCommand(scan);
     } catch (IllegalArgumentException e) {
-      view.renderMessage("Invalid command name + ' " + commandName + " 'Try again.");
-      //recurse(scan);
+      view.renderMessage("Invalid command name. Try again.");
+      recurse(scan);
     } catch (NoSuchElementException e) {
       return;
     } catch (NullPointerException e) {

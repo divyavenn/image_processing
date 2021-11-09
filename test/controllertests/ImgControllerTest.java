@@ -134,7 +134,7 @@ public class ImgControllerTest {
             + " just-luma koala lumakoala "
             + " save lumakoala" + fullPathKoala("luma_koala.ppm")
             + " just-intensity koala intensekoala "
-            + " save intensekoala" + fullPathKoala("intense_koala.ppm")
+            + " save intensekoala" + fullPathKoala("intense_koala.jpeg")
             + " quit");
 
     try {
@@ -171,18 +171,20 @@ public class ImgControllerTest {
     Readable in = new StringReader("load folder/file.ppm img save img folder/file.ppm quit");
     ImgView view = new TextView(annoyingModel, out);
     ImgController controller = new ImgControllerImplementation(annoyingModel, view, in);
-    controller.start();
+    //controller.start();
 
     annoyingModel = new ImgModelImplementation();
     in = new StringReader("");
     controller = new ImgControllerImplementation(annoyingModel, view, in);
-    controller.start();
+    //controller.start();
+
 
     annoyingModel = new ImgModelImplementation();
     in = new StringReader("save ");
     controller = new ImgControllerImplementation(annoyingModel, view, in);
     controller.start();
     assertEquals(controller != null, true);
+
   }
 
   /**

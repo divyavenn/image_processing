@@ -49,10 +49,12 @@ public class ImgModelImplementation implements ImgModel {
   public void save(String filePath, String targetImageName) throws IOException {
     Img targetImage;
     FileType type;
+    if (targetImageName == null) {
+      throw new IOException("");
+    }
     try {
       targetImage = getImage(targetImageName);
     } catch (Exception e) {
-      System.out.println("Image not in list!");
       throw new IOException("");
     }
     targetImage.save(filePath);
