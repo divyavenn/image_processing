@@ -189,22 +189,22 @@ public class ImgModelImplementation implements ImgModel {
     Pixel targetPixel;
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        int filteredRed = 0;
-        int filteredGreen = 0;
-        int filteredBlue = 0;
+        double filteredRed = 0;
+        double filteredGreen = 0;
+        double filteredBlue = 0;
         for (int x = 0; x < filter.length; x++) {
           for (int y = 0; y < filter.length; y++) {
             int xDelta = center - x;
             int yDelta = center - y;
             targetPixel = img.getPixel(i - xDelta, j - yDelta);
             if (targetPixel != null) {
-              filteredRed += targetPixel.getRed()*filter[x][y];
-              filteredBlue += targetPixel.getBlue()*filter[x][y];
-              filteredGreen += targetPixel.getGreen()*filter[x][y];
+              filteredRed = filteredRed + targetPixel.getRed()*filter[x][y];
+              filteredBlue = filteredBlue + targetPixel.getBlue()*filter[x][y];
+              filteredGreen = filteredGreen + targetPixel.getGreen()*filter[x][y];
             }
           }
         }
-        destinationImage.setPixel(i,j,filteredRed,filteredBlue, filteredGreen);
+        destinationImage.setPixel(i,j, (int)(filteredRed),(int)filteredBlue, (int)filteredGreen);
       }
     }
     images.add(destinationImage);
@@ -215,7 +215,7 @@ public class ImgModelImplementation implements ImgModel {
                                        String destinationImageName){
     if (matrix.length != matrix[0].length) {
       if (matrix.length != 3) {
-        throw new IllegalArgumentException("Filter must be square array of length3");
+        throw new IllegalArgumentException("Filter must be square array of length 3");
       }
     }
     Img img = getImage(imageName);

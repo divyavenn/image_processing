@@ -29,24 +29,24 @@ public enum Command {
   sepia("sepia");
 
 
-  static final double[][] blurFilter =
+  public static final double[][] blurFilter = new double[][]
           {{1/16, 1/8, 1/16},
           {1/8, 1/4, 1/8},
           {1/16,1/8,1/16}};
 
-  static final double[][] sharpenFilter = {
+  public static final double[][] sharpenFilter = new double[][]{
           {-1/8, -1/8, -1/8, -1/8, -1/8},
           {-1/8, 1/4, 1/4, 1/4, -1/8},
           {-1/8, 1/4, 1, 1/4, -1/8},
           {-1/8, 1/4, 1/4, 1/4, -1/8},
           {-1/8, -1/8, -1/8, 1/8, 1/8}};
 
-  static final double[][] greyTransform = {
+  public static final double[][] greyTransform = new double[][]{
           {0.2126, 0.7156, 0.0722},
           {0.2126, 0.7152, 0.0722},
           {0.2126, 0.7152, 0.0722}};
 
-  static final double[][] sepiaTransform = {
+  public static final double[][] sepiaTransform = new double[][]{
           {0.393, 0.769, 0.189},
           {0.349, 0.686, 0.168},
           {0.272, 0.534, 0.131}};
@@ -316,7 +316,7 @@ public enum Command {
                 + " and loaded result into "
                 + paramValues.get(Parameter.destinationImage));
       case sepia:
-        return ("Added sepia tone to"
+        return ("Added sepia tone to "
                 + paramValues.get(Parameter.targetImage)
                 + " and loaded result into "
                 + paramValues.get(Parameter.destinationImage));

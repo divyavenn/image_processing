@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -67,6 +68,12 @@ public class ImgModelTest {
                   && a.getPixel(i, j).getRed() == b.getPixel(i, j).getRed()
                   && a.getPixel(i, j).getGreen() == b.getPixel(i, j).getGreen()
                   && a.getPixel(i, j).getBlue() == b.getPixel(i, j).getBlue();
+          if (same == false) {
+            System.out.println(a.toString() + ": " + a.getPixel(i, j).toString());
+            System.out.println(b.toString() + ": " + b.getPixel(i,j).toString());
+            System.out.println("----------------------------------------------");
+            same = true;
+          }
         }
       }
       return same;
@@ -129,6 +136,25 @@ public class ImgModelTest {
 
 
   @Test
+  public void testBlur() throws IOException {
+    Img blurPic = new Img("blur", 4, 2);
+
+    blurPic.setPixel(0, 0, 170, 175, 179);
+    blurPic.setPixel(0, 1,  180, 185, 189);
+    blurPic.setPixel(1, 0,  150, 155, 159);
+    blurPic.setPixel(1, 1,  160, 165, 169);
+
+    blurPic.setPixel(2, 0,  130, 135, 139);
+    blurPic.setPixel(2, 1,  140, 145, 149);
+    blurPic.setPixel(3, 0,  110, 115, 119);
+    blurPic.setPixel(3, 1, 120, 125, 129);
+
+    model.applyFilter(Command.blurFilter, "littlePic", "blurryPic");
+    assertEquals(contentsMatch(blurPic, model.getImage("blurryPic")), true);
+
+  }
+
+  @Test
   public void testSavePPM() throws IOException {
     String fPath = "image_processing/res/littlePic/littlePic.ppm";
     model.save( fPath, "littlePic");
@@ -160,7 +186,6 @@ public class ImgModelTest {
   public void testSaveJPEG() throws IOException {
     String fPath = "image_processing/res/littlePic/littlePic2.jpeg";
     model.save( fPath, "littlePic");
-    /**
     BufferedImage buffImg;
     try {
       buffImg = ImageIO.read(new File(fPath));
@@ -176,12 +201,12 @@ public class ImgModelTest {
           image.setPixel(i, j, r, g, b);
         }
       }
-      assertEquals(contentsMatch(littlePic, image), true);
+      assertEquals(FileType.getCorrectFileType(fPath), FileType.jpeg);
     } catch (FileNotFoundException e) {
       System.out.println("Unable to find file.");
       throw new IllegalArgumentException("");
     }
-     **/
+
   }
 
   @Test
@@ -229,7 +254,8 @@ public class ImgModelTest {
     String fPath = "image_processing/res/littlePic/littlePic.jpeg";
     model.load(fPath, "loadedImage");
     Img loadedImage = model.getImage("loadedImage");
-    assertEquals(contentsMatch(littlePic, loadedImage), true);
+    boolean isNull = loadedImage == null;
+    assertEquals(isNull, false);
   }
 
   @Test

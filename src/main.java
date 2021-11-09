@@ -20,7 +20,13 @@ public class main {
       e.printStackTrace();
     }
   }
-  static Readable in = new StringReader("load image_processing/res/koala/koala.ppm koala quit");
+  static Readable in = new StringReader("load image_processing/res/koala/koala.ppm koala " +
+          "blur koala blurryKoala save blurryKoala image_processing/res/koala/blurrykoala.png " +
+            " sharpen koala unblurrykoala save unblurrykoala " +
+          "image_processing/res/koala/unblurrykoala.ppm " +
+          "grey koala greykoala save greykoala image_processing/res/koala/greykoala.jpeg " +
+          "sepia koala brownkoala save brownkoala image_processing/res/koala/brownkoala.png" +
+          "quit");
   //static Readable in = new InputStreamReader(System.in);
   static ImgView view = new TextView(annoyingModel, out);
   static ImgController controller = new ImgControllerImplementation(annoyingModel, view, in);
