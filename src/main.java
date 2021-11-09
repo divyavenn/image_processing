@@ -21,18 +21,30 @@ public class main {
     }
   }
 
-  private static String fPath = " image_processing/res/littlePic/";
-  private static String getName(String adjective) {
-    return " " + adjective + "pic ";
+  private static String getfPath(String fileName) {
+    return " image_processing/res/koala/" + fileName + ".ppm";
   }
-  static Readable in = new StringReader(
-          "load " + fPath + "littlePic.ppm" + getName("") + "\n" +
-          "blur " + getName("") + getName("blurry") + "\n" +
-            " sharpen koala unblurrykoala save unblurrykoala " +
-          "image_processing/res/koala/unblurrykoala.ppm " +
-          "grey koala greykoala save greykoala image_processing/res/koala/greykoala.jpeg " +
-          "sepia koala brownkoala save image_processing/res/koala/brownkoala.png brownkoala " +
-          "quit");
+
+  private static String getName(String adjective) {
+    return adjective + "pic";
+  }
+
+  private static String getSave(String imageName){
+    return "save " + imageName + getfPath(imageName);
+  }
+
+  private static String makeReadable(){
+    return "load " + getfPath("koala") + " " + getName("") + "\n" +
+            "blur " + getName("") + " " + getName("blurry") + "\n" +
+            "blur " + getName("blurry") + " " + getName("blurry") + "\n" +
+            getSave(getName("blurry")) + "\n" +
+            "sharpen " + getName("") + " " + getName("sharp") + "\n" +
+            getSave(getName("sharp")) + "\n" +
+            "quit";
+  }
+
+  static Readable in = new StringReader(makeReadable());
+
   //static Readable in = new InputStreamReader(System.in);
   static ImgView view = new TextView(annoyingModel, out);
   static ImgController controller = new ImgControllerImplementation(annoyingModel, view, in);
@@ -41,6 +53,9 @@ public class main {
   }
 
   public static void main (String[] args){
+    System.out.println(makeReadable());
+
+    System.out.println("\n \n ------------------------------ \n \n");
     controller.start();
   }
 }
