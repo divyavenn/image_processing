@@ -198,13 +198,13 @@ public class ImgModelImplementation implements ImgModel {
             int yDelta = center - y;
             targetPixel = img.getPixel(i - xDelta, j - yDelta);
             if (targetPixel != null) {
-              filteredRed = filteredRed + targetPixel.getRed()*filter[x][y];
-              filteredBlue = filteredBlue + targetPixel.getBlue()*filter[x][y];
-              filteredGreen = filteredGreen + targetPixel.getGreen()*filter[x][y];
+              filteredRed = Math.round(filteredRed + targetPixel.getRed()*filter[x][y]);
+              filteredBlue = Math.round(filteredBlue + targetPixel.getBlue()*filter[x][y]);
+              filteredGreen = Math.round(filteredGreen + targetPixel.getGreen()*filter[x][y]);
             }
           }
         }
-        destinationImage.setPixel(i,j, (int)(filteredRed),(int)filteredBlue, (int)filteredGreen);
+        destinationImage.setPixel(i,j, (int)(filteredRed),(int)filteredGreen, (int)filteredBlue);
       }
     }
     images.add(destinationImage);
