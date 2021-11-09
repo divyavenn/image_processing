@@ -43,7 +43,7 @@ public class ImgModelTest {
     littlePic.setPixel(2, 1,  160, 165, 169);
     littlePic.setPixel(3, 0,  170, 175, 179);
     littlePic.setPixel(3, 1,  180, 185, 189);
-    littlePic.save(FileType.ppm, "image_processing/res/littlePic/littlePic.ppm");
+    littlePic.save("image_processing/res/littlePic/littlePic.ppm");
 
     model = new ImgModelImplementation();
     model.load("image_processing/res/littlePic.ppm", "littlePic");
@@ -129,7 +129,7 @@ public class ImgModelTest {
   @Test
   public void testSave() throws IOException {
     String fPath = "image_processing/res/littlePic/littlePic2.ppm";
-    model.save("ppm", fPath, "littlePic");
+    model.save( fPath, "littlePic");
     try {
       Readable in = new FileReader(fPath);
       Scanner scan = new Scanner(in);
@@ -157,7 +157,7 @@ public class ImgModelTest {
   @Test(expected = Exception.class)
   public void testSaveException() throws Exception {
     String fPath = "/";
-    model.save("ppm",fPath, "littlePic");
+    model.save(fPath, "littlePic");
   }
 
   @Test

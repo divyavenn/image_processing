@@ -96,8 +96,8 @@ public class ImgControllerImplementation implements ImgController {
     try {
       commandName = isValidCommand(scan);
     } catch (IllegalArgumentException e) {
-      view.renderMessage("Invalid command name! Try again.");
-      recurse(scan);
+      view.renderMessage("Invalid command name + ' " + commandName + " 'Try again.");
+      //recurse(scan);
     } catch (NoSuchElementException e) {
       return;
     } catch (NullPointerException e) {
@@ -145,6 +145,11 @@ public class ImgControllerImplementation implements ImgController {
     }
 
     Command c = Command.getCommand(commandName);
+    /** Debugging
+    for (Parameter p: Parameter.values()) {
+      System.out.println(p.toString() + paramValues.get(p));
+    } **/
+
     try {
       c.run(model, paramValues);
       view.renderMessage(c.acknowledge(paramValues) + "\n");
@@ -152,7 +157,7 @@ public class ImgControllerImplementation implements ImgController {
         recurse(scan);
       }
     } catch (Exception e) {
-      view.renderMessage("Command unsuccessful. Try again. \n");
+      view.renderMessage("Command " + commandName + " unsuccessful. Try again. \n");
       recurse(scan);
     }
 

@@ -2,15 +2,11 @@ package img;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -18,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-import model.Command;
 import util.Tools;
 
 /**
@@ -44,24 +39,29 @@ public enum FileType {
     return formatName;
   }
 
+
   /**
-   * Gets the FileType given its name, returns null if type does not exist.
+   * Returns the format the proposed file path based on file extension.
    *
-   * @param formatName the name of the type
-   * @return command or null
+   * @param filePath The directory of the file.
+   * @return The ImageType enum of the file.
    */
-  public static FileType getFileType(String formatName) {
-    for (FileType f : FileType.values()) {
-      if (f.toString().equals(formatName)) {
-        return f;
-      }
+  public static FileType fileTypeOfPath(String filePath) {
+    if (filePath.endsWith(".ppm")) {
+      return FileType.ppm;
+    }
+    if (filePath.endsWith(".png")) {
+      return FileType.png;
+    }
+    if (filePath.endsWith(".jpeg")) {
+      return FileType.jpeg;
     }
     return null;
   }
 
 
   /**
-   * Returns the format of the image of the given file path.
+   * Returns the format of the image at the given file path.
    *
    * @param filePath The directory of the file.
    * @return The ImageType enum of the file.

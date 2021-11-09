@@ -55,7 +55,7 @@ public class ImgControllerTest {
       }
     }
     try {
-      bigPic.save(FileType.ppm, "image_processing/res/bigPic/bigPic.ppm");
+      bigPic.save("image_processing/res/bigPic/bigPic.ppm");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -122,7 +122,7 @@ public class ImgControllerTest {
             + " vflip koala upsidedownkoala "
             + " save upsidedownkoala" + fullPathKoala("upside_down_koala.ppm")
             + " hflip koala mirrorkoala "
-            + " save mirrorkoala" + fullPathKoala("mirror_koala.ppm")
+            + " save mirrorkoala " + fullPathKoala("mirror_koala.ppm")
             + " just-green koala greenkoala "
             + " save greenkoala" + fullPathKoala("green_koala.ppm")
             + " just-blue koala bluekoala "
@@ -263,6 +263,7 @@ public class ImgControllerTest {
             "save koala.ppm koala",
             "save koala koala.ppm"), true);
 
+
     assertEquals(multipleSyntaxesWork(Command.load,
             new String[]{"koala.ppm", "koala"},
             "load koala.ppm koala",
@@ -305,6 +306,7 @@ public class ImgControllerTest {
     assertEquals(multipleSyntaxesWork(Command.ic,
             new String[]{"koala", "newKoala"},
             "just-intensity koala newKoala"), true);
+
 
   }
 }
