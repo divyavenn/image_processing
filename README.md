@@ -1,26 +1,23 @@
 # image_processing
 
-**Made all sources images myself except koala.ppm which was provided by instructor
+**Made all sources images ourselves except koala.ppm which was provided by instructor
 
  **controller** package
 - *ImgController* interface: establishes the necessary functionalities of all implementing classes.
-- *ImgControllerAbstract* class: establishes the necessary class variables and constructor.
-- *PPMController* class: creates the functionality specific to a program that processess PPM files.
+- *ImgControllerImplementation* class: creates the functionality specific to a program that processess image files.
 - *Parameter* enum: has a list of all the possible types of parameters, along with methods for processing the parameters. Its inclusion allows me to add new commands/parameter types without needing to modify my controller.
 
 
  **img** package
-- *ImageType* enum: Keeps track of all compatible image file types and allows for abstraction of the methods of different classes. Rather than needing to override methods in abstract classes, this allows the abstract class to simply call on a method to make the class instance relevant to the image type the class is dealing with. Each image-type specific class like PPMController, PPMModel stores its ImageType in a class field.
-- *Img* abstract class: Has all the necessary variables and functionalities that all images, regardless of type, must have.
-- *Pixel* abstract class: Has all the necessary variables and functionalities all images, regardless of type, must have. This allows me to easily add new image types without changing up my existing models too much.
-- *PPM* class has PPM-specific functionalities, such as how PPM images are written in a file.
-- *PPMPixel* class has PPM-pixel-specific functionalities, such as how pixels are written to a PPM file
+- *FileType* enum: Keeps track of all compatible image file types and allows for abstraction of the methods of different classes. Rather than needing to override methods in multiple image classes, this will perform the correct operations if given the file type.
+- *Img* class: Has all the necessary variables and functionalities that all images, regardless of type, must have.
+- *Pixel* class: Has all the necessary variables and functionalities all pixels, regardless of type, must have.
+
 
 **model** package
 - *Command* enum: Keeps track of all possible commands, as well as their string representations. Also has a map of Commands to the Parameters they require. It has a method that runs the correct Command on an Img model, given a map of the Parameters + corresponding values given to the model. This allows me to add any commands in the future without changing my model.
 - *ImgModel* interface establishes the necessary functionalities of all implementing classes.
-- *ImgModelAbstract* abstract class: Has all the necessary variables and functionalities that all ImgModels share. 
-- *PPMModel* class: isolates the specific parts of the ImageModel functionality unique to PPM images, such as reading them from files.
+- *ImgModelImplmentation* class: Has all the necessary variables and functionalities to perform backend operations on images.
 
  **view** package
 - *ImgView* interface establishes the necessary functionalities of all implementing classes.
@@ -33,28 +30,32 @@
 LIST OF COMMANDS THAT WORKS:
 Run start() method in controller and type, line by line, into console. Alternatively enter as one long string into Readable.
 
-            - load image_processing/res/bigPic/bigPic.ppm square 
-            - save square image_processing/res/bigPic/another_square.ppm
+            - load image_processing/res/HappyFace/HappyFace.jpeg square 
+            - save square image_processing/res/HappyFace/another_face.ppm
             - brighten 50 square brightSquare
-            - save brightSquare image_processing/res/bigPic/bright_square.ppm
+            - save brightSquare image_processing/res/HappyFace/bright_face.ppm
             - brighten -50 square darkSquare 
-            - save darkSquare image_processing/res/bigPic/dark_square.ppm
+            - save darkSquare image_processing/res/HappyFace/dark_face.ppm
             - vflip square upsidedownSquare 
-            - save upsidedownSquare  image_processing/res/bigPic/upside_down_square.ppm
+            - save upsidedownSquare  image_processing/res/HappyFace/upside_down_face.ppm
             - hflip square mirrorSquare 
-            - save mirrorSquare image_processing/res/bigPic/mirror_square.ppm
+            - save mirrorSquare image_processing/res/HappyFace/mirror_face.ppm
             - just-green square greenSquare 
-            - save greenSquare  image_processing/res/bigPic/green_square.ppm
+            - save greenSquare  image_processing/res/HappyFace/green_face.ppm
             - just-blue square blueSquare 
-            - save blueSquare image_processing/res/bigPic/blue_square.ppm
+            - save blueSquare image_processing/res/HappyFace/blue_face.png
             - just-red square redSquare 
-            - save redSquare image_processing/res/bigPic/red_square.ppm
+            - save redSquare image_processing/res/HappyFace/red_face.jpeg
             - just-value square valueSquare 
-            - save valueSquare image_processing/res/bigPic/value_square.ppm
+            - save valueSquare image_processing/res/HappyFace/value_face.ppm
             - just-luma square lumaSquare 
-            - save lumaSquare image_processing/res/bigPic/luma_square.ppm
+            - save lumaSquare image_processing/res/HappyFace/luma_face.ppm
             - just-intensity square intenseSquare 
-            - save intenseSquare image_processing/res/bigPic/intense_square.ppm
+            - save intenseSquare image_processing/res/HappyFace/intense_face.ppm
+            - sepia square sepiaSquare 
+            - save sepiaSquare image_processing/res/HappyFace/sepia_face.ppm
+            - blur square blurrySquare
+            - save blurrySquare image_processing/res/HappyFace/blur_face.ppm
             - hflip brightSquare flippedBrightSquare 
             - save flippedBrightSquare image_processing/res/bigPic/flipped_bright_square.ppm
             - quit
