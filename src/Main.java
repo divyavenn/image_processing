@@ -1,6 +1,6 @@
+
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 
 import controller.ImgController;
@@ -10,7 +10,10 @@ import model.ImgModelImplementation;
 import view.ImgView;
 import view.TextView;
 
-public class main {
+/**
+ * Class meant for running program using console input.
+ */
+public class Main {
   static ImgModel annoyingModel = new ImgModelImplementation();
   static Appendable out;
   static {
@@ -47,19 +50,12 @@ public class main {
             "quit";
   }
 
-  static Readable in = new StringReader(makeReadable());
-
-  //static Readable in = new InputStreamReader(System.in);
+  //static Readable in = new StringReader(makeReadable());
+  static Readable in = new InputStreamReader(System.in);
   static ImgView view = new TextView(annoyingModel, out);
   static ImgController controller = new ImgControllerImplementation(annoyingModel, view, in);
 
-  public main() throws UnsupportedEncodingException {
-  }
-
   public static void main (String[] args){
-    System.out.println(makeReadable());
-
-    System.out.println("\n \n ------------------------------ \n \n");
     controller.start();
   }
 }
