@@ -307,6 +307,86 @@ public class ImgModelTest {
 
 
   @Test
+  public void testSharpen() {
+    Img sharpPic = new Img("sharp", 4, 2);
+
+    sharpPic.setPixel(0, 0,
+             209, 218, 225);
+    sharpPic.setPixel(0, 1,
+            176, 184, 190);
+    sharpPic.setPixel(1, 0,
+            255,255,255);
+    sharpPic.setPixel(1, 1,
+            255,255,255);
+
+    sharpPic.setPixel(2, 0,
+            255,255,255);
+    sharpPic.setPixel(2, 1,
+            255,255,255);
+    sharpPic.setPixel(3, 0,
+            255,255,255);
+    sharpPic.setPixel(3, 1,
+            255,255,255);
+
+    model.applyFilter(Command.sharpenFilter, "littlePic", "sharpPic");
+    assertEquals(contentsMatch(sharpPic, model.getImage("sharpPic")), true);
+
+
+  }
+
+  @Test
+  public void testSepia() {
+    Img sepiaPic = new Img("sepia", 4, 2);
+
+    sepiaPic.setPixel(0, 0,
+            154, 132, 106);
+    sepiaPic.setPixel(0, 1,
+            167, 144, 116);
+    sepiaPic.setPixel(1, 0,
+            181,156,125);
+    sepiaPic.setPixel(1, 1,
+            194,167,135);
+
+    sepiaPic.setPixel(2, 0,
+            208,179,144);
+    sepiaPic.setPixel(2, 1,
+            221,191,153);
+    sepiaPic.setPixel(3, 0,
+            235,202,163);
+    sepiaPic.setPixel(3, 1,
+            248,214,172);
+
+    model.applyColorTransformation(Command.sepiaTransform, "littlePic", "sepiaPic");
+    assertEquals(contentsMatch(sepiaPic, model.getImage("sepiaPic")), true);
+  }
+
+  @Test
+  public void testGrey() {
+    Img greyPic = new Img("sepia", 4, 2);
+
+    greyPic.setPixel(0, 0,
+            114, 114, 114);
+    greyPic.setPixel(0, 1,
+            124, 124, 124);
+    greyPic.setPixel(1, 0,
+            134,134,134);
+    greyPic.setPixel(1, 1,
+            144,144,144);
+
+    greyPic.setPixel(2, 0,
+            154,154,154);
+    greyPic.setPixel(2, 1,
+            164,164,164);
+    greyPic.setPixel(3, 0,
+            174,174,174);
+    greyPic.setPixel(3, 1,
+            184,184,184);
+
+    model.applyColorTransformation(Command.greyTransform, "littlePic", "greyPic");
+    assertEquals(contentsMatch(greyPic, model.getImage("greyPic")), true);
+  }
+
+  @Test
   public void testVerticalFlip() {
     Img flipPic = new Img("flip", 4, 2);
 
