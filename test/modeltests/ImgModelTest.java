@@ -1,12 +1,10 @@
 package modeltests;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +31,10 @@ public class ImgModelTest {
   ImgModel model;
 
 
+  /**
+   * Instantiates necessary variables.
+   * @throws IOException if cannot perform IO tasks
+   */
   public ImgModelTest() throws IOException {
     littlePic = new Img( "littlePic", 4, 2);
     littlePic.setPixel(0, 0, 110, 115, 119);
@@ -68,7 +70,7 @@ public class ImgModelTest {
                   && a.getPixel(i, j).getRed() == b.getPixel(i, j).getRed()
                   && a.getPixel(i, j).getGreen() == b.getPixel(i, j).getGreen()
                   && a.getPixel(i, j).getBlue() == b.getPixel(i, j).getBlue();
-          if (same == false) {
+          if (same) {
             System.out.println(a.toString() + ": " + a.getPixel(i, j).toString());
             System.out.println(b.toString() + ": " + b.getPixel(i,j).toString());
             System.out.println("----------------------------------------------");

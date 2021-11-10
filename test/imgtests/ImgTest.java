@@ -15,6 +15,9 @@ public class ImgTest {
   Img littlePic;
 
 
+  /**
+   * Instantiates necessary variables.
+   */
   public ImgTest() {
     littlePic = new Img("small", 4, 2);
     littlePic.setPixel(0, 0, 110, 115, 119);

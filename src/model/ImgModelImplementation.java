@@ -27,8 +27,8 @@ public class ImgModelImplementation implements ImgModel {
   public Img getImage(String imageName) {
     //the Img equals method is overridden to only compare name, so it does not matter what the
     // type is
-    if (images.contains(new Img(imageName,0, 0))) {
-      return images.get(images.indexOf(new Img(imageName,0, 0)));
+    if (images.contains(new Img(imageName, 0, 0))) {
+      return images.get(images.indexOf(new Img(imageName, 0, 0)));
     } else {
       throw new IllegalArgumentException("Image not in list");
     }
@@ -123,7 +123,7 @@ public class ImgModelImplementation implements ImgModel {
         int r = targetPixel.getRed();
         int g = targetPixel.getGreen();
         int b = targetPixel.getBlue();
-        destinationImage.setPixel(i, j,r + increment, g + increment, b + increment);
+        destinationImage.setPixel(i, j, r + increment, g + increment, b + increment);
       }
     }
     images.add(destinationImage);
@@ -174,15 +174,15 @@ public class ImgModelImplementation implements ImgModel {
   }
 
   @Override
-  public void applyFilter(double[][] filter, String imageName, String destinationImageName){
+  public void applyFilter(double[][] filter, String imageName, String destinationImageName) {
     if (filter.length != filter[0].length) {
-      if (filter.length%2 == 0) {
+      if (filter.length % 2 == 0) {
         throw new IllegalArgumentException("Filter must be square array of odd length");
       }
     }
 
     //filter being passed correctly
-    int center = (int) Math.floor(filter.length/2);
+    int center = (int) Math.floor(filter.length / 2);
     Img img = getImage(imageName);
     Img destinationImage = copyImage(img, destinationImageName);
     int height = img.getHeight();
@@ -200,24 +200,24 @@ public class ImgModelImplementation implements ImgModel {
             targetPixel = img.getPixel(i - xDelta, j - yDelta);
             if (targetPixel != null) {
               //System.out.println(targetPixel.getRed()+ " * " + filter[x][y]);
-              filteredRed = filteredRed + targetPixel.getRed()*filter[x][y];
-              filteredBlue = filteredBlue + targetPixel.getBlue()*filter[x][y];
-              filteredGreen = filteredGreen + targetPixel.getGreen()*filter[x][y];
+              filteredRed = filteredRed + targetPixel.getRed() * filter[x][y];
+              filteredBlue = filteredBlue + targetPixel.getBlue() * filter[x][y];
+              filteredGreen = filteredGreen + targetPixel.getGreen() * filter[x][y];
             }
           }
         }
         //System.out.println("r: " +  filteredRed + ", g: " + filteredGreen + ", b: " +
         // filteredBlue);
-        destinationImage.setPixel(i,j, (int)Math.round(filteredRed),(int)Math.round(filteredGreen),
-                (int)Math.round(filteredBlue));
+        destinationImage.setPixel(i, j, (int) Math.round(filteredRed), (int) Math.round(filteredGreen),
+                (int) Math.round(filteredBlue));
       }
     }
     images.add(destinationImage);
   }
 
   @Override
-  public void applyColorTransformation(double matrix[][], String imageName,
-                                       String destinationImageName){
+  public void applyColorTransformation(double[][] matrix, String imageName,
+                                       String destinationImageName) {
     if (matrix.length != matrix[0].length) {
       if (matrix.length != 3) {
         throw new IllegalArgumentException("Filter must be square array of length 3");
@@ -234,10 +234,10 @@ public class ImgModelImplementation implements ImgModel {
         int red = targetPixel.getRed();
         int green = targetPixel.getGreen();
         int blue = targetPixel.getBlue();
-        int newRed = (int)(red * matrix[0][0] + green * matrix[0][1] + blue * matrix[0][2]);
-        int newGreen = (int)(red * matrix[1][0] + green * matrix[1][1] + blue * matrix[2][2]);
-        int newBlue = (int)(red * matrix[2][0] + green * matrix[2][1] + blue * matrix[2][2]);
-        destinationImage.setPixel(i,j,newRed, newGreen, newBlue);
+        int newRed = (int) (red * matrix[0][0] + green * matrix[0][1] + blue * matrix[0][2]);
+        int newGreen = (int) (red * matrix[1][0] + green * matrix[1][1] + blue * matrix[2][2]);
+        int newBlue = (int) (red * matrix[2][0] + green * matrix[2][1] + blue * matrix[2][2]);
+        destinationImage.setPixel(i, j, newRed, newGreen, newBlue);
       }
     }
     images.add(destinationImage);

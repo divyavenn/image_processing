@@ -91,7 +91,9 @@ public class TestInputModel implements ImgModel {
   }
 
   @Override
-  public void applyColorTransformation(double[][] matrix, String imageName, String destinationImageName) {
+  public void applyColorTransformation(double[][] matrix,
+                                       String imageName,
+                                       String destinationImageName) {
     recentInputs = new ArrayList<String>();
     recentInputs.add(imageName);
     recentInputs.add(destinationImageName);

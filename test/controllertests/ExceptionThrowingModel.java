@@ -5,7 +5,7 @@ import java.io.IOException;
 import img.Img;
 import model.Command;
 import model.ImgModel;
-import model.ImgModelImplementation;
+
 
 
 /**
@@ -24,7 +24,9 @@ public class ExceptionThrowingModel implements ImgModel {
   }
 
   @Override
-  public void exportComponentByPixel(Command command, String imageName, String destinationImageName) {
+  public void exportComponentByPixel(Command command,
+                                     String imageName,
+                                     String destinationImageName) {
     throw new IllegalArgumentException();
   }
 
@@ -49,7 +51,9 @@ public class ExceptionThrowingModel implements ImgModel {
   }
 
   @Override
-  public void applyColorTransformation(double[][] matrix, String imageName, String destinationImageName) {
+  public void applyColorTransformation(double[][] matrix,
+                                       String imageName,
+                                       String destinationImageName) {
     throw new IllegalArgumentException();
   }
 

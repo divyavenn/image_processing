@@ -30,16 +30,16 @@ public enum Command {
 
 
   public static final double[][] blurFilter = new double[][]
-          {{1.0/16.0, 1.0/8.0, 1.0/16.0},
-          {1.0/8.0, 1.0/4.0, 1.0/8.0},
-          {1.0/16.0,1.0/8.0,1.0/16.0}};
+          {{1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0},
+                  {1.0 / 8.0, 1.0 / 4.0, 1.0 / 8.0},
+                  {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0}};
 
   public static final double[][] sharpenFilter = new double[][]{
-          {-1.0/8.0, -1.0/8.0, -1.0/8.0, -1.0/8.0, -1.0/8.0},
-          {-1.0/8.0, 1.0/4.0, 1.0/4.0, 1.0/4.0, -1.0/8.0},
-          {-1.0/8.0, 1.0/4.0, 1.0, 1.0/4.0, -1.0/8.0},
-          {-1.0/8.0, 1.0/4.0, 1.0/4.0, 1.0/4.0, -1.0/8.0},
-          {-1.0/8.0, -1.0/8.0, -1.0/8.0, 1.0/8.0, 1.0/8.0}};
+          {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0},
+          {-1.0 / 8.0, 1.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0, -1.0 / 8.0},
+          {-1.0 / 8.0, 1.0 / 4.0, 1.0, 1.0 / 4.0, -1.0 / 8.0},
+          {-1.0 / 8.0, 1.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0, -1.0 / 8.0},
+          {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, 1.0 / 8.0, 1.0 / 8.0}};
 
   public static final double[][] greyTransform = new double[][]{
           {0.2126, 0.7156, 0.0722},
@@ -52,9 +52,6 @@ public enum Command {
           {0.272, 0.534, 0.131}};
 
 
-
-
-
   // Member to hold the name
   private String string;
 
@@ -62,9 +59,7 @@ public enum Command {
   private static HashMap<Command, Parameter[]> commandParamMap = new HashMap<>();
 
   static {
-    commandParamMap.put(Command.load, new Parameter[]{
-        Parameter.filePath,
-        Parameter.destinationImage});
+    commandParamMap.put(Command.load, new Parameter[]{ Parameter.filePath, Parameter.destinationImage});
 
     commandParamMap.put(Command.save, new Parameter[]{
         Parameter.filePath,
@@ -107,20 +102,18 @@ public enum Command {
         Parameter.destinationImage});
 
     commandParamMap.put(Command.blur, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
     commandParamMap.put(Command.sharpen, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage, Parameter.destinationImage});
 
     commandParamMap.put(Command.grey, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage, Parameter.destinationImage});
 
     commandParamMap.put(Command.sepia, new Parameter[]{
-            Parameter.targetImage,
-            Parameter.destinationImage});
+        Parameter.targetImage,
+        Parameter.destinationImage});
 
   }
 
@@ -162,7 +155,7 @@ public enum Command {
   public static boolean needsParam(String commandName, Parameter p) {
     Command c = getCommand(commandName);
     if (c == null) {
-      System.out.println( "'" + commandName + "' is not a valid command.");
+      System.out.println("'" + commandName + "' is not a valid command.");
       return false;
     }
     if (commandParamMap.containsKey(c)) {
@@ -221,14 +214,17 @@ public enum Command {
         model.applyFilter(sharpenFilter,
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
+        break;
       case grey:
         model.applyColorTransformation(greyTransform,
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
+        break;
       case sepia:
         model.applyColorTransformation(sepiaTransform,
                 paramValues.get(Parameter.targetImage),
                 paramValues.get(Parameter.destinationImage));
+        break;
       case quit:
       default:
         break;

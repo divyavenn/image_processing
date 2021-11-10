@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import controller.ImgController;
 import controller.ImgControllerImplementation;
-import img.FileType;
 import img.Img;
 import model.Command;
 import model.ImgModel;
@@ -202,7 +201,7 @@ public class ImgControllerTest {
     ImgView view = new TextView(chattyModel, out);
     ImgController controller = new ImgControllerImplementation(chattyModel, view, in);
     controller.start();
-    return chattyModel.recentlyCalled.equals(correctCommand);
+    return chattyModel.getRecentlyCalled().equals(correctCommand);
   }
 
   /**

@@ -77,7 +77,7 @@ public interface ImgModel {
    * @param imageName the image name.
    * @param destinationImageName the destination image.
    */
-  public void applyColorTransformation(double matrix[][], String imageName,
+  public void applyColorTransformation(double[][] matrix, String imageName,
                                        String destinationImageName);
 
 

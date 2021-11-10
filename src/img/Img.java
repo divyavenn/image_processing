@@ -142,6 +142,8 @@ public class Img {
         }
         ImageIO.write(buffImg, type.toString(), new FileOutputStream(fPath));
         break;
+      default:
+        break;
     }
   }
 }

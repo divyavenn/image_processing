@@ -1,5 +1,6 @@
 package img;
 
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -93,9 +94,15 @@ public enum FileType {
       System.out.println("Unable to find file.");
     }
 
-    if (format.equals("JPEG")) return FileType.jpeg; //HAS TO BE UPPERCASE!!
-    else if (format.equals("png")) return FileType.png; // HAS TO BE LOWERCASE!!
-    else return null;
+    if (format.equals("JPEG")) {
+      return FileType.jpeg; //HAS TO BE UPPERCASE!!
+    }
+    else if (format.equals("png")) {
+      return FileType.png; // HAS TO BE LOWERCASE!!
+    }
+    else {
+      return null;
+    }
   }
 
   /**
@@ -104,7 +111,7 @@ public enum FileType {
    * @param filepath the file path.
    * @param name     the name of the image.
    * @return an Img.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException if file cannot be found.
    */
   public static Img makeImgFromFile(String filepath, String name) throws IllegalArgumentException {
     BufferedImage buffImg;
