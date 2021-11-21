@@ -14,5 +14,5 @@ public interface ImgView {
    * @throws IOException if transmission fails
    * @throws NullPointerException if message is null
    */
-  void renderMessage(String message);
+   void renderMessage(String message);
 }

@@ -1,6 +1,7 @@
 
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 
 import controller.ImgController;
@@ -52,8 +53,8 @@ public class Main {
             + "quit";
   }
 
-  //static Readable in = new StringReader(makeReadable());
-  static Readable in = new InputStreamReader(System.in);
+  static Readable in = new StringReader(makeReadable());
+  //static Readable in = new InputStreamReader(System.in);
   static ImgView view = new TextView(annoyingModel, out);
   static ImgController controller = new ImgControllerImplementation(annoyingModel, view, in);
 
