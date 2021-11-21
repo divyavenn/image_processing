@@ -14,6 +14,9 @@ public class GUIControllerImplementation implements ImgController, Features{
   Map<Parameter, String> paramValues = new HashMap();
   public GUIControllerImplementation(ImgModel model) {
     this.model = model;
+  }
+
+  public void resetParams(){
     for (Parameter p : Parameter.values()) {
       paramValues.put(p, null);
     }
@@ -33,6 +36,17 @@ public class GUIControllerImplementation implements ImgController, Features{
   public void doCommand(Command c) {
     if (view == null) throw new IllegalArgumentException("Null view");
     if (c == null) throw new IllegalArgumentException("Not a valid command");
+    resetParams();
+    for (Parameter p: Parameter.values()) {
+      if (Command.needsParam(c.toString(),p)) {
+        view.inputBox("Enter the "  + p.toString());
+        while (view.getMostRecentInput() == null ){
+
+        }
+        paramValues.put(p,view.getMostRecentInput());
+        view.resetMostRecentInput();
+      }
+    }
     view.textBox(c.acknowledge(paramValues));
   }
 }

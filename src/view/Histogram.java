@@ -1,62 +1,56 @@
 package view;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class Histogram extends JPanel {
-  // Count the occurrence of 26 letters
-  private int[] count;
+import javax.swing.*;
 
+class Histogram extends JPanel {
+  private int[] yCoords;
+  private int startX = 100;
+  private int startY = 100;
+  private int endX = 400;
+  private int endY = 400;
+  private int unitX = (endX - startX) / 10;
+  private int unitY = (endY - startY) / 10;
+  private int prevX = startX;
+  private int prevY = endY;
 
-  /** Set the count and display histogram */
-  public void showHistogram(int[] count) {
-    this.count = count;
+  public Histogram(int[] yCoords) {
+    this.yCoords = yCoords;
     repaint();
   }
 
-  /** Paint the histogram */
+
+  @Override
   protected void paintComponent(Graphics g) {
-    if (count == null) return; // No display if count is null
-
     super.paintComponent(g);
+    Graphics2D g2d = (Graphics2D) g;
 
-    // Find the panel size and bar width and interval dynamically
-    int width = getWidth();
-    int height = getHeight();
-    int interval = (width - 40) / count.length;
-    int individualWidth = (int)(((width - 40) / 24) * 0.60);
-
-    // Find the maximum count. The maximum count has the highest bar
-    int maxCount = 0;
-    for (int i = 0; i < count.length; i++) {
-      if (maxCount < count[i])
-        maxCount = count[i];
+    //We draw in the following 2 loops the grid so it's visible what I explained before about each "unit"
+    g2d.setColor(Color.BLUE);
+    for (int i = startX; i <= endX; i += unitX) {
+      g2d.drawLine(i, startY, i, endY);
     }
 
-    // x is the start position for the first bar in the histogram
-    int x = 30;
+    for (int i = startY; i <= endY; i += unitY) {
+      g2d.drawLine(startX, i, endX, i);
+    }
 
-    // Draw a horizontal base line
-    g.drawLine(10, height - 45, width - 10, height - 45);
-    for (int i = 0; i < count.length; i++) {
-      // Find the bar height
-      int barHeight =
-              (int)(((double)count[i] / (double)maxCount) * (height - 55));
+    //We draw the axis here instead of before because otherwise they would become blue colored.
+    g2d.setColor(Color.BLACK);
+    g2d.drawLine(startX, startY, startX, endY);
+    g2d.drawLine(startX, endY, endX, endY);
 
-      // Display a bar (i.e. rectangle)
-      g.drawRect(x, height - 45 - barHeight, individualWidth,
-              barHeight);
-
-      // Display a letter under the base line
-      g.drawString((char)(65 + i) + "", x, height - 30);
-
-      // Move x for displaying the next character
-      x += interval;
+    //We draw each of our coords in red color
+    g2d.setColor(Color.RED);
+    for (int y : yCoords) {
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = endY - (y * unitY));
     }
   }
 
-  /** Override getPreferredSize */
+
+  @Override
   public Dimension getPreferredSize() {
-    return new Dimension(300, 300);
+    return new Dimension(endX + 100, endY + 100);
   }
 }
