@@ -47,6 +47,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
     for (Command c: Command.values()) {
       JButton b = new JButton(c.toString());
+      b.setLayout(new BorderLayout());
       commandButtons.add(b);
       this.add(b);
     }
@@ -65,11 +66,14 @@ public class GraphicsView extends JFrame implements IGraphicsView {
       BufferedImage bImg = getBuffImg(currentImg);
       ImageIcon displayedImage = new ImageIcon(bImg);
       JLabel label = new JLabel(displayedImage);
+      label.setVerticalAlignment(JLabel.CENTER);
+      label.setHorizontalAlignment(JLabel.CENTER);
       this.add(label);
     }
 
       hist = new Histogram(currentImg);
       this.add(hist);
+      hist.setLayout(new BorderLayout());
       setVisible(true);
     }
 
