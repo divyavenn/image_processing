@@ -1,7 +1,12 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.Command;
 import model.ImgModel;
@@ -39,14 +44,34 @@ public class GUIControllerImplementation implements ImgController, Features{
     resetParams();
     for (Parameter p: Parameter.values()) {
       if (Command.needsParam(c.toString(),p)) {
-        view.inputBox("Enter the "  + p.toString());
-        while (view.getMostRecentInput() == null ){
-
+        String prompt = "Enter the "  + p.toString();
+        String input = view.inputBox(prompt);
+        while(!(p.isValidParameter(input))) {
+          view.errorMessage("Not a valid input for " + p.toString());
+          input = view.inputBox(prompt);
         }
-        paramValues.put(p,view.getMostRecentInput());
-        view.resetMostRecentInput();
+        paramValues.put(p, input);
       }
     }
     view.textBox(c.acknowledge(paramValues));
+  }
+
+  @Override
+  public void openFile() {
+    /**
+    final JFileChooser fchooser = new JFileChooser(".");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG & GIF Images", "jpg", "gif");
+    fchooser.setFileFilter(filter);
+    int retvalue = fchooser.showOpenDialog(this);
+    if (retvalue == JFileChooser.APPROVE_OPTION) {
+      File f = fchooser.getSelectedFile();
+      fileOpenDisplay.setText(f.getAbsolutePath());
+     **/
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+
   }
 }

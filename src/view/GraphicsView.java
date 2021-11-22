@@ -152,15 +152,6 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     //hist.repaint();
   }
 
-  public void renderHistogram() {
-  }
-
-  public void renderImage() {
-  }
-
-  public void renderControls() {
-  }
-
   @Override
   public void addFeatures(Features features) {
     for (JMenuItem b : commandButtons) {
@@ -173,24 +164,34 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   }
 
 
-  public void inputBox(String prompt) {
-    JTextField field = new JTextField(10);
+  public void errorMessage(String msg) {
     JPanel panel = new JPanel();
-    panel.add(field);
-    JButton submit = new JButton("Echo password");
-    submit.addActionListener(evt -> makeInputVisibleToController(field));
+    JOptionPane pane = new JOptionPane();
+    panel.add(pane);
+    this.add(panel);
+    pane.showConfirmDialog(panel, msg);
+  }
+  public String inputBox(String prompt) {
+    JPanel panel = new JPanel();
+    JOptionPane pane = new JOptionPane();
+    panel.add(pane);
+    this.add(panel);
+    return pane.showInputDialog(prompt);
+
   }
 
-  public String getMostRecentInput() {
-    return mostRecentInput;
-  }
-
-  public void resetMostRecentInput() {
-    mostRecentInput = null;
-  }
-
-  public void makeInputVisibleToController(JTextField field) {
-    mostRecentInput = field.getText();
+  public void fileOpen() {
+    /**
+    JPanel fileopenPanel = new JPanel();
+    fileopenPanel.setLayout(new FlowLayout());
+    this.add(fileopenPanel);
+    JButton fileOpenButton = new JButton("Open a file");
+    fileOpenButton.setActionCommand("Open file");
+    fileOpenButton.addActionListener(evt ->);
+    fileopenPanel.add(fileOpenButton);
+    fileOpenDisplay = new JLabel("File path will appear here");
+    fileopenPanel.add(fileOpenDisplay);
+     **/
   }
 
   public void setCurrentImg(Img currentImg) {
