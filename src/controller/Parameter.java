@@ -2,6 +2,7 @@ package controller;
 
 import img.FileType;
 import util.Tools;
+import view.IGraphicsView;
 
 /**
  * Represents all the possible parameter types, as well as methods to process parameters.
@@ -36,4 +37,5 @@ public enum Parameter {
         throw new IllegalArgumentException("Invalid parameter valued");
     }
   }
+
 }

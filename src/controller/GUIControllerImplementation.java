@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,15 +17,8 @@ import view.IGraphicsView;
 public class GUIControllerImplementation implements ImgController, Features{
   private ImgModel model;
   private GraphicsView view;
-  Map<Parameter, String> paramValues = new HashMap();
   public GUIControllerImplementation(ImgModel model) {
     this.model = model;
-  }
-
-  public void resetParams(){
-    for (Parameter p : Parameter.values()) {
-      paramValues.put(p, null);
-    }
   }
 
   public void setView(GraphicsView v) {
@@ -37,24 +31,6 @@ public class GUIControllerImplementation implements ImgController, Features{
 
   }
 
-  @Override
-  public void doCommand(Command c) {
-    if (view == null) throw new IllegalArgumentException("Null view");
-    if (c == null) throw new IllegalArgumentException("Not a valid command");
-    resetParams();
-    for (Parameter p: Parameter.values()) {
-      if (Command.needsParam(c.toString(),p)) {
-        String prompt = "Enter the "  + p.toString();
-        String input = view.inputBox(prompt);
-        while(!(p.isValidParameter(input))) {
-          view.errorMessage("Not a valid input for " + p.toString());
-          input = view.inputBox(prompt);
-        }
-        paramValues.put(p, input);
-      }
-    }
-    view.textBox(c.acknowledge(paramValues));
-  }
 
   @Override
   public void openFile() {
@@ -74,4 +50,5 @@ public class GUIControllerImplementation implements ImgController, Features{
   public void actionPerformed(ActionEvent e) {
 
   }
+
 }

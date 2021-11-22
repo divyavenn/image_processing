@@ -1,20 +1,22 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 import controller.Features;
+import controller.Parameter;
 import img.Img;
 import model.Command;
 import model.ImgModel;
-import model.ImgModelImplementation;
 import util.Tools;
 
 
@@ -22,12 +24,8 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   protected ImgModel model;
   Histogram hist;
   ArrayList<JMenuItem> commandButtons;
-  private JTextField input;
-  private String mostRecentInput;
-  private JLabel imgGraphic;
   private Img currentImg;
   private JTabbedPane imageWindow;
-  private JPanel histWindow;
   private JMenuBar MenuBar;
   private JMenu Menu;
 
@@ -149,20 +147,56 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   @Override
   public void paint(Graphics g) {
     super.paint(g);
-    //hist.repaint();
   }
 
   @Override
   public void addFeatures(Features features) {
     for (JMenuItem b : commandButtons) {
-      b.addActionListener(evt -> features.doCommand(Command.getCommand(b.getText())));
+      b.addActionListener(evt -> {
+        try {
+          doCommand(b.getText());
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      });
     }
+  }
+
+
+  public void doCommand(String s) throws IOException {
+    Command c = Command.getCommand(s);
+    if (c == null) throw new IllegalArgumentException("Not a valid command");
+    Map<Parameter, String> paramValues = new HashMap();
+    for (Parameter p : Parameter.values()) {
+      paramValues.put(p, null);
+    }
+    for (Parameter p: Parameter.values()) {
+      if (Command.needsParam(c.toString(),p)) {
+        String input = getInput(p);
+        paramValues.put(p, input);
+      }
+    }
+    c.run(model, paramValues);
+    textBox(c.acknowledge(paramValues));
   }
 
   public void textBox(String text) {
     JOptionPane.showMessageDialog(null, text, "Message", JOptionPane.ERROR_MESSAGE);
   }
 
+
+  public String getInput(Parameter p) {
+    String input = "";
+    String prompt = "Enter a value for " + p.toString()
+    if (p.equals(Parameter.increment)) {
+      input = inputBox(prompt);
+      while (!(p.isValidParameter(input))) {
+        errorMessage("Not a valid input for " + p.toString());
+        input = inputBox(prompt);
+      }
+    }
+    return input;
+  }
 
   public void errorMessage(String msg) {
     JPanel panel = new JPanel();
@@ -180,18 +214,22 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
   }
 
-  public void fileOpen() {
-    /**
-    JPanel fileopenPanel = new JPanel();
-    fileopenPanel.setLayout(new FlowLayout());
-    this.add(fileopenPanel);
-    JButton fileOpenButton = new JButton("Open a file");
-    fileOpenButton.setActionCommand("Open file");
-    fileOpenButton.addActionListener(evt ->);
-    fileopenPanel.add(fileOpenButton);
-    fileOpenDisplay = new JLabel("File path will appear here");
-    fileopenPanel.add(fileOpenDisplay);
-     **/
+
+  private void fileOpen() {
+    final JFileChooser fchooser = new JFileChooser(".");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG & GIF Images", "jpg", "gif");
+    fchooser.setFileFilter(filter);
+    int retvalue = fchooser.showOpenDialog(SwingFeaturesFrame.this);
+    if (retvalue == JFileChooser.APPROVE_OPTION) {
+      File f = fchooser.getSelectedFile();
+      fileOpenDisplay.setText(f.getAbsolutePath());
+    }
+  }
+
+
+  public Img getCurrentImg() {
+    return currentImg;
   }
 
   public void setCurrentImg(Img currentImg) {

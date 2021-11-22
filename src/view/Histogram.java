@@ -103,6 +103,8 @@ class Histogram extends JPanel {
     for (int intensity : intensityCoords) {
       g2d.drawLine(prevX, prevY, prevX += unitX, prevY = endY - (intensity * unitY));
     }
+
+    resetBaseCoords();
   }
 
 
