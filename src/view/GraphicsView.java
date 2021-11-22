@@ -187,13 +187,18 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
   public String getInput(Parameter p) {
     String input = "";
-    String prompt = "Enter a value for " + p.toString()
-    if (p.equals(Parameter.increment)) {
-      input = inputBox(prompt);
-      while (!(p.isValidParameter(input))) {
-        errorMessage("Not a valid input for " + p.toString());
+    String prompt = "Enter a value for " + p.toString();
+    switch (p) {
+      case increment:
         input = inputBox(prompt);
-      }
+        while (!(p.isValidParameter(input))) {
+          errorMessage("Not a valid input for " + p.toString());
+          input = inputBox(prompt);
+        }
+        break;
+      case filePath:
+        System.out.println("Rstrstrstr");
+        input = openFile();
     }
     return input;
   }
@@ -203,28 +208,33 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     JOptionPane pane = new JOptionPane();
     panel.add(pane);
     this.add(panel);
+    setVisible(true);
     pane.showConfirmDialog(panel, msg);
   }
+
   public String inputBox(String prompt) {
     JPanel panel = new JPanel();
     JOptionPane pane = new JOptionPane();
     panel.add(pane);
     this.add(panel);
     return pane.showInputDialog(prompt);
-
   }
 
 
-  private void fileOpen() {
-    final JFileChooser fchooser = new JFileChooser(".");
+
+  private String openFile() {
+    JLabel fileOpenDisplay = new JLabel();
+    this.add(fileOpenDisplay);
+    JFileChooser fchooser = new JFileChooser(".");
     FileNameExtensionFilter filter = new FileNameExtensionFilter(
             "JPG & GIF Images", "jpg", "gif");
     fchooser.setFileFilter(filter);
-    int retvalue = fchooser.showOpenDialog(SwingFeaturesFrame.this);
+    int retvalue = fchooser.showOpenDialog(this);
     if (retvalue == JFileChooser.APPROVE_OPTION) {
       File f = fchooser.getSelectedFile();
-      fileOpenDisplay.setText(f.getAbsolutePath());
+      return f.getAbsolutePath();
     }
+    return "";
   }
 
 

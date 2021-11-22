@@ -33,22 +33,12 @@ public class GUIControllerImplementation implements ImgController, Features{
 
 
   @Override
-  public void openFile() {
-    /**
-    final JFileChooser fchooser = new JFileChooser(".");
-    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & GIF Images", "jpg", "gif");
-    fchooser.setFileFilter(filter);
-    int retvalue = fchooser.showOpenDialog(this);
-    if (retvalue == JFileChooser.APPROVE_OPTION) {
-      File f = fchooser.getSelectedFile();
-      fileOpenDisplay.setText(f.getAbsolutePath());
-     **/
-  }
-
-  @Override
   public void actionPerformed(ActionEvent e) {
 
   }
 
+  @Override
+  public void doCommand(Command command) throws IOException {
+
+  }
 }

@@ -28,7 +28,7 @@ public class Main {
   }
 
   private static String getfPath(String fileName) {
-    return " image_processing/res/littlePic/" + fileName + ".ppm";
+    return " image_processing/res/koala/" + fileName + ".ppm";
   }
 
   private static String getName(String adjective) {
@@ -40,16 +40,10 @@ public class Main {
   }
 
   private static String makeReadable() {
-    return "load image_processing/res/littlePic/littlePic.ppm " + getName("")
+    return "load image_processing/res/koala/koala.ppm " + getName("")
             + "\n"
-            + "blur " + getName("") + " " + getName("blurry") + "\n"
-            + getSave(getName("blurry")) + "\n"
-            + "sharpen " + getName("") + " " + getName("sharp") + "\n"
-            + getSave(getName("sharp")) + "\n"
-            + "sepia " + getName("") + " " + getName("sepia") + "\n"
-            + getSave(getName("sepia")) + "\n"
-            + "grey " + getName("") + " " + getName("grey") + "\n"
-            + getSave(getName("grey")) + "\n"
+            + "sepia " + getName("") + " " + getName("") + "\n"
+            + getSave(getName("")) + "\n"
             + "quit";
   }
 
