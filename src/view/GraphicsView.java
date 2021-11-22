@@ -47,17 +47,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
 
-    currentImg = new Img("small", 4, 2);
-    currentImg.setPixel(0, 0, 110, 115, 119);
-    currentImg.setPixel(0, 1, 120, 125, 129);
-    currentImg.setPixel(1, 0, 130, 135, 139);
-    currentImg.setPixel(1, 1, 140, 145, 149);
-
-    currentImg.setPixel(2, 0, 150, 155, 159);
-    currentImg.setPixel(2, 1, 160, 165, 169);
-    currentImg.setPixel(3, 0, 170, 175, 179);
-    currentImg.setPixel(3, 1, 180, 185, 189);
-
+    initImage();
     buildCommandButtons();
     buildImageWindow();
     buildHist();
@@ -87,7 +77,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 //    hist.setSize(new Dimension(100, 100));
   }
 
-  public void buildHist() {
+  private void buildHist() {
     hist = new Histogram(currentImg);
     this.add(hist, BorderLayout.PAGE_END);
     hist.setLayout(new BorderLayout());
@@ -95,7 +85,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   }
 
 
-  public void buildImageWindow() {
+  private void buildImageWindow() {
     imageWindow = new JTabbedPane();
     JLabel image;
     if (currentImg != null) {
@@ -112,7 +102,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   }
 
 
-  public void buildCommandButtons() {
+  private void buildCommandButtons() {
     JPanel buttonPanel = new JPanel();
     buttonPanel.setSize(new Dimension(200, 800));
     buttonPanel.setLayout(new GridLayout(Command.values().length / 2, 2));
@@ -125,6 +115,22 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     }
     this.add(buttonPanel);
 //    return buttonPanel;
+  }
+
+  /**
+   * For the sake of testing
+   */
+  private void initImage() {
+    currentImg = new Img("small", 4, 2);
+    currentImg.setPixel(0, 0, 110, 115, 119);
+    currentImg.setPixel(0, 1, 120, 125, 129);
+    currentImg.setPixel(1, 0, 130, 135, 139);
+    currentImg.setPixel(1, 1, 140, 145, 149);
+
+    currentImg.setPixel(2, 0, 150, 155, 159);
+    currentImg.setPixel(2, 1, 160, 165, 169);
+    currentImg.setPixel(3, 0, 170, 175, 179);
+    currentImg.setPixel(3, 1, 180, 185, 189);
   }
 
 
