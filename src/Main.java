@@ -43,7 +43,7 @@ public class Main {
     return "load image_processing/res/koala/koala.ppm " + getName("")
             + "\n"
             + "sepia " + getName("") + " " + getName("") + "\n"
-            + getSave(getName("")) + "\n"
+            + "save pic image_processing/res/koala/sepiaKoala.png\n"
             + "quit";
   }
 

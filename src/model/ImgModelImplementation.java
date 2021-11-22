@@ -101,6 +101,9 @@ public class ImgModelImplementation implements ImgModel {
         destinationImage.setPixel(i, j, value, value, value);
       }
     }
+    if (imageName.equals(destinationImageName)) {
+      images.remove(targetImage);
+    }
     images.add(destinationImage);
   }
 
@@ -125,6 +128,9 @@ public class ImgModelImplementation implements ImgModel {
         int b = targetPixel.getBlue();
         destinationImage.setPixel(i, j, r + increment, g + increment, b + increment);
       }
+    }
+    if (imageName.equals(destinationImageName)) {
+      images.remove(targetImage);
     }
     images.add(destinationImage);
   }
@@ -155,6 +161,9 @@ public class ImgModelImplementation implements ImgModel {
           destinationImage.setPixel(i, width - j - 1, r, g, b);
         }
       }
+    }
+    if (imageName.equals(destinationImageName)) {
+      images.remove(targetImage);
     }
     images.add(destinationImage);
   }
@@ -212,6 +221,9 @@ public class ImgModelImplementation implements ImgModel {
                 (int) Math.round(filteredBlue));
       }
     }
+    if (imageName.equals(destinationImageName)) {
+      images.remove(img);
+    }
     images.add(destinationImage);
   }
 
@@ -239,6 +251,9 @@ public class ImgModelImplementation implements ImgModel {
         int newBlue = (int) (red * matrix[2][0] + green * matrix[2][1] + blue * matrix[2][2]);
         destinationImage.setPixel(i, j, newRed, newGreen, newBlue);
       }
+    }
+    if (imageName.equals(destinationImageName)) {
+      images.remove(img);
     }
     images.add(destinationImage);
   }
