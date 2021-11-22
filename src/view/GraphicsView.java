@@ -42,39 +42,14 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     } else {
       this.model = model;
     }
-
     setSize(1000, 1000);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
-
     initImage();
     buildCommandButtons();
     buildImageWindow();
     buildHist();
     setVisible(true);
-
-
-//    commandButtons = new ArrayList<JButton>();
-//    for (Command c : Command.values()) {
-//      JButton b = new JButton(c.toString());
-//      b.setLayout(new BorderLayout());
-//      commandButtons.add(b);
-//      this.add(b);
-//    }
-
-//    if (currentImg != null) {
-//      BufferedImage bImg = Tools.getBuffImg(currentImg);
-//      ImageIcon displayedImage = new ImageIcon(bImg);
-//      JLabel label = new JLabel(displayedImage);
-//      label.setVerticalAlignment(JLabel.CENTER);
-//      label.setHorizontalAlignment(JLabel.CENTER);
-//      this.add(label);
-//    }
-
-//    hist = new Histogram(currentImg);
-//    this.add(hist, BorderLayout.PAGE_END);
-//    hist.setLayout(new BorderLayout());
-//    hist.setSize(new Dimension(100, 100));
   }
 
   private void buildHist() {
@@ -97,8 +72,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     imageWindow.setMinimumSize(new Dimension(4, 2));
     JScrollPane scrollPane = new JScrollPane(imageWindow);
     scrollPane.setPreferredSize(new Dimension(500, 500));
-    this.add(scrollPane, BorderLayout.CENTER);
-//    return scrollPane;
+    this.add(scrollPane, BorderLayout.CENTER);;
   }
 
 
@@ -113,18 +87,6 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     }
     MenuBar.add(Menu);
     this.setJMenuBar(MenuBar);
-
-//    JPanel buttonPanel = new JPanel();
-//    buttonPanel.setSize(new Dimension(200, 800));
-//    buttonPanel.setLayout(new GridLayout(Command.values().length / 2, 2));
-//    commandButtons = new ArrayList<>();
-//    for (Command c : Command.values()) {
-//      JButton b = new JButton(c.toString());
-//      b.setLayout(new BorderLayout());
-//      commandButtons.add(b);
-//      buttonPanel.add(b);
-//    }
-//    this.add(buttonPanel);
   }
 
   /**
@@ -177,6 +139,8 @@ public class GraphicsView extends JFrame implements IGraphicsView {
       }
     }
     c.run(model, paramValues);
+    currentImg = model.getImage("pic");
+    buildImageWindow();
     textBox(c.acknowledge(paramValues));
   }
 
@@ -199,6 +163,10 @@ public class GraphicsView extends JFrame implements IGraphicsView {
       case filePath:
         System.out.println("Rstrstrstr");
         input = openFile();
+        break;
+      case targetImage:
+      case destinationImage:
+        input = "pic";
     }
     return input;
   }
@@ -238,11 +206,4 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   }
 
 
-  public Img getCurrentImg() {
-    return currentImg;
-  }
-
-  public void setCurrentImg(Img currentImg) {
-    this.currentImg = currentImg;
-  }
 }
