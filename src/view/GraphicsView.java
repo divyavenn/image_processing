@@ -5,10 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
 import controller.Features;
+import img.Img;
 import model.Command;
 import model.ImgModel;
 
@@ -19,6 +21,8 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   ArrayList<JButton> commandButtons;
   private JTextField input;
   private String mostRecentInput;
+  private JLabel imgGraphic;
+  private Img currentImg;
 
   /**
    * Creates a ImgView object.
@@ -47,17 +51,54 @@ public class GraphicsView extends JFrame implements IGraphicsView {
       this.add(b);
     }
 
+    currentImg = new Img("small", 4, 2);
+    currentImg.setPixel(0, 0, 110, 115, 119);
+    currentImg.setPixel(0, 1, 120, 125, 129);
+    currentImg.setPixel(1, 0, 130, 135, 139);
+    currentImg.setPixel(1, 1, 140, 145, 149);
+
+    currentImg.setPixel(2, 0, 150, 155, 159);
+    currentImg.setPixel(2, 1, 160, 165, 169);
+    currentImg.setPixel(3, 0, 170, 175, 179);
+    currentImg.setPixel(3, 1, 180, 185, 189);
+    if (currentImg != null) {
+      BufferedImage bImg = getBuffImg(currentImg);
+      ImageIcon displayedImage = new ImageIcon(bImg);
+      JLabel label = new JLabel(displayedImage);
+      this.add(label);
+    }
+
+      hist = new Histogram(currentImg);
+      this.add(hist);
+      setVisible(true);
+    }
 
 
-    hist = new Histogram(new int[]{1,2,3,4,5});
-    this.add(hist);
-    setVisible(true);
+  /**
+   * Generates a BufferedImage from the given Img object.
+   * @param image An Img object
+   * @return A bufferedImg representing the given Img.
+   */
+  public BufferedImage getBuffImg(Img image) {
+    int width = image.getWidth();
+    int height = image.getHeight();
+    BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        int r = image.getPixel(i, j).getRed();
+        int g = image.getPixel(i, j).getGreen();
+        int b = image.getPixel(i, j).getBlue();
+        int rgb = (r << 16) | (g << 8) | b;
+        buffImg.setRGB(j, i, rgb);
+      }
+    }
+    return buffImg;
   }
 
   @Override
   public void paint(Graphics g) {
     super.paint(g);
-    hist.repaint();
+    //hist.repaint();
   }
 
   public void renderHistogram() {
