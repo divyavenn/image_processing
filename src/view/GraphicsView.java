@@ -21,13 +21,15 @@ import util.Tools;
 public class GraphicsView extends JFrame implements IGraphicsView {
   protected ImgModel model;
   Histogram hist;
-  ArrayList<JButton> commandButtons;
+  ArrayList<JMenuItem> commandButtons;
   private JTextField input;
   private String mostRecentInput;
   private JLabel imgGraphic;
   private Img currentImg;
   private JTabbedPane imageWindow;
   private JPanel histWindow;
+  private JMenuBar MenuBar;
+  private JMenu Menu;
 
   /**
    * Creates a ImgView object.
@@ -103,18 +105,28 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
 
   private void buildCommandButtons() {
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setSize(new Dimension(200, 800));
-    buttonPanel.setLayout(new GridLayout(Command.values().length / 2, 2));
+    MenuBar = new JMenuBar();
+    Menu = new JMenu("Options");
     commandButtons = new ArrayList<>();
     for (Command c : Command.values()) {
-      JButton b = new JButton(c.toString());
-      b.setLayout(new BorderLayout());
-      commandButtons.add(b);
-      buttonPanel.add(b);
+      JMenuItem m = new JMenuItem(c.toString());
+      commandButtons.add(m);
+      Menu.add(m);
     }
-    this.add(buttonPanel);
-//    return buttonPanel;
+    MenuBar.add(Menu);
+    this.setJMenuBar(MenuBar);
+
+//    JPanel buttonPanel = new JPanel();
+//    buttonPanel.setSize(new Dimension(200, 800));
+//    buttonPanel.setLayout(new GridLayout(Command.values().length / 2, 2));
+//    commandButtons = new ArrayList<>();
+//    for (Command c : Command.values()) {
+//      JButton b = new JButton(c.toString());
+//      b.setLayout(new BorderLayout());
+//      commandButtons.add(b);
+//      buttonPanel.add(b);
+//    }
+//    this.add(buttonPanel);
   }
 
   /**
@@ -151,7 +163,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
   @Override
   public void addFeatures(Features features) {
-    for (JButton b : commandButtons) {
+    for (JMenuItem b : commandButtons) {
       b.addActionListener(evt -> features.doCommand(Command.getCommand(b.getText())));
     }
   }
