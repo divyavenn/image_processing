@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,6 +14,8 @@ import controller.Features;
 import img.Img;
 import model.Command;
 import model.ImgModel;
+import model.ImgModelImplementation;
+import util.Tools;
 
 
 public class GraphicsView extends JFrame implements IGraphicsView {
@@ -23,6 +26,8 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   private String mostRecentInput;
   private JLabel imgGraphic;
   private Img currentImg;
+  private JTabbedPane imageWindow;
+  private JPanel histWindow;
 
   /**
    * Creates a ImgView object.
@@ -40,17 +45,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
     setSize(1000, 1000);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    this.setLayout(new FlowLayout());
-
-    commandButtons = new ArrayList<JButton>();
-
-    for (Command c: Command.values()) {
-      JButton b = new JButton(c.toString());
-      b.setLayout(new BorderLayout());
-      commandButtons.add(b);
-      this.add(b);
-    }
+    this.setLayout(new BorderLayout());
 
     currentImg = new Img("small", 4, 2);
     currentImg.setPixel(0, 0, 110, 115, 119);
@@ -62,42 +57,76 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     currentImg.setPixel(2, 1, 160, 165, 169);
     currentImg.setPixel(3, 0, 170, 175, 179);
     currentImg.setPixel(3, 1, 180, 185, 189);
-    if (currentImg != null) {
-      BufferedImage bImg = getBuffImg(currentImg);
-      ImageIcon displayedImage = new ImageIcon(bImg);
-      JLabel label = new JLabel(displayedImage);
-      label.setVerticalAlignment(JLabel.CENTER);
-      label.setHorizontalAlignment(JLabel.CENTER);
-      this.add(label);
-    }
 
-      hist = new Histogram(currentImg);
-      this.add(hist);
-      hist.setLayout(new BorderLayout());
-      setVisible(true);
-    }
+    buildCommandButtons();
+    buildImageWindow();
+    buildHist();
+    setVisible(true);
 
 
-  /**
-   * Generates a BufferedImage from the given Img object.
-   * @param image An Img object
-   * @return A bufferedImg representing the given Img.
-   */
-  public BufferedImage getBuffImg(Img image) {
-    int width = image.getWidth();
-    int height = image.getHeight();
-    BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        int r = image.getPixel(i, j).getRed();
-        int g = image.getPixel(i, j).getGreen();
-        int b = image.getPixel(i, j).getBlue();
-        int rgb = (r << 16) | (g << 8) | b;
-        buffImg.setRGB(j, i, rgb);
-      }
-    }
-    return buffImg;
+//    commandButtons = new ArrayList<JButton>();
+//    for (Command c : Command.values()) {
+//      JButton b = new JButton(c.toString());
+//      b.setLayout(new BorderLayout());
+//      commandButtons.add(b);
+//      this.add(b);
+//    }
+
+//    if (currentImg != null) {
+//      BufferedImage bImg = Tools.getBuffImg(currentImg);
+//      ImageIcon displayedImage = new ImageIcon(bImg);
+//      JLabel label = new JLabel(displayedImage);
+//      label.setVerticalAlignment(JLabel.CENTER);
+//      label.setHorizontalAlignment(JLabel.CENTER);
+//      this.add(label);
+//    }
+
+//    hist = new Histogram(currentImg);
+//    this.add(hist, BorderLayout.PAGE_END);
+//    hist.setLayout(new BorderLayout());
+//    hist.setSize(new Dimension(100, 100));
   }
+
+  public void buildHist() {
+    hist = new Histogram(currentImg);
+    this.add(hist, BorderLayout.PAGE_END);
+    hist.setLayout(new BorderLayout());
+    hist.setSize(new Dimension(100, 100));
+  }
+
+
+  public void buildImageWindow() {
+    imageWindow = new JTabbedPane();
+    JLabel image;
+    if (currentImg != null) {
+      BufferedImage bImg = Tools.getBuffImg(currentImg);
+      ImageIcon displayedImage = new ImageIcon(bImg);
+      image = new JLabel(displayedImage);
+      imageWindow.add(image);
+    }
+    imageWindow.setMinimumSize(new Dimension(4, 2));
+    JScrollPane scrollPane = new JScrollPane(imageWindow);
+    scrollPane.setPreferredSize(new Dimension(500, 500));
+    this.add(scrollPane, BorderLayout.CENTER);
+//    return scrollPane;
+  }
+
+
+  public void buildCommandButtons() {
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setSize(new Dimension(200, 800));
+    buttonPanel.setLayout(new GridLayout(Command.values().length / 2, 2));
+    commandButtons = new ArrayList<>();
+    for (Command c : Command.values()) {
+      JButton b = new JButton(c.toString());
+      b.setLayout(new BorderLayout());
+      commandButtons.add(b);
+      buttonPanel.add(b);
+    }
+    this.add(buttonPanel);
+//    return buttonPanel;
+  }
+
 
   @Override
   public void paint(Graphics g) {
@@ -116,17 +145,17 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
   @Override
   public void addFeatures(Features features) {
-    for (JButton b: commandButtons) {
+    for (JButton b : commandButtons) {
       b.addActionListener(evt -> features.doCommand(Command.getCommand(b.getText())));
     }
   }
 
   public void textBox(String text) {
-    JOptionPane.showMessageDialog(null, text,"Message", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(null, text, "Message", JOptionPane.ERROR_MESSAGE);
   }
 
 
-  public void inputBox(String prompt){
+  public void inputBox(String prompt) {
     JTextField field = new JTextField(10);
     JPanel panel = new JPanel();
     panel.add(field);
@@ -134,15 +163,19 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     submit.addActionListener(evt -> makeInputVisibleToController(field));
   }
 
-  public String getMostRecentInput(){
+  public String getMostRecentInput() {
     return mostRecentInput;
   }
-  public void resetMostRecentInput(){
+
+  public void resetMostRecentInput() {
     mostRecentInput = null;
   }
-  public void makeInputVisibleToController(JTextField field){
+
+  public void makeInputVisibleToController(JTextField field) {
     mostRecentInput = field.getText();
   }
 
-
+  public void setCurrentImg(Img currentImg) {
+    this.currentImg = currentImg;
+  }
 }

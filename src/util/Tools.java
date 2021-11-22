@@ -1,6 +1,9 @@
 package util;
 
+import java.awt.image.BufferedImage;
 import java.util.Scanner;
+
+import img.Img;
 
 /**
  * A class containing common methods and functionalities used throughout the program.
@@ -50,6 +53,27 @@ public class Tools {
     else {
       return getNextNumericInput(scan);
     }
+  }
+
+  /**
+   * Generates a BufferedImage from the given Img object.
+   * @param image An Img object
+   * @return A bufferedImg representing the given Img.
+   */
+  public static BufferedImage getBuffImg(Img image) {
+    int width = image.getWidth();
+    int height = image.getHeight();
+    BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        int r = image.getPixel(i, j).getRed();
+        int g = image.getPixel(i, j).getGreen();
+        int b = image.getPixel(i, j).getBlue();
+        int rgb = (r << 16) | (g << 8) | b;
+        buffImg.setRGB(j, i, rgb);
+      }
+    }
+    return buffImg;
   }
 
 }
