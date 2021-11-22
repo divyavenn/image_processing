@@ -72,7 +72,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     imageWindow.setMinimumSize(new Dimension(4, 2));
     JScrollPane scrollPane = new JScrollPane(imageWindow);
     scrollPane.setPreferredSize(new Dimension(500, 500));
-    this.add(scrollPane, BorderLayout.CENTER);;
+    this.add(scrollPane, BorderLayout.CENTER);
   }
 
 
@@ -142,6 +142,9 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     currentImg = model.getImage("pic");
     buildImageWindow();
     textBox(c.acknowledge(paramValues));
+    invalidate();
+    validate();
+    repaint();
   }
 
   public void textBox(String text) {
