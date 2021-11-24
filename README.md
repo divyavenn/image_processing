@@ -22,12 +22,20 @@
  **view** package
 - *ImgView* interface establishes the necessary functionalities of all implementing classes.
 - *ImgViewAbstract* abstract class establishes the necessary class variables and constructor.
-- *TextView* class has methods necessary to write to the console
+- *TextView* class has methods necessary to write to the console 
+- *IGraphicsView* interface establishes the necessary public functionalities of a GUI view
+- *HistogramPanel* a custom JPanel that draws a histogram
+- *GraphicsView* a view with a full graphics interface
 
 **util** package
 - *Tools* interface contains static methods that are used repeateadly across different classes. Putting them all in one place reduces code duplication.
 
-LIST OF COMMANDS THAT WORKS:
+GUI WRITEUP:
+To use GUI, run GraphicsMain. Window will be empty until you load an image. All possible image filtering operations are in the dropdown menus on the top. Trying to brighten an image that has not been loaded, trying to load an incorrect file type, and giving an invalid input when prompted for one will surprisingly not work, but will not cause the program to break. The histogram will self adjust in scale whenever the image is changed so all values always fit in the panel but no graph looks too tiny. Simply close the window to quit the program. All operations required by the assignment are supported.
+
+No changes had to be made to our original design, except the addition of new interfaces and classes and a new controller.
+
+LIST OF COMMANDS THAT WORKS (Text UI):
 Run start() method in controller and type, line by line, into console. Alternatively enter as one long string into Readable.
 
             - load image_processing/res/HappyFace/HappyFace.jpeg square 
