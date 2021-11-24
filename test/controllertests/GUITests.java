@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
  * Tests the GraphicView, GUIController test, and their integration.
  */
 public class GUITests {
-  GUIControllerImplementation controller;
+  ImgController controller;
   IGraphicsView mockView;
   ImgModel mockModel;
   IGraphicsView view;
@@ -58,7 +58,7 @@ public class GUITests {
    */
   @Test
   public void testSetViewToAddFeaturesInput() {
-    controller.setView(mockView);
+    ((GUIControllerImplementation)controller).setView(mockView);
     assertEquals("Features added!", log.toString());
   }
 
@@ -74,7 +74,7 @@ public class GUITests {
 
   @Test
   public void testGetImageFromModel() {
-    controller.getImageFromModel("Test Image");
+    ((GUIControllerImplementation)controller).getImageFromModel("Test Image");
     TestInputModel chattyModel = (TestInputModel)mockModel;
     assertEquals(chattyModel.recentInputs.get(0), "Test Image");
 
@@ -83,13 +83,20 @@ public class GUITests {
   @Test
   public void testGetDoCommandsInput() {
     Map<Parameter, String> paramValues = new HashMap();
+    paramValues.put(Parameter.increment, "10");
+    paramValues.put(Parameter.filePath, "arstarst.ppm");
+    paramValues.put(Parameter.targetImage, "koala");
+    paramValues.put(Parameter.destinationImage, "koala");
+    TestInputModel chattyModel = new TestInputModel();
+    view = new GraphicsView();
+    controller = new GUIControllerImplementation(chattyModel,view);
     for (Parameter p : Parameter.values()) {
       paramValues.put(p, null);
     }
     for (Command c : Command.values()) {
-      controller.doCommand(c, paramValues);
-      TestInputModel chattyModel = (TestInputModel) mockModel;
-      assertEquals(c, chattyModel.recentlyCalled);
+      System.out.println(c);
+      ((GUIControllerImplementation)controller).doCommand(c, paramValues);
+      assertEquals(c, chattyModel.getRecentlyCalled());
     }
   }
 }

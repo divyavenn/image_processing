@@ -6,7 +6,6 @@ import java.util.Map;
 import img.Img;
 import model.Command;
 import model.ImgModel;
-import view.GraphicsView;
 import view.IGraphicsView;
 
 public class GUIControllerImplementation implements ImgController, Features{
@@ -14,6 +13,11 @@ public class GUIControllerImplementation implements ImgController, Features{
   private IGraphicsView view;
 
 
+  /**
+   * Creats a GUIController Object.
+   * @param model the model.
+   * @param view the view.
+   */
   public GUIControllerImplementation(ImgModel model, IGraphicsView view) {
     if (model == null || view == null) {
       throw new IllegalArgumentException("Gave null object");
@@ -23,6 +27,10 @@ public class GUIControllerImplementation implements ImgController, Features{
     }
   }
 
+  /**
+   * Sets the view and assigns features.
+   * @param v the view.
+   */
   public void setView(IGraphicsView v) {
     view = v;
     view.addFeatures(this);
