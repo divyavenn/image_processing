@@ -7,22 +7,28 @@ import javax.swing.*;
 import img.Img;
 import img.Pixel;
 
+/**
+ * A panel that draws a histogram given an image.
+ */
 class HistogramPanel extends JPanel {
   private int[] redCoords;
   private int[] blueCoords;
   private int[] greenCoords;
   private int[] intensityCoords;
 
+  //the maximum real value of the axises
   int yMax;
   int xMax;
 
-
+  //the pixel height and width of graph
   private final int graphHeight = 500;
   private final int graphWidth = 300;
 
-  private double unitX = 1;
-  private double unitY = 1;
+  //what each pixel on the respective axises represents
+  private double unitX;
+  private double unitY;
 
+  //the location of (0,0)
   private int startX = 10;
   private int startY = 500;
 
@@ -33,21 +39,36 @@ class HistogramPanel extends JPanel {
   private int prevY = startY;
 
 
+  /**
+   * Makes a histograpanel.
+   */
   public HistogramPanel() {
-     redCoords = new int[]{};
-     blueCoords = new int[]{};
-     greenCoords = new int[]{};
-     intensityCoords = new int[]{};
+    redCoords = new int[]{};
+    blueCoords = new int[]{};
+    greenCoords = new int[]{};
+    intensityCoords = new int[]{};
     this.setBackground(Color.LIGHT_GRAY);
     this.setMinimumSize(new Dimension(endX, endY));
     yMax = endY;
   }
 
 
-  public int getWidth(){
+  /**
+   * Returns the minimum width of this panel to comfortable fit graph.
+   *
+   * @return width.
+   */
+  public int getWidth() {
     return endX + 10;
   }
-  public void setImage(Img img){
+
+  /**
+   * Specifies the image is drawn up from.
+   *
+   * @param img the image that the histogram represents.
+   */
+  public void setImage(Img img) {
+    resetPanel();
     Pixel pixel;
     int height = img.getHeight();
     int width = img.getWidth();
@@ -90,14 +111,14 @@ class HistogramPanel extends JPanel {
     g2d.setColor(Color.RED);
     for (int r : redCoords) {
       System.out.println(r);
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY-(int)(Math.round(r*unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY - (int) (Math.round(r * unitY)));
     }
 
     resetBaseCoords();
     System.out.println("BLUE LINE");
     g2d.setColor(Color.BLUE);
     for (int b : blueCoords) {
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY-(int)(Math.round(b * unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY - (int) (Math.round(b * unitY)));
     }
 
     resetBaseCoords();
@@ -105,7 +126,7 @@ class HistogramPanel extends JPanel {
 
     g2d.setColor(Color.GREEN);
     for (int gr : greenCoords) {
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY-(int)(Math.round(gr * unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY - (int) (Math.round(gr * unitY)));
     }
 
     resetBaseCoords();
@@ -113,34 +134,56 @@ class HistogramPanel extends JPanel {
     System.out.println("INTENSITY LINE");
     g2d.setColor(Color.DARK_GRAY);
     for (int intensity : intensityCoords) {
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY-(int)(Math.round(intensity * unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY - (int) (Math.round(intensity * unitY)));
     }
     resetBaseCoords();
   }
 
-
-  private void resetBaseCoords(){
-    prevX = startX;
-    prevY = startY;
+  /**
+   * resets this panel to starting position.
+   */
+  private void resetPanel() {
+    redCoords = new int[]{};
+    blueCoords = new int[]{};
+    greenCoords = new int[]{};
+    intensityCoords = new int[]{};
   }
 
-  private void setMax(){
-    for (int i=0; i<redCoords.length; i++) {
+  /**
+   * Resets the indexes to starting positions.
+   */
+  private void resetBaseCoords() {
+    prevX = startX;
+    prevY = startY;
+    xMax = 0;
+    yMax = 0;
+  }
+
+  /**
+   * Updates the maximum values based on the coordinates being drawn.
+   */
+  private void setMax() {
+    for (int i = 0; i < redCoords.length; i++) {
       yMax = Math.max(intensityCoords[i],
               Math.max(greenCoords[i],
                       Math.max(blueCoords[i],
                               Math.max(yMax, redCoords[i]))));
     }
-    yMax = Math.max(yMax, graphHeight/2);
-    xMax = Math.max(redCoords.length,graphWidth/4);
+    yMax = Math.max(yMax, graphHeight / 2);
+    xMax = Math.max(redCoords.length, graphWidth / 4);
   }
 
-  private void setUnits(){
-    unitX = (double)graphWidth/(double)xMax;
+  /**
+   * Updates units based on maximum values. Must be called after setMax()
+   */
+  private void setUnits() {
+    unitX = (double) graphWidth / (double) xMax;
     System.out.println("Set unit X: " + unitX);
-    unitY = (double)graphHeight/(double)yMax;
+    unitY = (double) graphHeight / (double) yMax;
     System.out.println("Set unit y: " + unitY);
   }
+
+
   @Override
   public Dimension getPreferredSize() {
     return new Dimension(getWidth(), endY + 100);

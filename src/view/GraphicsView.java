@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -22,6 +21,9 @@ import model.ImgModel;
 import util.Tools;
 
 
+/**
+ * A graphical user interface for the image processor.
+ */
 public class GraphicsView extends JFrame implements IGraphicsView {
   protected ImgModel model;
   ArrayList<JMenuItem> commandButtons;
@@ -31,11 +33,17 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   private JMenuBar MenuBar;
   private JMenu Menu;
 
+  /**
+   * Builds the window holding the histogram.
+   */
   private void buildHistogramWindow(){
     histogramPanel = new HistogramPanel();
     this.add(histogramPanel, BorderLayout.WEST);
   }
 
+  /**
+   * Builds the image window.
+   */
   private void buildImageWindow() {
     // build separate method: setPicture, setPicture is called after every command
     // this method should just build the WINDOW
@@ -67,27 +75,33 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     setSize(1000, 1000);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
-    initImage();
     buildCommandButtons();
     buildHistogramWindow();
     buildImageWindow();
   }
 
 
-
+  /**
+   * Rebuilds the histogram in its panel
+   */
   private void buildHistogram() {
     histogramPanel.setImage(currentImg);
   }
 
-
+  /**
+   * Rebuilds the image in its panel.
+   */
   private void buildImage() {
     BufferedImage bImg = Tools.getBuffImg(currentImg);
     ImageIcon image = new ImageIcon(bImg);
     imageWindow.setIcon(image);
   }
 
-
-  public void doCommand(String s) throws IOException {
+  /**
+   * Does the necessary IO following an input indicating a command.
+   * @param s the input.
+   */
+  public void doCommand(String s) {
     Command c = Command.getCommand(s);
     if (c == null) throw new IllegalArgumentException("Not a valid command");
     Map<Parameter, String> paramValues = new HashMap();
@@ -103,11 +117,11 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     try {
       c.run(model, paramValues);
     }
-    catch (IllegalArgumentException e){
+    catch (IllegalArgumentException | IOException e){
       errorMessage("Something went wrong. Try again.");
     }
     System.out.println(paramValues.get(Parameter.filePath));
-    textBox(c.acknowledge(paramValues));
+    //textBox(c.acknowledge(paramValues));
     currentImg = model.getImage(paramValues.get(Parameter.destinationImage));
     System.out.println(paramValues.get(Parameter.destinationImage));
     System.out.println(currentImg.toString());
@@ -115,40 +129,9 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     buildHistogram();
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  /**
+   * Builds the command buttons.
+   */
   private void buildCommandButtons() {
     MenuBar = new JMenuBar();
     Menu = new JMenu("Options");
@@ -195,48 +178,30 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     this.setJMenuBar(MenuBar);
   }
 
-  /**
-   * For the sake of testing
-   */
-  private void initImage() {
-    currentImg = new Img("small", 4, 2);
-    currentImg.setPixel(0, 0, 110, 115, 119);
-    currentImg.setPixel(0, 1, 120, 125, 129);
-    currentImg.setPixel(1, 0, 130, 135, 139);
-    currentImg.setPixel(1, 1, 140, 145, 149);
-
-    currentImg.setPixel(2, 0, 150, 155, 159);
-    currentImg.setPixel(2, 1, 160, 165, 169);
-    currentImg.setPixel(3, 0, 170, 175, 179);
-    currentImg.setPixel(3, 1, 180, 185, 189);
-  }
-
-
-  @Override
-  public void paint(Graphics g) {
-    super.paint(g);
-  }
 
   @Override
   public void addFeatures(Features features) {
     for (JMenuItem b : commandButtons) {
-      b.addActionListener(evt -> {
-        try {
-          doCommand(b.getText());
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      });
+      b.addActionListener(evt -> doCommand(b.getText()));
     }
   }
 
 
-  public void textBox(String text) {
-    JOptionPane.showMessageDialog(null, text, "Message", JOptionPane.ERROR_MESSAGE);
+  /**
+   * Creates a textbox and displays to user.
+   * @param text the text in the box.
+   */
+  private void textBox(String text) {
+    JOptionPane.showMessageDialog(null, text, "Message", JOptionPane.OK_OPTION);
   }
 
 
-  public String getInput(Parameter p) {
+  /**
+   * Creates boxes until the correct input type for the given parameter is recieved.
+   * @param p the needed Parameter.
+   * @return the String with a valid input.
+   */
+  private String getInput(Parameter p) {
     String input = "";
     String prompt = "Enter a value for " + p.toString();
     switch (p) {
@@ -258,7 +223,11 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     return input;
   }
 
-  public void errorMessage(String msg) {
+  /**
+   * Puts out an error message given String.
+   * @param msg the String to put on the error message.
+   */
+  private void errorMessage(String msg) {
     JPanel panel = new JPanel();
     JOptionPane pane = new JOptionPane();
     panel.add(pane);
@@ -267,7 +236,12 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     pane.showConfirmDialog(panel, msg);
   }
 
-  public String inputBox(String prompt) {
+  /**
+   * Gets an input.
+   * @param prompt the prompt in the box.
+   * @return the input.
+   */
+  private String inputBox(String prompt) {
     JPanel panel = new JPanel();
     JOptionPane pane = new JOptionPane();
     panel.add(pane);
@@ -276,7 +250,10 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   }
 
 
-
+  /**
+   * A box to select a filePath.
+   * @return the filepath.
+   */
   private String openFile() {
     JLabel fileOpenDisplay = new JLabel();
     this.add(fileOpenDisplay);

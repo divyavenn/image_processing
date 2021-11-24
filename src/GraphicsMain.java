@@ -1,22 +1,21 @@
-import java.io.PrintStream;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
+
 
 import controller.GUIControllerImplementation;
-import controller.ImgController;
-import controller.ImgControllerImplementation;
+
 import model.ImgModel;
 import model.ImgModelImplementation;
 import view.GraphicsView;
-import view.IGraphicsView;
-import view.ImgView;
-import view.TextView;
+
 
 /**
  * Class meant for running program using graphics input.
  */
 public class GraphicsMain {
 
+  /**
+   * Runs the image processor with graphical interface.
+   * @param args
+   */
   public static void main(String[] args) {
     ImgModel model = new ImgModelImplementation();
     GUIControllerImplementation controller = new GUIControllerImplementation(model);
