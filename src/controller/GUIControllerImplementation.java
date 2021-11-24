@@ -7,28 +7,30 @@ import img.Img;
 import model.Command;
 import model.ImgModel;
 import view.GraphicsView;
+import view.IGraphicsView;
 
 public class GUIControllerImplementation implements ImgController, Features{
   private ImgModel model;
-  private GraphicsView view;
+  private IGraphicsView view;
 
 
-  public GUIControllerImplementation(ImgModel model) {
-    if (model == null) {
+  public GUIControllerImplementation(ImgModel model, IGraphicsView view) {
+    if (model == null || view == null) {
       throw new IllegalArgumentException("Gave null object");
     } else {
       this.model = model;
+      this.view = view;
     }
   }
 
-  public void setView(GraphicsView v) {
+  public void setView(IGraphicsView v) {
     view = v;
     view.addFeatures(this);
   }
 
   @Override
   public void start() {
-    this.view.setVisible(true);
+    this.view.setVisible();
   }
 
   @Override

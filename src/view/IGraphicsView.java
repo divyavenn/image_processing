@@ -15,6 +15,11 @@ public interface IGraphicsView {
    */
   void errorMessage(String msg);
 
+  /**
+   * Sets the view to visible
+   */
+  void setVisible();
+
 
 
 }

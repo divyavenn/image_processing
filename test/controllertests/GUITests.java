@@ -38,25 +38,19 @@ public class GUITests {
     log = new StringBuilder();
     this.mockModel = new TestInputModel();
     this.mockView = new MockGuiView(mockModel, log);
-    this.controller = new GUIControllerImplementation(mockModel);
+    this.controller = new GUIControllerImplementation(mockModel, mockView);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testControllerConstructorNullModel() {
     mockModel = null;
-    controller = new GUIControllerImplementation(mockModel);
+    controller = new GUIControllerImplementation(mockModel, mockView);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testControllerConstructorNullView() {
     mockView = null;
-    controller = new GUIControllerImplementation(mockModel);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void testGraphicsViewControllerNullModel() {
-    mockModel = null;
-    //view = new GraphicsView(mockModel);
+    controller = new GUIControllerImplementation(mockModel, mockView);
   }
 
   /**
@@ -64,6 +58,7 @@ public class GUITests {
    */
   @Test
   public void testSetViewToAddFeaturesInput() {
+    controller.setView(mockView);
     assertEquals("Features added!", log.toString());
   }
 

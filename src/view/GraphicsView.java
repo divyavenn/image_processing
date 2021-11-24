@@ -30,6 +30,22 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   private JMenuBar MenuBar;
   private JMenu Menu;
 
+
+  /**
+   * Creates a ImgView object.
+   *
+   * @throws IllegalArgumentException if object is null
+   * @model a ImgModel object
+   */
+  public GraphicsView() throws IllegalArgumentException {
+    setSize(1000, 1000);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setLayout(new BorderLayout());
+    buildCommandButtons();
+    buildHistogramWindow();
+    buildImageWindow();
+  }
+
   /**
    * Builds the window holding the histogram.
    */
@@ -57,22 +73,6 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
 
   /**
-   * Creates a ImgView object.
-   *
-   * @throws IllegalArgumentException if object is null
-   * @model a ImgModel object
-   */
-  public GraphicsView() throws IllegalArgumentException {
-    setSize(1000, 1000);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setLayout(new BorderLayout());
-    buildCommandButtons();
-    buildHistogramWindow();
-    buildImageWindow();
-  }
-
-
-  /**
    * Rebuilds the histogram in its panel
    */
   private void buildHistogram() {
@@ -96,6 +96,11 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     }
     catch (NullPointerException e){
     }
+  }
+
+  @Override
+  public void setVisible() {
+    this.setVisible(true);
   }
 
   /**
