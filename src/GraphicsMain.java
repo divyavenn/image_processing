@@ -5,6 +5,7 @@ import controller.GUIControllerImplementation;
 import model.ImgModel;
 import model.ImgModelImplementation;
 import view.GraphicsView;
+import view.IGraphicsView;
 
 
 /**
@@ -18,9 +19,9 @@ public class GraphicsMain {
    */
   public static void main(String[] args) {
     ImgModel model = new ImgModelImplementation();
-    GUIControllerImplementation controller = new GUIControllerImplementation(model);
-    GraphicsView view = new GraphicsView();
-    controller.setView(view);
+    IGraphicsView view = new GraphicsView(model);
+    GUIControllerImplementation controller = new GUIControllerImplementation(model, view);
+    controller.setView();
     controller.start();
   }
 

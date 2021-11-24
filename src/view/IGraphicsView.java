@@ -3,7 +3,11 @@ import controller.Features;
 
 public interface IGraphicsView {
 
-  void addFeatures(Features features);
+  void addFeatures();
+
+  void setVisible();
+
+  void errorMessage(String msg);
 
 
 }
