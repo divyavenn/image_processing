@@ -17,7 +17,7 @@ public class MockGuiView implements IGraphicsView {
     }
   }
 
-  public void addFeatures() {
+  public void addFeatures(Features features) {
     log.append("Features added!");
 
   }
@@ -30,10 +30,5 @@ public class MockGuiView implements IGraphicsView {
 
   public void errorMessage(String msg) {
     log.append(msg);
-  }
-
-  @Override
-  public void addFeatures(Features features) {
-
   }
 }

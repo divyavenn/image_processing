@@ -22,11 +22,11 @@ public enum Command {
   ic("just-intensity"),
   hflip("hflip"),
   vflip("vflip"),
-  quit("quit"),
   blur("blur"),
   sharpen("sharpen"),
   grey("grey"),
-  sepia("sepia");
+  sepia("sepia"),
+  quit("quit");
 
 
   public static final double[][] blurFilter = new double[][]

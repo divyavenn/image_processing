@@ -31,13 +31,17 @@ public class GUITests {
   IGraphicsView mockView;
   ImgModel mockModel;
   IGraphicsView view;
-  StringBuilder log;
+  StringBuilder commandLog;
+  StringBuilder inputLog;
+  StringBuilder viewLog;
 
   @Before
   public void init() {
-    log = new StringBuilder();
-    this.mockModel = new TestInputModel();
-    this.mockView = new MockGuiView(mockModel, log);
+    commandLog = new StringBuilder();
+    inputLog = new StringBuilder();
+    viewLog = new StringBuilder();
+    this.mockModel = new MockGuiModel(commandLog, inputLog);
+    this.mockView = new MockGuiView(mockModel, viewLog);
     this.controller = new GUIControllerImplementation(mockModel, mockView);
   }
 
@@ -59,7 +63,7 @@ public class GUITests {
   @Test
   public void testSetViewToAddFeaturesInput() {
     controller.setView(mockView);
-    assertEquals("Features added!", log.toString());
+    assertEquals("Features added!", viewLog.toString());
   }
 
   /**
@@ -68,28 +72,38 @@ public class GUITests {
   @Test
   public void testStartToSetVisibleInput() {
     controller.start();
-    assertEquals("View is visible.", log.toString());
+    assertEquals("View is visible.", viewLog.toString());
 
   }
 
   @Test
   public void testGetImageFromModel() {
     controller.getImageFromModel("Test Image");
-    TestInputModel chattyModel = (TestInputModel)mockModel;
-    assertEquals(chattyModel.recentInputs.get(0), "Test Image");
+    assertEquals(inputLog.toString(), "Test Image");
 
   }
 
   @Test
   public void testGetDoCommandsInput() {
+    StringBuilder tempLog = new StringBuilder();
     Map<Parameter, String> paramValues = new HashMap();
     for (Parameter p : Parameter.values()) {
       paramValues.put(p, null);
     }
+    paramValues.put(Parameter.increment, "10");
+    paramValues.put(Parameter.destinationImage, "hi");
+    paramValues.put(Parameter.targetImage, "hi");
+    paramValues.put(Parameter.filePath,
+            "C:\\Users\\Brandon's Computer\\Desktop\\" +
+                    "OOD\\img\\image_processing\\res\\happyBright.png");
+
+
     for (Command c : Command.values()) {
       controller.doCommand(c, paramValues);
-      TestInputModel chattyModel = (TestInputModel) mockModel;
-      assertEquals(c, chattyModel.recentlyCalled);
+      tempLog.append(c);
     }
+    // quit is in command enum but not defined in model
+    commandLog.append("quit");
+    assertEquals(commandLog.toString(), tempLog.toString());
   }
 }
