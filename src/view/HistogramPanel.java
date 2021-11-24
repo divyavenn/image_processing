@@ -99,14 +99,12 @@ class HistogramPanel extends JPanel {
     super.paint(g);
     Graphics2D g2d = (Graphics2D) g;
 
-
     //We draw in the following 2 loops the grid so it's visible what I explained before about each "unit"
     //We draw the axis here instead of before because otherwise they would become blue colored.
     g2d.setColor(Color.BLACK);
     g2d.drawLine(startX, startY, startX, endY);
     g2d.drawLine(startX, endY, endX, endY);
 
-    System.out.println("RED LINE");
     //We draw each of our coords in red color
     g2d.setColor(Color.RED);
     for (int r : redCoords) {
@@ -115,14 +113,13 @@ class HistogramPanel extends JPanel {
     }
 
     resetBaseCoords();
-    System.out.println("BLUE LINE");
+
     g2d.setColor(Color.BLUE);
     for (int b : blueCoords) {
       g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY - (int) (Math.round(b * unitY)));
     }
 
     resetBaseCoords();
-    System.out.println("GREEN LINE");
 
     g2d.setColor(Color.GREEN);
     for (int gr : greenCoords) {
@@ -131,7 +128,6 @@ class HistogramPanel extends JPanel {
 
     resetBaseCoords();
 
-    System.out.println("INTENSITY LINE");
     g2d.setColor(Color.DARK_GRAY);
     for (int intensity : intensityCoords) {
       g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY - (int) (Math.round(intensity * unitY)));
@@ -178,9 +174,7 @@ class HistogramPanel extends JPanel {
    */
   private void setUnits() {
     unitX = (double) graphWidth / (double) xMax;
-    System.out.println("Set unit X: " + unitX);
     unitY = (double) graphHeight / (double) yMax;
-    System.out.println("Set unit y: " + unitY);
   }
 
 

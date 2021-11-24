@@ -2,7 +2,9 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Map;
 
+import img.Img;
 import model.Command;
 import model.ImgModel;
 import view.GraphicsView;
@@ -13,7 +15,11 @@ public class GUIControllerImplementation implements ImgController, Features{
   String imgName = "pic";
 
   public GUIControllerImplementation(ImgModel model) {
-    this.model = model;
+    if (model == null) {
+      throw new IllegalArgumentException("Gave null object");
+    } else {
+      this.model = model;
+    }
   }
 
   public void setView(GraphicsView v) {
@@ -24,18 +30,28 @@ public class GUIControllerImplementation implements ImgController, Features{
   @Override
   public void start() {
     this.view.setVisible(true);
-
-  }
-
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-
   }
 
   @Override
-  public void doCommand(Command command) throws IOException {
+  public void doCommand(Command command, Map<Parameter, String> paramValues){
+    try {
+      command.run(model, paramValues);
+    }
+    catch (IllegalArgumentException | IOException e){
+    }
+  }
 
+  @Override
+  public Img getImageFromModel(String name) {
+    Img image;
+    try {
+      image = model.getImage(name);
+    }
+    catch (IllegalArgumentException e) {
+      view.errorMessage("No image loaded");
+      return null;
+    }
+    return image;
   }
 
 }
