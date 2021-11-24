@@ -23,6 +23,7 @@ public class GUIControllerImplementation implements ImgController, Features{
 
   @Override
   public void start() {
+    this.view.setVisible(true);
 
   }
 

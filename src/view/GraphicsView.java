@@ -25,7 +25,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   Histogram hist;
   ArrayList<JMenuItem> commandButtons;
   private Img currentImg;
-  private JTabbedPane imageWindow;
+  private JLabel imageWindow;
   private JMenuBar MenuBar;
   private JMenu Menu;
 
@@ -49,8 +49,10 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     buildCommandButtons();
     buildImageWindow();
     buildHist();
-    setVisible(true);
+    pack();
   }
+
+  // setPicture(
 
   private void buildHist() {
     hist = new Histogram(currentImg);
@@ -61,18 +63,19 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
 
   private void buildImageWindow() {
-    imageWindow = new JTabbedPane();
-    JLabel image;
-    if (currentImg != null) {
-      BufferedImage bImg = Tools.getBuffImg(currentImg);
-      ImageIcon displayedImage = new ImageIcon(bImg);
-      image = new JLabel(displayedImage);
-      imageWindow.add(image);
-    }
+    // build separate method: setPicture, setPicture is called after every command
+    // this method should just build the WINDOW
+    imageWindow = new JLabel();
     imageWindow.setMinimumSize(new Dimension(4, 2));
     JScrollPane scrollPane = new JScrollPane(imageWindow);
     scrollPane.setPreferredSize(new Dimension(500, 500));
     this.add(scrollPane, BorderLayout.CENTER);
+  }
+
+  private void buildImage() {
+    BufferedImage bImg = Tools.getBuffImg(currentImg);
+    ImageIcon image = new ImageIcon(bImg);
+    imageWindow.setIcon(image);
   }
 
 
@@ -139,11 +142,12 @@ public class GraphicsView extends JFrame implements IGraphicsView {
       }
     }
     c.run(model, paramValues);
-    currentImg = model.getImage("pic");
-    buildImageWindow();
     textBox(c.acknowledge(paramValues));
-    invalidate();
-    validate();
+    currentImg = model.getImage(paramValues.get(Parameter.destinationImage));
+    System.out.println(paramValues.get(Parameter.destinationImage));
+    buildImage();
+    requestFocus();
+    revalidate();
     repaint();
   }
 
@@ -206,6 +210,11 @@ public class GraphicsView extends JFrame implements IGraphicsView {
       return f.getAbsolutePath();
     }
     return "";
+  }
+
+  public void refresh() {
+    this.requestFocus();
+    this.repaint();
   }
 
 
