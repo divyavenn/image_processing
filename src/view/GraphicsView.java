@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
@@ -67,6 +69,9 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     // this method should just build the WINDOW
     imageWindow = new JLabel();
     imageWindow.setMinimumSize(new Dimension(4, 2));
+    imageWindow.setBorder(new LineBorder(Color.black));
+    imageWindow.setOpaque(true);
+    imageWindow.setBackground(Color.gray);
     JScrollPane scrollPane = new JScrollPane(imageWindow);
     scrollPane.setPreferredSize(new Dimension(500, 500));
     this.add(scrollPane, BorderLayout.CENTER);
@@ -145,6 +150,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
     textBox(c.acknowledge(paramValues));
     currentImg = model.getImage(paramValues.get(Parameter.destinationImage));
     System.out.println(paramValues.get(Parameter.destinationImage));
+    System.out.println(currentImg.toString());
     buildImage();
     requestFocus();
     revalidate();
