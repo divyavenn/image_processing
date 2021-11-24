@@ -18,8 +18,8 @@ public class GraphicsMain {
    */
   public static void main(String[] args) {
     ImgModel model = new ImgModelImplementation();
-    GUIControllerImplementation controller = new GUIControllerImplementation(model);
     GraphicsView view = new GraphicsView();
+    GUIControllerImplementation controller = new GUIControllerImplementation(model, view);
     controller.setView(view);
     controller.start();
   }

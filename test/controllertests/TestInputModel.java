@@ -16,6 +16,11 @@ public class TestInputModel implements ImgModel {
   Command recentlyCalled;
   ArrayList<String> recentInputs;
 
+  public TestInputModel() {
+    this.recentlyCalled = null;
+    this.recentInputs = new ArrayList<>();
+  }
+
   /**
    * Get most recently called command.
    *
@@ -80,6 +85,7 @@ public class TestInputModel implements ImgModel {
 
   @Override
   public Img getImage(String imageName) {
+    recentInputs.add(imageName);
     return null;
   }
 
