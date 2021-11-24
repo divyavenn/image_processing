@@ -87,13 +87,46 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   private void buildCommandButtons() {
     MenuBar = new JMenuBar();
     Menu = new JMenu("Options");
+    JMenu File = new JMenu("File");
+    JMenu Transform = new JMenu("Transform");
+    JMenu Filter = new JMenu("Filter");
+
     commandButtons = new ArrayList<>();
     for (Command c : Command.values()) {
       JMenuItem m = new JMenuItem(c.toString());
       commandButtons.add(m);
-      Menu.add(m);
+      switch(c){
+        case load:
+        case save:
+        case quit:
+          File.add(m);
+          break;
+        case brighten:
+        case rc:
+        case bc:
+        case gc:
+        case ic:
+        case lc:
+        case vc:
+        case hflip:
+        case vflip:
+        case blur:
+        case sharpen:
+          Transform.add(m);
+          break;
+        case grey:
+        case sepia:
+          Filter.add(m);
+          break;
+        default:
+          break;
+
+      }
+
     }
-    MenuBar.add(Menu);
+    MenuBar.add(File);
+    MenuBar.add(Transform);
+    MenuBar.add(Filter);
     this.setJMenuBar(MenuBar);
   }
 
