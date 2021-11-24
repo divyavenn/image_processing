@@ -62,7 +62,7 @@ public class ImgModelImplementation implements ImgModel {
 
   @Override
   public void exportComponentByPixel(Command command, String imageName,
-                                     String destinationImageName) {
+                                     String destinationImageName){
     Img targetImage;
     try {
       targetImage = getImage(imageName);
