@@ -100,13 +100,20 @@ public class GraphicsView extends JFrame implements IGraphicsView {
         paramValues.put(p, input);
       }
     }
-    c.run(model, paramValues);
-    textBox(c.acknowledge(paramValues));
-    currentImg = model.getImage(paramValues.get(Parameter.destinationImage));
-    System.out.println(paramValues.get(Parameter.destinationImage));
-    System.out.println(currentImg.toString());
-    buildImage();
-    buildHistogram();
+    try {
+      c.run(model, paramValues);
+    }
+    catch (IllegalArgumentException e){
+      errorMessage("Image has not been loaded.");
+    }
+    if ((paramValues.get(Parameter.destinationImage).equals(""))){
+      textBox(c.acknowledge(paramValues));
+      currentImg = model.getImage(paramValues.get(Parameter.destinationImage));
+      System.out.println(paramValues.get(Parameter.destinationImage));
+      System.out.println(currentImg.toString());
+      buildImage();
+      buildHistogram();
+    }
   }
 
 
