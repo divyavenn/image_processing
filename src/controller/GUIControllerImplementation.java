@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import view.GraphicsView;
 public class GUIControllerImplementation implements ImgController, Features{
   private ImgModel model;
   private GraphicsView view;
-  String imgName = "pic";
+
 
   public GUIControllerImplementation(ImgModel model) {
     if (model == null) {

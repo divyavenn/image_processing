@@ -67,7 +67,6 @@ public class ImgModelImplementation implements ImgModel {
     try {
       targetImage = getImage(imageName);
     } catch (Exception e) {
-      System.out.println("Image not in list!");
       throw new IllegalArgumentException("");
     }
     Img destinationImage = copyImage(targetImage, destinationImageName);
