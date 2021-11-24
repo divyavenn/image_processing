@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -13,10 +14,11 @@ import javax.imageio.ImageIO;
  * Represents an Image.
  */
 public class Img {
-  String name;
-  int height;
-  int width;
-  Pixel[][] pixels;
+  private String name;
+  private int height;
+  private int width;
+  private Pixel[][] pixels;
+
 
   /**
    * Constructs an Img Object.

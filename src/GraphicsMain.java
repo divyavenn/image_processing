@@ -20,7 +20,7 @@ public class GraphicsMain {
     ImgModel model = new ImgModelImplementation();
     GraphicsView view = new GraphicsView();
     GUIControllerImplementation controller = new GUIControllerImplementation(model, view);
-    controller.setView(view);
+    controller.setView();
     controller.start();
   }
 

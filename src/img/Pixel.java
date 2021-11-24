@@ -5,9 +5,9 @@ package img;
  */
 public class Pixel {
 
-  int r;
-  int g;
-  int b;
+  private int r;
+  private int g;
+  private int b;
 
 
   /**

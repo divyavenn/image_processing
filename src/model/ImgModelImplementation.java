@@ -12,7 +12,7 @@ import img.Pixel;
  */
 public class ImgModelImplementation implements ImgModel {
 
-  ArrayList<Img> images;
+  private ArrayList<Img> images;
 
 
   /**

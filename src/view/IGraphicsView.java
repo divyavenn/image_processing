@@ -1,6 +1,9 @@
 package view;
 import controller.Features;
 
+/**
+ * An interface for the img GUI view.
+ */
 public interface IGraphicsView {
 
   /**
@@ -8,6 +11,7 @@ public interface IGraphicsView {
    * @param features controller features
    */
   void addFeatures(Features features);
+
 
   /**
    * Puts out an error message given String.

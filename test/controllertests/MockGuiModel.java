@@ -17,6 +17,12 @@ public class MockGuiModel implements ImgModel {
   StringBuilder recentlyCalled;
   StringBuilder recentInputs;
 
+
+  /**
+   * Constructs a MockGuiModel with the given StringBuilders.
+   * @param recentlyCalled A StringBuilder that appends the recently called commands.
+   * @param recentInputs A StringBuilder that appends the inputs called.
+   */
   public MockGuiModel(StringBuilder recentlyCalled, StringBuilder recentInputs) {
     this.recentlyCalled = recentlyCalled;
     this.recentInputs = recentInputs;

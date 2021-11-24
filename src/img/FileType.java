@@ -18,23 +18,29 @@ import javax.imageio.stream.ImageInputStream;
 import util.Tools;
 
 /**
- * Represents the different image types this program can handle. Has methods
- * to return appopriate objects based on ImageType.
+ * Represents the different image types this program can handle. Has static methods
+ * to return appropriate objects based on ImageType.
  */
 public enum FileType {
   ppm("ppm"),
   jpeg("jpeg"),
   png("png");
 
-
   private String formatName;
 
-  // constructor to set the string
+  /**
+   * constructor to set the string
+   */
+
   FileType(String name) {
     formatName = name;
   }
 
-  // the toString just returns the given name
+  /**
+   * Gets the formatName.
+   *
+   * @return the string of the formatName.
+   */
   @Override
   public String toString() {
     return formatName;
@@ -96,11 +102,9 @@ public enum FileType {
 
     if (format.equals("JPEG")) {
       return FileType.jpeg; //HAS TO BE UPPERCASE!!
-    }
-    else if (format.equals("png")) {
+    } else if (format.equals("png")) {
       return FileType.png; // HAS TO BE LOWERCASE!!
-    }
-    else {
+    } else {
       return null;
     }
   }

@@ -9,11 +9,21 @@ import model.ImgModel;
 import view.GraphicsView;
 import view.IGraphicsView;
 
-public class GUIControllerImplementation implements ImgController, Features{
+/**
+ * A class that implements ImgController and Features interface. Represents a controller for the
+ * GUI implementation of the img program.
+ */
+public class GUIControllerImplementation implements ImgController, Features {
   private ImgModel model;
   private IGraphicsView view;
 
 
+  /**
+   * A constructor for GUIControllerImplementation.
+   *
+   * @param model An ImgModel
+   * @param view  An IGraphicView
+   */
   public GUIControllerImplementation(ImgModel model, IGraphicsView view) {
     if (model == null || view == null) {
       throw new IllegalArgumentException("Gave null object");
@@ -23,8 +33,8 @@ public class GUIControllerImplementation implements ImgController, Features{
     }
   }
 
-  public void setView(IGraphicsView v) {
-    view = v;
+  @Override
+  public void setView() {
     view.addFeatures(this);
   }
 
@@ -34,11 +44,10 @@ public class GUIControllerImplementation implements ImgController, Features{
   }
 
   @Override
-  public void doCommand(Command command, Map<Parameter, String> paramValues){
+  public void doCommand(Command command, Map<Parameter, String> paramValues) {
     try {
       command.run(model, paramValues);
-    }
-    catch (IllegalArgumentException | IOException e){
+    } catch (IllegalArgumentException | IOException e) {
     }
   }
 
@@ -47,8 +56,7 @@ public class GUIControllerImplementation implements ImgController, Features{
     Img image;
     try {
       image = model.getImage(name);
-    }
-    catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       view.errorMessage("No image loaded");
       return null;
     }

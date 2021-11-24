@@ -3,23 +3,13 @@ package controllertests;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import controller.Features;
 import controller.GUIControllerImplementation;
-import controller.ImgController;
-import controller.ImgControllerImplementation;
 import controller.Parameter;
 import model.Command;
 import model.ImgModel;
-import view.GraphicsView;
 import view.IGraphicsView;
-import view.ImgView;
-import view.TextView;
 
 import static org.junit.Assert.assertEquals;
 
@@ -62,7 +52,7 @@ public class GUITests {
    */
   @Test
   public void testSetViewToAddFeaturesInput() {
-    controller.setView(mockView);
+    controller.setView();
     assertEquals("Features added!", viewLog.toString());
   }
 

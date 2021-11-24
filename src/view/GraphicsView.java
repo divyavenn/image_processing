@@ -23,7 +23,7 @@ import util.Tools;
  * A graphical user interface for the image processor.
  */
 public class GraphicsView extends JFrame implements IGraphicsView {
-  ArrayList<JMenuItem> commandButtons;
+  private ArrayList<JMenuItem> commandButtons;
   private Img currentImg;
   private JLabel imageWindow;
   private HistogramPanel histogramPanel;
