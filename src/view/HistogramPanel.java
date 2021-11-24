@@ -108,7 +108,6 @@ class HistogramPanel extends JPanel {
     //We draw each of our coords in red color
     g2d.setColor(Color.RED);
     for (int r : redCoords) {
-      System.out.println(r);
       g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY - (int) (Math.round(r * unitY)));
     }
 

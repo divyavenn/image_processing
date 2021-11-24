@@ -38,10 +38,16 @@ public class ImgModelImplementation implements ImgModel {
   @Override
   public void load(String filePath, String destinationImageName)
           throws IllegalArgumentException {
-    FileType type = FileType.getCorrectFileType(filePath);
-    if (type != null) {
-      Img destinationImage = type.makeImgFromFile(filePath, destinationImageName);
-      images.add(destinationImage);
+    FileType type;
+    try {
+      type = FileType.getCorrectFileType(filePath);
+      if (type != null) {
+        Img destinationImage = type.makeImgFromFile(filePath, destinationImageName);
+        images.add(destinationImage);
+      }
+    }
+    catch (Exception e){
+      throw new IllegalArgumentException();
     }
   }
 
