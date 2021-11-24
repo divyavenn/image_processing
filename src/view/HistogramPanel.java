@@ -23,10 +23,10 @@ class HistogramPanel extends JPanel {
   private double unitY = 1;
 
   private int startX = 10;
-  private int startY = 0;
+  private int startY = 500;
 
   private int endX = startX + 300;
-  private int endY = startY + 500;
+  private int endY = 0;
 
   private int prevX = startX;
   private int prevY = startY;
@@ -103,7 +103,7 @@ class HistogramPanel extends JPanel {
     g2d.setColor(Color.RED);
     for (int r : redCoords) {
       System.out.println(r);
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = endY-(int)(Math.round(r*unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY-(int)(Math.round(r*unitY)));
       System.out.println(prevY);
     }
 
@@ -113,7 +113,7 @@ class HistogramPanel extends JPanel {
     for (int b : blueCoords) {
       System.out.println(b);
       System.out.println(prevY);
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = endY-(int)(Math.round(b * unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY-(int)(Math.round(b * unitY)));
     }
 
     resetBaseCoords();
@@ -123,7 +123,7 @@ class HistogramPanel extends JPanel {
     for (int gr : greenCoords) {
       System.out.println(gr);
       System.out.println(prevY);
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = endY-(int)(Math.round(gr * unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY-(int)(Math.round(gr * unitY)));
     }
 
     resetBaseCoords();
@@ -133,7 +133,7 @@ class HistogramPanel extends JPanel {
     for (int intensity : intensityCoords) {
       System.out.println(intensity);
       System.out.println(prevY);
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = endY-(int)(Math.round(intensity * unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY-(int)(Math.round(intensity * unitY)));
     }
     resetBaseCoords();
   }
@@ -141,7 +141,7 @@ class HistogramPanel extends JPanel {
 
   private void resetBaseCoords(){
     prevX = startX;
-    prevY = 0;
+    prevY = startY;
   }
 
 
