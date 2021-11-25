@@ -29,10 +29,10 @@ public enum Command {
   quit("quit");
 
 
-  public static final double[][] blurFilter = new double[][]
-          {{1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0},
-                  {1.0 / 8.0, 1.0 / 4.0, 1.0 / 8.0},
-                  {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0}};
+  public static final double[][] blurFilter = new double[][] {
+          {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0},
+          {1.0 / 8.0, 1.0 / 4.0, 1.0 / 8.0},
+          {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0}};
 
   public static final double[][] sharpenFilter = new double[][]{
           {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0},
@@ -59,7 +59,8 @@ public enum Command {
   private static HashMap<Command, Parameter[]> commandParamMap = new HashMap<>();
 
   static {
-    commandParamMap.put(Command.load, new Parameter[]{ Parameter.filePath, Parameter.destinationImage});
+    commandParamMap.put(Command.load, new Parameter[]{
+        Parameter.filePath, Parameter.destinationImage});
 
     commandParamMap.put(Command.save, new Parameter[]{
         Parameter.filePath,

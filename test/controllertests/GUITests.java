@@ -31,7 +31,7 @@ public class GUITests {
     inputLog = new StringBuilder();
     viewLog = new StringBuilder();
     this.mockModel = new MockGuiModel(commandLog, inputLog);
-    this.mockView = new MockGuiView(mockModel, viewLog);
+    this.mockView = new MockGuiView(viewLog);
     this.controller = new GUIControllerImplementation(mockModel, mockView);
   }
 

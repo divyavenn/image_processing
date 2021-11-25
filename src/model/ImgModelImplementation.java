@@ -45,8 +45,7 @@ public class ImgModelImplementation implements ImgModel {
         Img destinationImage = type.makeImgFromFile(filePath, destinationImageName);
         images.add(destinationImage);
       }
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       throw new IllegalArgumentException();
     }
   }
@@ -222,7 +221,8 @@ public class ImgModelImplementation implements ImgModel {
         }
         //System.out.println("r: " +  filteredRed + ", g: " + filteredGreen + ", b: " +
         // filteredBlue);
-        destinationImage.setPixel(i, j, (int) Math.round(filteredRed), (int) Math.round(filteredGreen),
+        destinationImage.setPixel(i, j, (int) Math.round(filteredRed),
+                (int) Math.round(filteredGreen),
                 (int) Math.round(filteredBlue));
       }
     }

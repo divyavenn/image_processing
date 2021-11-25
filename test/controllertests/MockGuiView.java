@@ -1,7 +1,6 @@
 package controllertests;
 
 import controller.Features;
-import model.ImgModel;
 import view.IGraphicsView;
 
 /**
@@ -9,18 +8,16 @@ import view.IGraphicsView;
  * the view and the controller.
  */
 public class MockGuiView implements IGraphicsView {
-  private ImgModel model;
   private StringBuilder log;
 
   /**
-   * Constructor for a MockGuiView
-   * @param model An ImgModel.
+   * Constructor for a MockGuiView.
+   *
    * @param log A StringBuilder for the log.
    */
-  public MockGuiView(ImgModel model, StringBuilder log) {
+  public MockGuiView(StringBuilder log) {
     this.log = log;
     try {
-      this.model = model;
     } catch (NullPointerException e) {
       log.append("Model is null");
     }

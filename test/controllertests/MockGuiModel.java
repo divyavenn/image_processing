@@ -1,9 +1,7 @@
 package controllertests;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import controller.Parameter;
 import img.Img;
 import model.Command;
 import model.ImgModel;
@@ -20,8 +18,9 @@ public class MockGuiModel implements ImgModel {
 
   /**
    * Constructs a MockGuiModel with the given StringBuilders.
+   *
    * @param recentlyCalled A StringBuilder that appends the recently called commands.
-   * @param recentInputs A StringBuilder that appends the inputs called.
+   * @param recentInputs   A StringBuilder that appends the inputs called.
    */
   public MockGuiModel(StringBuilder recentlyCalled, StringBuilder recentInputs) {
     this.recentlyCalled = recentlyCalled;

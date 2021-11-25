@@ -14,7 +14,7 @@ public class GraphicsMain {
 
   /**
    * Runs the image processor with graphical interface.
-   * @param args
+   * @param args The main arguments.
    */
   public static void main(String[] args) {
     ImgModel model = new ImgModelImplementation();

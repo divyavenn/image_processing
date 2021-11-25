@@ -1,7 +1,7 @@
 package img;
 
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,9 +29,10 @@ public enum FileType {
   private String formatName;
 
   /**
-   * constructor to set the string
+   * Constructor to set the formatName.
+   *
+   * @param name the format name
    */
-
   FileType(String name) {
     formatName = name;
   }

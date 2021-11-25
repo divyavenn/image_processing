@@ -6,7 +6,6 @@ import java.util.Map;
 import img.Img;
 import model.Command;
 import model.ImgModel;
-import view.GraphicsView;
 import view.IGraphicsView;
 
 /**
@@ -48,6 +47,7 @@ public class GUIControllerImplementation implements ImgController, Features {
     try {
       command.run(model, paramValues);
     } catch (IllegalArgumentException | IOException e) {
+      view.errorMessage("Command cannot be loaded");
     }
   }
 

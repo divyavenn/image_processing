@@ -1,8 +1,12 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
-import javax.swing.*;
+
+import javax.swing.JPanel;
 
 import img.Img;
 import img.Pixel;
@@ -99,7 +103,8 @@ class HistogramPanel extends JPanel {
     super.paint(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    //We draw in the following 2 loops the grid so it's visible what I explained before about each "unit"
+    //We draw in the following 2 loops the grid so it's visible what I
+    // explained before about each "unit"
     //We draw the axis here instead of before because otherwise they would become blue colored.
     g2d.setColor(Color.BLACK);
     g2d.drawLine(startX, startY, startX, endY);
@@ -129,7 +134,8 @@ class HistogramPanel extends JPanel {
 
     g2d.setColor(Color.DARK_GRAY);
     for (int intensity : intensityCoords) {
-      g2d.drawLine(prevX, prevY, prevX += unitX, prevY = startY - (int) (Math.round(intensity * unitY)));
+      g2d.drawLine(prevX, prevY, prevX += unitX,
+              prevY = startY - (int) (Math.round(intensity * unitY)));
     }
     resetBaseCoords();
   }
