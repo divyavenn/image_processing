@@ -28,9 +28,9 @@ public class GraphicsMain {
    * @param args The main arguments.
    */
   public static void main(String[] args) {
-    System.out.println("Running");
-    ImgModel model = new ImgModelImplementation();
+    //GUI
     if (args.length == 0) {
+      ImgModel model = new ImgModelImplementation();
       GraphicsView view = new GraphicsView();
       GUIControllerImplementation controller = new GUIControllerImplementation(model, view);
       controller.setView();
@@ -39,14 +39,13 @@ public class GraphicsMain {
     }
     else {
       String runType = args[0];
-      Readable consoleIn;
+      ImgModel model = new ImgModelImplementation();
       Appendable out = new StringBuilder();
       try {
         out = new PrintStream(System.out, true, "UTF-8");
       } catch (UnsupportedEncodingException e) {
         e.printStackTrace();
       }
-
       ImgView tView = new TextView(model, out);
 
       if (runType.equals("-file")) {
@@ -60,7 +59,7 @@ public class GraphicsMain {
           return;
         }
       } else if (runType.equals("-text")) {
-        consoleIn = new InputStreamReader(System.in);
+        Readable consoleIn = new InputStreamReader(System.in);
         ImgController controller = new ImgControllerImplementation(model, tView, consoleIn);
         controller.start();
       }
