@@ -85,7 +85,7 @@ public enum FileType {
         return FileType.ppm;
       }
     } catch (FileNotFoundException e) {
-      System.out.println("Unable to find file.");
+      return null;
     }
     try {
       FileInputStream in = new FileInputStream(filePath);
@@ -93,12 +93,11 @@ public enum FileType {
       Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
       if (!iter.hasNext()) {
         type = null;
-        System.out.println("File not supported");
       }
       format = iter.next().getFormatName();
       iis.close();
     } catch (IOException e) {
-      System.out.println("Unable to find file.");
+      return null;
     }
 
     if (format.equals("JPEG")) {
@@ -122,6 +121,9 @@ public enum FileType {
     BufferedImage buffImg;
     Img image = null;
     FileType type = getCorrectFileType(filepath);
+    if (type == null) {
+      throw new IllegalArgumentException("file not found.");
+    }
     switch (type) {
       case ppm:
         try {
@@ -142,7 +144,6 @@ public enum FileType {
             }
           }
         } catch (FileNotFoundException e) {
-          System.out.println("Unable to find file.");
           throw new IllegalArgumentException("");
         }
         break;
@@ -163,7 +164,6 @@ public enum FileType {
             }
           }
         } catch (IOException e) {
-          System.out.println("Unable to find file.");
           throw new IllegalArgumentException("");
         }
         break;

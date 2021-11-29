@@ -42,8 +42,16 @@ public class ImgModelImplementation implements ImgModel {
     try {
       type = FileType.getCorrectFileType(filePath);
       if (type != null) {
-        Img destinationImage = type.makeImgFromFile(filePath, destinationImageName);
-        images.add(destinationImage);
+        try {
+          Img destinationImage = type.makeImgFromFile(filePath, destinationImageName);
+          images.add(destinationImage);
+        }
+        catch (IllegalArgumentException e) {
+          throw new IllegalArgumentException();
+        }
+      }
+      else {
+        throw new IllegalArgumentException();
       }
     } catch (Exception e) {
       throw new IllegalArgumentException();

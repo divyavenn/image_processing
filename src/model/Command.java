@@ -175,7 +175,7 @@ public enum Command {
    *
    * @param paramValues the values given to the method to run
    */
-  public void run(ImgModel model, Map<Parameter, String> paramValues) throws IOException {
+  public void run(ImgModel model, Map<Parameter, String> paramValues) throws IOException, IllegalArgumentException {
     switch (this) {
       case load:
         model.load(paramValues.get(Parameter.filePath),

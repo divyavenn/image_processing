@@ -1,0 +1,4 @@
+load image_processing/res/koala.ppm koala
+sepia koala brownkoala
+brighten koala koala 
+quit

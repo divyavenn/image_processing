@@ -39,9 +39,7 @@ public class GraphicsMain {
     }
     else {
       String runType = args[0];
-      String fPath = args[1];
-      Readable textIn;
-      Readable consoleIn = new InputStreamReader(System.in);
+      Readable consoleIn;
       Appendable out = new StringBuilder();
       try {
         out = new PrintStream(System.out, true, "UTF-8");
@@ -52,15 +50,17 @@ public class GraphicsMain {
       ImgView tView = new TextView(model, out);
 
       if (runType.equals("-file")) {
+        String fPath = args[1];
         try {
-          textIn = new FileReader(new File(fPath));
-          ImgController controller = new ImgControllerImplementation(model, tView, textIn);
+          Readable fileIn = new FileReader(new File(fPath));
+          ImgController controller = new ImgControllerImplementation(model, tView, fileIn);
           controller.start();
         } catch (FileNotFoundException e) {
           System.out.println("File not found! Goodbye!");
           return;
         }
       } else if (runType.equals("-text")) {
+        consoleIn = new InputStreamReader(System.in);
         ImgController controller = new ImgControllerImplementation(model, tView, consoleIn);
         controller.start();
       }
