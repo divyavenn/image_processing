@@ -30,7 +30,7 @@ public class GraphicsMain {
   public static void main(String[] args) {
     //GUI
     if (args.length == 0) {
-      ImgModel model = new ImgModelImplementation();
+      ImgModel model = new ImgModelmplementation();
       GraphicsView view = new GraphicsView();
       GUIControllerImplementation controller = new GUIControllerImplementation(model, view);
       controller.setView();
