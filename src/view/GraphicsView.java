@@ -1,10 +1,23 @@
 package view;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JMenuBar;
+import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
+
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Color;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -23,12 +36,10 @@ import util.Tools;
  * A graphical user interface for the image processor.
  */
 public class GraphicsView extends JFrame implements IGraphicsView {
-  ArrayList<JMenuItem> commandButtons;
+  private ArrayList<JMenuItem> commandButtons;
   private Img currentImg;
   private JLabel imageWindow;
   private HistogramPanel histogramPanel;
-  private JMenuBar MenuBar;
-  private JMenu Menu;
 
 
   /**
@@ -49,7 +60,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   /**
    * Builds the window holding the histogram.
    */
-  private void buildHistogramWindow(){
+  private void buildHistogramWindow() {
     histogramPanel = new HistogramPanel();
     this.add(histogramPanel, BorderLayout.WEST);
   }
@@ -73,13 +84,13 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
 
   /**
-   * Rebuilds the histogram in its panel
+   * Rebuilds the histogram in its panel.
    */
   private void buildHistogram() {
     try {
       histogramPanel.setImage(currentImg);
-    }
-    catch (NullPointerException e){
+    } catch (NullPointerException e) {
+      errorMessage("Unable to build histogram.");
 
     }
   }
@@ -93,8 +104,8 @@ public class GraphicsView extends JFrame implements IGraphicsView {
       bImg = Tools.getBuffImg(currentImg);
       ImageIcon image = new ImageIcon(bImg);
       imageWindow.setIcon(image);
-    }
-    catch (NullPointerException e){
+    } catch (NullPointerException e) {
+      errorMessage("Unable to build image.");
     }
   }
 
@@ -105,26 +116,29 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
   /**
    * Does the necessary IO following an input indicating a command.
+   *
    * @param s the input.
    * @param f a Features object
    */
   private void doCommand(String s, Features f) {
     Command c = Command.getCommand(s);
-    if (c == null) throw new IllegalArgumentException("Not a valid command");
+    if (c == null) {
+      throw new IllegalArgumentException("Not a valid command");
+    }
     Map<Parameter, String> paramValues = new HashMap();
     for (Parameter p : Parameter.values()) {
       paramValues.put(p, null);
     }
-    for (Parameter p: Parameter.values()) {
-      if (Command.needsParam(c.toString(),p)) {
+    for (Parameter p : Parameter.values()) {
+      if (Command.needsParam(c.toString(), p)) {
         String input = getInput(p);
         paramValues.put(p, input);
       }
     }
 
-    f.doCommand(c,paramValues);
+    f.doCommand(c, paramValues);
     currentImg = f.getImageFromModel(paramValues.get(Parameter.destinationImage));
-    if (currentImg!=null) {
+    if (currentImg != null) {
       buildImage();
       buildHistogram();
     }
@@ -134,21 +148,20 @@ public class GraphicsView extends JFrame implements IGraphicsView {
    * Builds the command buttons.
    */
   private void buildCommandButtons() {
-    MenuBar = new JMenuBar();
-    Menu = new JMenu("Options");
-    JMenu File = new JMenu("File");
-    JMenu Transform = new JMenu("Transform");
-    JMenu Filter = new JMenu("Filter");
+    JMenuBar menuBar = new JMenuBar();
+    JMenu file = new JMenu("File");
+    JMenu transform = new JMenu("Transform");
+    JMenu filter = new JMenu("Filter");
 
     commandButtons = new ArrayList<>();
     for (Command c : Command.values()) {
       JMenuItem m = new JMenuItem(c.toString());
       commandButtons.add(m);
-      switch(c){
+      switch (c) {
         case load:
         case save:
         case quit:
-          File.add(m);
+          file.add(m);
           break;
         case brighten:
         case rc:
@@ -161,20 +174,20 @@ public class GraphicsView extends JFrame implements IGraphicsView {
         case vflip:
         case blur:
         case sharpen:
-          Transform.add(m);
+          transform.add(m);
           break;
         case grey:
         case sepia:
-          Filter.add(m);
+          filter.add(m);
           break;
         default:
           break;
       }
     }
-    MenuBar.add(File);
-    MenuBar.add(Transform);
-    MenuBar.add(Filter);
-    this.setJMenuBar(MenuBar);
+    menuBar.add(file);
+    menuBar.add(transform);
+    menuBar.add(filter);
+    this.setJMenuBar(menuBar);
   }
 
 
@@ -189,6 +202,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
    * Creates boxes until a valid input for the given parameter is recieved.
    * In case of targetImage and destinationImage, returns the default image name, since
    * the image is overwritten each time.
+   *
    * @param p the needed Parameter.
    * @return the String with a valid input.
    */
@@ -209,6 +223,9 @@ public class GraphicsView extends JFrame implements IGraphicsView {
       case targetImage:
       case destinationImage:
         input = "pic";
+        break;
+      default:
+        break;
     }
     return input;
   }
@@ -224,6 +241,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
   /**
    * Gets an input.
+   *
    * @param prompt the prompt in the box.
    * @return the input.
    */
@@ -238,6 +256,7 @@ public class GraphicsView extends JFrame implements IGraphicsView {
 
   /**
    * A box to select a filePath.
+   *
    * @return the filepath.
    */
   private String openFile() {

@@ -13,10 +13,11 @@ import javax.imageio.ImageIO;
  * Represents an Image.
  */
 public class Img {
-  String name;
-  int height;
-  int width;
-  Pixel[][] pixels;
+  private String name;
+  private int height;
+  private int width;
+  private Pixel[][] pixels;
+
 
   /**
    * Constructs an Img Object.

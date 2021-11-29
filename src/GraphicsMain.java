@@ -25,15 +25,15 @@ public class GraphicsMain {
 
   /**
    * Runs the image processor with graphical interface.
-   * @param args
+   * @param args The main arguments.
    */
   public static void main(String[] args) {
     System.out.println("Running");
     ImgModel model = new ImgModelImplementation();
-    if (args.length == 0){
+    if (args.length == 0) {
       GraphicsView view = new GraphicsView();
       GUIControllerImplementation controller = new GUIControllerImplementation(model, view);
-      controller.setView(view);
+      controller.setView();
       controller.start();
       return;
     }

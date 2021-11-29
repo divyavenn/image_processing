@@ -1,23 +1,29 @@
 package controllertests;
 
 import controller.Features;
-import model.ImgModel;
 import view.IGraphicsView;
 
+/**
+ * A mock view that implements the IGraphicsView interface. Meant for testing integration between
+ * the view and the controller.
+ */
 public class MockGuiView implements IGraphicsView {
-  private ImgModel model;
-  public StringBuilder log;
+  private StringBuilder log;
 
-  public MockGuiView(ImgModel model, StringBuilder log) {
+  /**
+   * Constructor for a MockGuiView.
+   *
+   * @param log A StringBuilder for the log.
+   */
+  public MockGuiView(StringBuilder log) {
     this.log = log;
     try {
-      this.model = model;
     } catch (NullPointerException e) {
       log.append("Model is null");
     }
   }
 
-  public void addFeatures() {
+  public void addFeatures(Features features) {
     log.append("Features added!");
 
   }
@@ -30,10 +36,5 @@ public class MockGuiView implements IGraphicsView {
 
   public void errorMessage(String msg) {
     log.append(msg);
-  }
-
-  @Override
-  public void addFeatures(Features features) {
-
   }
 }

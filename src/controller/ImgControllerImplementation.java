@@ -14,18 +14,17 @@ import view.ImgView;
  * Controls the program that processes images.
  */
 public class ImgControllerImplementation implements ImgController {
-  ImgModel model;
-  ImgView view;
-  Readable in;
+  private ImgModel model;
+  private ImgView view;
+  private Readable in;
 
 
   /**
    * Constructs an ImgController object.
    *
-   *
    * @param model the model
-   * @param view the view
-   * @param in the readable
+   * @param view  the view
+   * @param in    the readable
    * @throws IllegalArgumentException if any inputs are null
    */
   public ImgControllerImplementation(ImgModel model,
