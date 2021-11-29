@@ -3,9 +3,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import controller.GUIControllerImplementation;
 
@@ -49,16 +53,21 @@ public class GraphicsMain {
       ImgView tView = new TextView(model, out);
 
       if (runType.equals("-file")) {
-        String fPath = args[1];
         try {
-          Readable fileIn = new FileReader(new File(fPath));
-          ImgController controller = new ImgControllerImplementation(model, tView, fileIn);
+          String fPath = args[1];
+          String fileToString = Files.readString(Path.of(fPath));
+          Readable in = new StringReader(fileToString);
+          ImgView view = new TextView(model, out);
+          ImgController controller = new ImgControllerImplementation(model, view, in);
           controller.start();
         } catch (FileNotFoundException e) {
           System.out.println("File not found! Goodbye!");
           return;
+        } catch (IOException e) {
+          e.printStackTrace();
         }
-      } else if (runType.equals("-text")) {
+      }
+      else if (runType.equals("-text")) {
         Readable consoleIn = new InputStreamReader(System.in);
         ImgController controller = new ImgControllerImplementation(model, tView, consoleIn);
         controller.start();

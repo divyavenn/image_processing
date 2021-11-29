@@ -1,4 +1,5 @@
-load image_processing/res/koala.ppm koala
+load image_processing/res/koala/koala.ppm koala
 sepia koala brownkoala
-brighten koala koala 
+brighten 20 brownkoala koala
+save koala image_processing/res/koala1.ppm
 quit
