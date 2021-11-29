@@ -256,7 +256,4 @@ public class GraphicsView extends JFrame implements IGraphicsView {
   }
 
 
-
-
-
 }
