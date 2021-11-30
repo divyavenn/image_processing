@@ -310,30 +310,4 @@ public class ImgControllerTest {
 
 
   }
-
-  /**
-  @Test
-  public void testFileMain() {
-    try {
-      String fPath = "C:\\Users\\Brandon's Computer\\Desktop\\OOD\\img\\image_processing\\script.txt";
-      String fileToString = Files.readString(Path.of(fPath));
-      Readable in = new StringReader(fileToString);
-      ImgModel model = new ImgModelImplementation();
-      Appendable out = new StringBuilder();
-      try {
-        out = new PrintStream(System.out, true, "UTF-8");
-      } catch (UnsupportedEncodingException e) {
-        return;
-      }
-      ImgView view = new TextView(model, out);
-      ImgController controller = new ImgControllerImplementation( model, view, in);
-      controller.start();
-
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  **/
 }
