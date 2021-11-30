@@ -2,14 +2,10 @@ package controllertests;
 
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 import controller.ImgController;
@@ -315,6 +311,7 @@ public class ImgControllerTest {
 
   }
 
+  /**
   @Test
   public void testFileMain() {
     try {
@@ -338,4 +335,5 @@ public class ImgControllerTest {
       e.printStackTrace();
     }
   }
+  **/
 }

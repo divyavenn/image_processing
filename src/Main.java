@@ -1,8 +1,5 @@
 
-
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -25,7 +22,7 @@ import view.TextView;
 /**
  * Class meant for running program using graphics input.
  */
-public class GraphicsMain {
+public class Main {
 
   /**
    * Runs the image processor with graphical interface.
